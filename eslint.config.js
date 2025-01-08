@@ -6,6 +6,7 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import tseslintParser from '@typescript-eslint/parser';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import react from 'eslint-plugin-react';
+import prettier from 'eslint-config-prettier';
 
 export default [
   {
@@ -32,7 +33,8 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       tailwindcss,
-      react
+      react,
+      ...prettier.rules
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
