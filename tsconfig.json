@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-     "@/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "@/types": ["./types/"]
     },
     "outDir": "dist",
     "resolveJsonModule": true,
