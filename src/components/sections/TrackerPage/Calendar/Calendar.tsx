@@ -39,13 +39,13 @@ const Calendar: React.FC<CalendarProps> = ({ date, waterDataApi }) => {
     return waterDataApi.find(item => item.date.slice(0, 10) === dateString);
   };
   return (
-    <ul className="flex flex-wrap gap-x-[17.5px] gap-y-[20px]">
+    <ul className="flex flex-wrap gap-x-[17.5px] gap-y-[20px] md:gap-x-[48px] md:gap-y-[15px] lg:gap-x-[43px] lg:gap-y-[42px]">
       {daysArray.map(day => {
         const dayData: WaterData | undefined = findDayData(day);
         return (
           <li
             key={day}
-            className="flex w-[28px] flex-col items-center gap-[6px]"
+            className="flex w-[28px] flex-col items-center gap-[6px] md:w-[38px] md:gap-1"
           >
             <CalendarItem dayData={dayData} day={day} />
           </li>

@@ -18,7 +18,7 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
         <button
           type="button"
           className={cn(
-            'flex size-7 items-center justify-center rounded-full border border-black bg-[#323F4733] text-base font-bold hover:bg-darkGrey hover:text-green focus:bg-darkGrey focus:text-green',
+            'flex size-7 items-center justify-center rounded-full border border-black bg-[#323F4733] text-base font-bold transition-colors hover:bg-darkGrey hover:text-green focus:bg-darkGrey focus:text-green md:size-[38px] md:text-md',
             {
               'bg-white': dayData && dayData.persentage >= 100,
             },
@@ -30,7 +30,7 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
         <button
           type="button"
           className={cn(
-            'flex size-7 items-center justify-center rounded-full bg-[#323F4733] text-base font-bold hover:bg-darkGrey hover:text-green focus:bg-darkGrey focus:text-green',
+            'flex size-7 items-center justify-center rounded-full bg-[#323F4733] text-base font-bold transition-colors hover:bg-darkGrey hover:text-green focus:bg-darkGrey focus:text-green md:size-[38px] md:text-md',
             {
               'bg-white': dayData && dayData.persentage >= 100,
               'border-red border': todayDay === day,
@@ -41,9 +41,11 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
         </button>
       )}
       {dayData ? (
-        <p className="text-xs text-[#2F2F2F99]">{`${dayData.persentage}%`}</p>
+        <p className="text-xs text-[#2F2F2F99] md:text-sm md:leading-[22.4px]">{`${dayData.persentage}%`}</p>
       ) : (
-        <p className="text-xs text-[#2F2F2F99]">0%</p>
+        <p className="text-xs text-[#2F2F2F99] md:text-sm md:leading-[22.4px]">
+          0%
+        </p>
       )}
     </>
   );

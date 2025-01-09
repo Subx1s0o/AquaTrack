@@ -1,7 +1,10 @@
 import { WaterMonthInfo } from 'types/WaterTypes';
 
+import { useState } from 'react';
+
 import Calendar from './Calendar';
 import CalendarPagination from './CalendarPagination';
+import Statistics from './Statistics';
 
 const MonthInfo = () => {
   //Info from Api GET water/month/2025-1
@@ -53,14 +56,36 @@ const MonthInfo = () => {
   //Info from Api GET date
 
   const date = new Date();
+  const [statisticsIsOpen, setStatisticsIsOpen] = useState(false);
 
+  const statisticsToggle = (): void => {
+    setStatisticsIsOpen(!statisticsIsOpen);
+  };
   return (
-    <div className="flex w-[303px] flex-col gap-[26px] bg-grey font-poppins">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold">Month</h3>
-        <CalendarPagination date={date} />
-      </div>
-      <Calendar date={date} waterDataApi={waterDataApi.data} />
+    <div className="mx-auto flex w-[303px] flex-col gap-[26px] bg-grey font-poppins md:w-[640px] md:gap-[24px] lg:w-[608px]">
+      {!statisticsIsOpen ? (
+        <>
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold md:text-3xl">Month</h3>
+            <CalendarPagination
+              date={date}
+              statisticsToggle={statisticsToggle}
+            />
+          </div>
+          <Calendar date={date} waterDataApi={waterDataApi.data} />
+        </>
+      ) : (
+        <>
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-bold md:text-3xl">Statistics</h3>
+            <CalendarPagination
+              date={date}
+              statisticsToggle={statisticsToggle}
+            />
+          </div>
+          <Statistics date={date} waterDataApi={waterDataApi.data} />
+        </>
+      )}
     </div>
   );
 };
