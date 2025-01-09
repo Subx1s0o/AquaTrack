@@ -3,12 +3,18 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import MonthInfo from './components/sections/TrackerPage/Calendar/MonthInfo';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Home</div>,
+    element: (
+      <div>
+        Home
+        <MonthInfo />
+      </div>
+    ),
   },
   {
     path: '/about',
