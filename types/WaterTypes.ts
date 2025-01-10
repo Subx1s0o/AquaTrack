@@ -4,6 +4,17 @@ export interface WaterMonthInfo {
 
 export interface WaterData {
   _id: string;
-  persentage: number;
+  percentage: number;
   date: string;
+}
+
+export interface DayData {
+  day: number;
+  date: string;
+  percentage: number;
+}
+
+export interface StatisticData {
+  day: number;
+  litr: number;
 }

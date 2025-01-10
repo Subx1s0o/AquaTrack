@@ -12,43 +12,48 @@ const MonthInfo = () => {
     data: [
       {
         _id: '1',
-        persentage: 100,
+        percentage: 100,
         date: '2025-01-01T10:00',
       },
       {
         _id: '3',
-        persentage: 85,
+        percentage: 85,
         date: '2025-01-03T10:00',
       },
       {
         _id: '4',
-        persentage: 60,
+        percentage: 60,
         date: '2025-01-04T10:00',
       },
       {
         _id: '5',
-        persentage: 100,
+        percentage: 100,
         date: '2025-01-05T10:00',
       },
       {
         _id: '6',
-        persentage: 35,
+        percentage: 35,
         date: '2025-01-06T10:00',
       },
       {
         _id: '7',
-        persentage: 100,
+        percentage: 100,
         date: '2025-01-07T10:00',
       },
       {
         _id: '8',
-        persentage: 100,
+        percentage: 100,
         date: '2025-01-08T10:00',
       },
       {
         _id: '9',
-        persentage: 100,
+        percentage: 100,
         date: '2025-01-09T10:00',
+      },
+      {
+        _id: '10',
+        percentage: 85,
+        date: '2025-01-10T10:00',
       },
     ],
   };

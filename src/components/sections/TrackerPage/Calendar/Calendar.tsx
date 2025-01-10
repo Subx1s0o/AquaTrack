@@ -1,4 +1,4 @@
-import { WaterData } from 'types/WaterTypes';
+import { DayData, WaterData } from 'types/WaterTypes';
 
 import React from 'react';
 
@@ -30,18 +30,30 @@ const Calendar: React.FC<CalendarProps> = ({ date, waterDataApi }) => {
   };
 
   // Function to find data for a specific date
-  const findDayData = (day: number): WaterData | undefined => {
+  const findDayData = (day: number): DayData | undefined => {
     const dateString: string = formatDateString(
       date.getFullYear(),
       date.getMonth(),
       day,
     );
-    return waterDataApi.find(item => item.date.slice(0, 10) === dateString);
+    const waterData = waterDataApi.find(
+      item => item.date.slice(0, 10) === dateString,
+    );
+
+    if (waterData) {
+      return {
+        day,
+        date: waterData.date,
+        percentage: waterData.percentage,
+      };
+    }
+
+    return undefined;
   };
   return (
     <ul className="flex flex-wrap gap-x-[17.5px] gap-y-[20px] md:gap-x-[48px] md:gap-y-[15px] lg:gap-x-[43px] lg:gap-y-[42px]">
       {daysArray.map(day => {
-        const dayData: WaterData | undefined = findDayData(day);
+        const dayData: DayData | undefined = findDayData(day);
         return (
           <li
             key={day}
