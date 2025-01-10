@@ -1,13 +1,13 @@
 import React from 'react';
 
-import AdvantagesSection from '../../components/AdvantagesSection/AdvantagesSection';
-import WelcomeSection from '../../components/WelcomeSection/WelcomeSection';
+import AdvantagesSection from '../../components/sections/AdvantagesSection/AdvantagesSection';
+import WelcomeSection from '../../components/sections/WelcomeSection/WelcomeSection';
 
 const HomePage: React.FC = () => {
   return (
     <div className="">
-      <AdvantagesSection />
       <WelcomeSection />
+      <AdvantagesSection />
     </div>
   );
 };
