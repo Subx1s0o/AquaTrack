@@ -8,7 +8,7 @@ import {
 } from 'recharts';
 import { StatisticData, WaterData } from 'types/WaterTypes';
 
-import React, { useState } from 'react';
+import React from 'react';
 
 interface StatisticsProps {
   date: Date;
@@ -23,8 +23,6 @@ interface DataByDay {
 const waterDailyNorma = 1500;
 
 const Statistics: React.FC<StatisticsProps> = ({ date, waterDataApi }) => {
-  const [selectedDot, setSelectedDot] = useState<number | null>(null);
-
   const maxDayShown: number = date.getDate();
   const allDaysData: StatisticData[] = Array.from(
     { length: maxDayShown },
@@ -118,20 +116,6 @@ const Statistics: React.FC<StatisticsProps> = ({ date, waterDataApi }) => {
           />
         </AreaChart>
       </ResponsiveContainer>
-      {selectedDot && (
-        <div
-          className="relative rounded-[13px] bg-white px-[17px] py-[10px] shadow-md"
-          style={{
-            transform: 'translateY(-190%)',
-            marginLeft: '-46px',
-          }}
-        >
-          <div className="absolute -bottom-1.5 left-1/2 size-[12px] -translate-x-1/2 rotate-45 bg-white"></div>
-          <p className="text-center font-poppins text-xs font-bold">
-            {(dataByDay[selectedDot] || 0) * 1000} ml
-          </p>
-        </div>
-      )}
     </div>
   );
 };

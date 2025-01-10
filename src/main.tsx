@@ -1,10 +1,12 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import MonthInfo from './components/sections/TrackerPage/Calendar/MonthInfo';
 import './index.css';
+import { store } from './redux/store.js';
 
 const router = createBrowserRouter([
   {
@@ -28,9 +30,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className="mx-auto max-w-[375px] md:max-w-screen-md lg:max-w-screen-lg">
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </div>
+    <Provider store={store}>
+      <div className="mx-auto max-w-[375px] md:max-w-screen-md lg:max-w-screen-lg">
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </div>
+    </Provider>
   </StrictMode>,
 );
