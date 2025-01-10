@@ -3,12 +3,30 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import LoginPage from '../src/pages/LoginPage';
+import RegistrationPage from '../src/pages/RegistrationPage';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <div>Home</div>,
+  },
+  {
+    path: '/login',
+    element: (
+      <div>
+        <LoginPage />
+      </div>
+    ),
+  },
+  {
+    path: '/register',
+    element: (
+      <div>
+        <RegistrationPage />
+      </div>
+    ),
   },
   {
     path: '/about',

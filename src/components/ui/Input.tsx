@@ -23,13 +23,15 @@ export default function Input({
   return (
     <div className="flex flex-col">
       {label && (
-        <label className="font-poppins mb-2 text-base font-bold">{label}</label>
+        <label className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
+          {label}
+        </label>
       )}
       <input
         {...control.register(name)}
         {...inputProps}
         className={cn(
-          `focus-visible:border-green h-[46px] w-full rounded-[15px] border border-gray-300 bg-transparent px-4 text-base outline-none transition-colors placeholder:text-gray-500 md:h-[56px] ${className}`,
+          `h-[46px] w-full rounded-[15px] border border-gray-300 bg-transparent px-4 text-base outline-none transition-colors placeholder:text-gray-500 focus-visible:border-green md:h-[56px] ${className}`,
           {
             'border-error': errors?.[name],
           },
