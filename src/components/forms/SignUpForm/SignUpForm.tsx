@@ -1,15 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
+import FormNavigationLink from '../../ui/FormNavigationLink';
 import Icon from '../../ui/Icon';
 import Input from '../../ui/Input';
 import validationSchemaSignUp from './validationSchemaSignUp';
 import { SignUpFormValues } from './validationSchemaSignUp';
 
-const SignUpForm: React.FC = () => {
+export default function SignUpForm() {
   const { control, handleSubmit } = useForm<SignUpFormValues>({
     resolver: yupResolver(validationSchemaSignUp),
   });
@@ -23,18 +23,18 @@ const SignUpForm: React.FC = () => {
 
   return (
     <div className="">
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="mb-[32px] text-4xl font-bold text-darkGrey md:text-5xl">
-          Sign Up
-        </h2>
+      <h2 className="mb-8 text-4xl font-bold text-darkGrey md:text-5xl">
+        Sign Up
+      </h2>
 
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4 md:mb-5">
           <Input
             control={control}
             name="email"
             label="Email"
             placeholder="Enter your email"
-            className="h-[50px] text-black placeholder:text-base md:text-md md:placeholder:text-md"
+            className="text-black placeholder:text-base md:text-md md:placeholder:text-md"
             type="email"
           />
         </div>
@@ -45,13 +45,13 @@ const SignUpForm: React.FC = () => {
             name="password"
             label="Password"
             placeholder="Enter your password"
-            className="h-[50px] text-black placeholder:text-base md:text-md md:placeholder:text-md"
+            className="text-black placeholder:text-base md:text-md md:placeholder:text-md"
             type={showPassword ? 'text' : 'password'}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-[16px] top-[56px] hidden -translate-y-1/2 transform md:block"
+            className="absolute right-[16px] top-[46px] hidden md:block"
           >
             <Icon
               id={showPassword ? 'icon-eye' : 'icon-eye-off'}
@@ -68,13 +68,13 @@ const SignUpForm: React.FC = () => {
             name="repeatPassword"
             label="Repeat password"
             placeholder="Repeat password"
-            className="h-[50px] text-black placeholder:text-base md:text-md md:placeholder:text-md"
+            className="text-black placeholder:text-base md:text-md md:placeholder:text-md"
             type={showRepeatPassword ? 'text' : 'password'}
           />
           <button
             type="button"
             onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-            className="absolute right-[16px] top-[56px] hidden -translate-y-1/2 transform md:block"
+            className="absolute right-[16px] top-[46px] hidden md:block"
           >
             <Icon
               id={showRepeatPassword ? 'icon-eye' : 'icon-eye-off'}
@@ -91,21 +91,12 @@ const SignUpForm: React.FC = () => {
         >
           Sign Up
         </button>
-
-        <div className="mt-4 text-center">
-          <p className="text-base text-black/50 md:text-md">
-            Already have account?{' '}
-            <Link
-              to="/login"
-              className="font-bold text-[#2f2f2f] underline hover:no-underline"
-            >
-              Sign In
-            </Link>
-          </p>
-        </div>
       </form>
+      <FormNavigationLink
+        text="Already have an account?"
+        linkText="Sign In"
+        to="/login"
+      />
     </div>
   );
-};
-
-export default SignUpForm;
+}
