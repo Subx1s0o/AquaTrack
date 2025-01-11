@@ -14,6 +14,7 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 		<ResponsiveModal
 			open={isOpen}
 			onClose={onClose}
+			focusTrapped={false}
 			center
 			closeIcon={
 				<Icon id="icon-x" w={24} h={24} className={css.closeModalIcon} />
