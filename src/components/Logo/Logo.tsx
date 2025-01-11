@@ -1,11 +1,9 @@
-const Logo = () => {
+export default function Logo() {
   return (
     <div className="relative">
-      <h1 className="absolute h-[20px] w-[114px] text-base font-bold text-gray-700 md:text-2xl">
-        AQUATRACK
+      <h1 className="absolute left-1 top-5 font-poppins text-lg font-bold text-darkGrey md:text-2xl">
+        AQUATRAC
       </h1>
     </div>
   );
-};
-
-export default Logo;
+}
