@@ -1,7 +1,3 @@
-export interface WaterMonthInfo {
-  data: WaterData[];
-}
-
 export interface WaterData {
   _id: string;
   percentage: number;
@@ -17,4 +13,12 @@ export interface DayData {
 export interface StatisticData {
   day: number;
   litr: number;
+}
+
+export interface WaterState {
+  water: {
+    items: WaterData[];
+    loading: boolean;
+    error: null | any;
+  };
 }

@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { waterSlice } from './waterMonthInfo/slice';
+import { dateSlice } from './date/slice';
+import { waterMonthSlice } from './waterMonthInfo/slice';
 
 export const store = configureStore({
   reducer: {
-    water: waterSlice,
+    waterMonth: waterMonthSlice,
+    date: dateSlice,
     // auth: authSlice,
     // waterDayInfo: waterDayInfoSlice,
     // user: userSlice,

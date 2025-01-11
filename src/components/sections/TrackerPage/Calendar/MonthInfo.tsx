@@ -1,10 +1,8 @@
-import { WaterData } from 'types/WaterTypes';
-
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { fetchMonthData } from '../../../../redux/waterMonthInfo/operations.js';
-import { selectMonthWater } from '../../../../redux/waterMonthInfo/selectors.js';
+import { fetchMonthData } from '@/redux/waterMonthInfo/operations';
+
 import Calendar from './Calendar';
 import CalendarPagination from './CalendarPagination';
 import Statistics from './Statistics';
@@ -16,11 +14,8 @@ const MonthInfo = () => {
   useEffect(() => {
     dispatch(fetchMonthData());
   }, [dispatch]);
-
-  const waterList: WaterData[] = useSelector(selectMonthWater);
   // console.log(waterList);
 
-  const date = new Date();
   const [statisticsIsOpen, setStatisticsIsOpen] = useState(false);
 
   const statisticsToggle = (): void => {
@@ -32,23 +27,17 @@ const MonthInfo = () => {
         <>
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold md:text-3xl">Month</h3>
-            <CalendarPagination
-              date={date}
-              statisticsToggle={statisticsToggle}
-            />
+            <CalendarPagination statisticsToggle={statisticsToggle} />
           </div>
-          <Calendar date={date} waterDataApi={waterList} />
+          <Calendar />
         </>
       ) : (
         <>
           <div className="flex items-center justify-between">
             <h3 className="text-xl font-bold md:text-3xl">Statistics</h3>
-            <CalendarPagination
-              date={date}
-              statisticsToggle={statisticsToggle}
-            />
+            <CalendarPagination statisticsToggle={statisticsToggle} />
           </div>
-          <Statistics date={date} waterDataApi={waterList} />
+          <Statistics />
         </>
       )}
     </div>
@@ -56,53 +45,3 @@ const MonthInfo = () => {
 };
 
 export default MonthInfo;
-
-// const waterDataApi: WaterMonthInfo = {
-//   data: [
-//     {
-//       _id: '1',
-//       percentage: 100,
-//       date: '2025-01-01T10:00',
-//     },
-//     {
-//       _id: '3',
-//       percentage: 85,
-//       date: '2025-01-03T10:00',
-//     },
-//     {
-//       _id: '4',
-//       percentage: 60,
-//       date: '2025-01-04T10:00',
-//     },
-//     {
-//       _id: '5',
-//       percentage: 100,
-//       date: '2025-01-05T10:00',
-//     },
-//     {
-//       _id: '6',
-//       percentage: 35,
-//       date: '2025-01-06T10:00',
-//     },
-//     {
-//       _id: '7',
-//       percentage: 100,
-//       date: '2025-01-07T10:00',
-//     },
-//     {
-//       _id: '8',
-//       percentage: 100,
-//       date: '2025-01-08T10:00',
-//     },
-//     {
-//       _id: '9',
-//       percentage: 100,
-//       date: '2025-01-09T10:00',
-//     },
-//     {
-//       _id: '10',
-//       percentage: 85,
-//       date: '2025-01-10T10:00',
-//     },
-//   ],
-// };

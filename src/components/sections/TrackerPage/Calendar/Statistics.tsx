@@ -9,11 +9,10 @@ import {
 import { StatisticData, WaterData } from 'types/WaterTypes';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-interface StatisticsProps {
-  date: Date;
-  waterDataApi: WaterData[];
-}
+import { selectDate } from '@/redux/date/selectors';
+import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 
 interface DataByDay {
   [key: string]: number;
@@ -22,8 +21,11 @@ interface DataByDay {
 //request from Api
 const waterDailyNorma = 1500;
 
-const Statistics: React.FC<StatisticsProps> = ({ date, waterDataApi }) => {
-  const maxDayShown: number = date.getDate();
+const Statistics = () => {
+  const date: string = useSelector(selectDate);
+  const waterDataApi: WaterData[] = useSelector(selectMonthWater);
+
+  const maxDayShown: number = new Date(date).getDate();
   const allDaysData: StatisticData[] = Array.from(
     { length: maxDayShown },
     (_, index) => ({
@@ -126,14 +128,14 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
       <div
-        className="relative rounded-[13px] bg-white px-[17px] py-[10px] shadow-md"
+        className="relative flex h-[32px] w-[53px] items-center justify-center rounded-[13px] bg-white shadow-md md:h-[40px] md:w-[80px]"
         style={{
           transform: 'translateY(-190%)',
           marginLeft: '-46px',
         }}
       >
         <div className="absolute -bottom-1.5 left-1/2 size-[12px] -translate-x-1/2 rotate-45 bg-white"></div>
-        <p className="text-center font-poppins text-xs font-bold">
+        <p className="md: text-center font-poppins text-xs font-bold md:text-sm md:leading-[22.4px]">
           {`${payload[0].value * 1000} ml`}
         </p>
       </div>

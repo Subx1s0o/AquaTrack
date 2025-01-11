@@ -1,25 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { WaterState } from 'types/WaterTypes';
 
 import { fetchMonthData } from './operations';
 
-const handlePending = state => {
+const handlePending = (state: WaterState) => {
   state.water.loading = true;
 };
 
-const handleRejected = (state, action) => {
+const handleRejected = (state: WaterState, action: PayloadAction<any>) => {
   state.water.loading = false;
   state.water.error = action.payload;
 };
 
-const slice = createSlice({
-  name: 'water',
-  initialState: {
-    water: {
-      items: [],
-      loading: false,
-      error: null,
-    },
+const initialState: WaterState = {
+  water: {
+    items: [],
+    loading: false,
+    error: null,
   },
+};
+// todayDate = new Date()
+
+const slice = createSlice({
+  name: 'waterMonth',
+  initialState,
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchMonthData.pending, handlePending)
@@ -29,12 +34,7 @@ const slice = createSlice({
         state.water.items = action.payload;
       })
       .addCase(fetchMonthData.rejected, handleRejected);
-    //   .addCase(logout.fulfilled, state => {
-    //     state.contacts.loading = false;
-    //     state.contacts.error = null;
-    //     state.contacts.items = [];
-    //   });
   },
 });
 
-export const waterSlice = slice.reducer;
+export const waterMonthSlice = slice.reducer;

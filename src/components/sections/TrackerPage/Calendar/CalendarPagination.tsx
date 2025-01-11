@@ -1,21 +1,34 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from '@/components/ui/Icon';
 
+import { selectBlockButton, selectDate } from '@/redux/date/selectors';
+import { nextMonth, previousMonth } from '@/redux/date/slice';
+import { dateHelpers } from '@/utils/dateHelpers';
+
 interface CalendarPaginationProps {
-  date: Date;
   statisticsToggle: () => void;
 }
 
 const CalendarPagination: React.FC<CalendarPaginationProps> = ({
-  date,
   statisticsToggle,
 }) => {
-  const monthName = date.toLocaleString('default', { month: 'long' });
+  const dispatch = useDispatch();
+  const date: string = useSelector(selectDate);
+  const monthName: string = dateHelpers.getMonthName(date);
+  const blockNextMonthBtn: boolean = useSelector(selectBlockButton);
+
   return (
     <div className="flex items-center gap-4 md:gap-5">
       <div className="flex items-center gap-4 md:gap-5">
-        <button type="button" className="text-darkGrey">
+        <button
+          type="button"
+          className="text-darkGrey"
+          onClick={() => {
+            dispatch(previousMonth());
+          }}
+        >
           <Icon
             id="icon-chevron-down"
             className="-rotate-90 decoration-darkGrey"
@@ -23,8 +36,15 @@ const CalendarPagination: React.FC<CalendarPaginationProps> = ({
             w={18}
           />
         </button>
-        <p className="text-base font-bold md:text-md">{`${monthName}, ${date.getFullYear()}`}</p>
-        <button type="button" className="text-darkGrey">
+        <p className="text-base font-bold md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
+        <button
+          disabled={blockNextMonthBtn}
+          type="button"
+          className="text-darkGrey"
+          onClick={() => {
+            dispatch(nextMonth());
+          }}
+        >
           <Icon
             id="icon-chevron-down"
             className="rotate-90 decoration-darkGrey"

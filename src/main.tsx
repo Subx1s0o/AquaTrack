@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 
 import MonthInfo from './components/sections/TrackerPage/Calendar/MonthInfo';
 import './index.css';
-import { store } from './redux/store.js';
+import { store } from './redux/store';
 
 const router = createBrowserRouter([
   {

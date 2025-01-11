@@ -1,41 +1,32 @@
 import { DayData, WaterData } from 'types/WaterTypes';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectDate } from '@/redux/date/selectors';
+import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
+import { dateHelpers } from '@/utils/dateHelpers';
 
 import CalendarItem from './CalendarItem';
 
-interface CalendarProps {
-  date: Date;
-  waterDataApi: WaterData[];
-}
+// interface CalendarProps {
+//   waterDataApi: WaterData[];
+// }
 
-const Calendar: React.FC<CalendarProps> = ({ date, waterDataApi }) => {
-  const getDaysInMonth = (date: Date): number => {
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-  };
+const Calendar = () => {
+  const date: string = useSelector(selectDate);
+  const waterDataApi: WaterData[] = useSelector(selectMonthWater);
 
   const daysArray = Array.from(
-    { length: getDaysInMonth(date) },
+    { length: dateHelpers.getMonthDays(date) },
     (_, i) => i + 1,
   );
 
-  const formatDateString = (
-    year: number,
-    month: number,
-    day: number,
-  ): string => {
-    return `${year}-${String(month + 1).padStart(2, '0')}-${String(
-      day,
-    ).padStart(2, '0')}`;
-  };
-
   // Function to find data for a specific date
   const findDayData = (day: number): DayData | undefined => {
-    const dateString: string = formatDateString(
-      date.getFullYear(),
-      date.getMonth(),
-      day,
-    );
+    const dateString = dateHelpers.formatDateString(date, day);
+    // console.log(dateString);
+
     const waterData = waterDataApi.find(
       item => item.date.slice(0, 10) === dateString,
     );
@@ -50,6 +41,7 @@ const Calendar: React.FC<CalendarProps> = ({ date, waterDataApi }) => {
 
     return undefined;
   };
+
   return (
     <ul className="flex flex-wrap gap-x-[17.5px] gap-y-[20px] md:gap-x-[48px] md:gap-y-[15px] lg:gap-x-[43px] lg:gap-y-[42px]">
       {daysArray.map(day => {
