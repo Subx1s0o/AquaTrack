@@ -1,0 +1,36 @@
+.mainModalOverlay {
+	background-color: #2f2f2f99;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.mainModalContent {
+	background: #ffffff;
+	border-radius: 15px;
+	padding: 20px 40px;
+	box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.closeMainModalButton {
+	top: 20px;
+	right: 16px;
+	cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+	.mainModalContent {
+		padding: 40px;
+	}
+
+	.closeMainModalButton {
+		top: 20px;
+		right: 20px;
+	}
+	
+	.closeModalIcon svg {
+		width: 28px;
+		height: 28px;
+	}
+}
+
