@@ -1,7 +1,9 @@
 import { DayData } from 'types/WaterTypes';
 
 import React from 'react';
+import { useSelector } from 'react-redux';
 
+import { selectDate } from '@/redux/date/selectors';
 import { cn } from '@/utils/cn';
 
 interface CalendarItemProps {
@@ -11,6 +13,10 @@ interface CalendarItemProps {
 
 const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
   const todayDay: number = new Date().getDate();
+  const currentYearMonth = new Date().getMonth();
+  const date = useSelector(selectDate);
+  const chosenMonth = new Date(date).getMonth();
+  // const todayDay = new Date();
 
   const onDayClick = () => {
     console.log(dayData || { day, date: null, percentage: 0 });
@@ -18,7 +24,7 @@ const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
 
   return (
     <>
-      {todayDay === day ? (
+      {todayDay === day && currentYearMonth === chosenMonth ? (
         <button
           onClick={onDayClick}
           type="button"
