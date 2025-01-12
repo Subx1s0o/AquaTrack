@@ -95,7 +95,7 @@ export default function SignUpForm() {
       <FormNavigationLink
         text="Already have an account?"
         linkText="Sign In"
-        to="/login"
+        to="/signin"
       />
     </div>
   );
