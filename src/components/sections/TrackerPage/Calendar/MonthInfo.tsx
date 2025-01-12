@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectDate } from '@/redux/date/selectors';
 import { fetchMonthData } from '@/redux/waterMonthInfo/operations';
 
 import Calendar from './Calendar';
@@ -10,10 +11,11 @@ import Statistics from './Statistics';
 const MonthInfo = () => {
   const dispatch = useDispatch();
 
+  const dateRequested: string = useSelector(selectDate).slice(0, 7);
   //Info from Api GET water/month/2025-1
   useEffect(() => {
-    dispatch(fetchMonthData());
-  }, [dispatch]);
+    dispatch(fetchMonthData(dateRequested));
+  }, [dateRequested, dispatch]);
   // console.log(waterList);
 
   const [statisticsIsOpen, setStatisticsIsOpen] = useState(false);

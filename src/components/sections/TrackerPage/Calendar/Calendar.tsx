@@ -9,10 +9,6 @@ import { dateHelpers } from '@/utils/dateHelpers';
 
 import CalendarItem from './CalendarItem';
 
-// interface CalendarProps {
-//   waterDataApi: WaterData[];
-// }
-
 const Calendar = () => {
   const date: string = useSelector(selectDate);
   const waterDataApi: WaterData[] = useSelector(selectMonthWater);

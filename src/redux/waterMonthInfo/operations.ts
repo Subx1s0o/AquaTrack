@@ -7,9 +7,9 @@ const waterApi = axios.create({
 
 export const fetchMonthData: any = createAsyncThunk(
   'water/fetchAll"',
-  async (_, thunkAPI) => {
+  async (dateRequested, thunkAPI) => {
     try {
-      const response = await waterApi.get('/water/2025-01');
+      const response = await waterApi.get(`/water/${dateRequested}`);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
