@@ -1,32 +1,30 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function WelcomeSection() {
   return (
-    <div className="rounded-2xl bg-grey">
-      <section className="relative">
-        <div className="absolute left-1 top-1/2 -translate-y-1/2 space-x-4 bg-grey">
-          <p className="mb-[16px] text-base text-darkGrey">
-            Record daily water intake and track
-          </p>
-          <h1 className="mb-[32px] font-poppins text-5xl font-bold text-darkGrey md:text-7xl">
-            Water consumption tracker
-          </h1>
-
+    <section className="relative flex h-full rounded-2xl bg-grey p-4">
+      <div className="absolute top-1/2 -translate-y-1/2 bg-grey md:left-[64px]">
+        <p className="mb-[16px] text-base text-darkGrey md:text-md">
+          Record daily water intake and track
+        </p>
+        <h1 className="mb-[32px] font-poppins text-5xl font-bold text-darkGrey md:mb-[16px] md:w-[547px] md:break-words md:text-7xl lg:text-8xl">
+          Water consumption tracker
+        </h1>
+        <div className="flex gap-[10px]">
           <Link
             to="/signup"
-            className="rounded-3xl border border-transparent bg-green px-6 py-3 font-semibold text-black hover:bg-green focus:bg-gray-100 focus:text-gray-200 md:px-9 md:py-4 lg:px-8 lg:py-3"
+            className="flex h-[46px] w-[116px] items-center justify-center rounded-[30px] border border-transparent bg-green font-bold text-black hover:bg-green focus:bg-gray-100 focus:text-gray-200 md:h-[60px] md:w-[169px] md:text-md lg:px-8 lg:py-3"
           >
             Try tracker
           </Link>
           <Link
             to="/sigin"
-            className="rounded-3xl border border-darkGrey bg-grey px-6 py-3 font-semibold text-black hover:border-green hover:bg-grey hover:text-green focus:border-darkGrey focus:text-gray-200 md:px-9 md:py-4 lg:px-8 lg:py-3"
+            className="flex h-[46px] w-[104px] items-center justify-center rounded-[30px] border border-darkGrey bg-grey font-bold text-black hover:border-green hover:bg-grey hover:text-green focus:border-darkGrey focus:text-gray-200 md:h-[60px] md:w-[135px] md:text-md lg:px-8 lg:py-3"
           >
             Sing in
           </Link>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
