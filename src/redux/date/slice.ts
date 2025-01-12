@@ -8,7 +8,11 @@ const initialState: DateState = {
 };
 
 const todayDate = new Date();
-const todayYearMonth = new Date(todayDate.getFullYear(), todayDate.getMonth());
+const todayYearMonth = new Date(
+  todayDate.getFullYear(),
+  todayDate.getMonth(),
+  // todayDate.getDay(),
+);
 
 const slice = createSlice({
   name: 'date',
@@ -22,6 +26,7 @@ const slice = createSlice({
       const currentYearMonth = new Date(
         current.getFullYear(),
         current.getMonth(),
+        // current.getDay(),
       );
       state.blockChangeMonthBtn = currentYearMonth >= todayYearMonth;
     },
@@ -33,6 +38,7 @@ const slice = createSlice({
       const currentYearMonth = new Date(
         current.getFullYear(),
         current.getMonth(),
+        // current.getDay(),
       );
       state.blockChangeMonthBtn = currentYearMonth >= todayYearMonth;
     },

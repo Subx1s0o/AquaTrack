@@ -10,6 +10,7 @@ const handlePending = (state: WaterState) => {
 const handleRejected = (state: WaterState, action: PayloadAction<any>) => {
   state.water.loading = false;
   state.water.error = action.payload;
+  state.water.items = [];
 };
 
 const initialState: WaterState = {
@@ -19,7 +20,6 @@ const initialState: WaterState = {
     error: null,
   },
 };
-// todayDate = new Date()
 
 const slice = createSlice({
   name: 'waterMonth',

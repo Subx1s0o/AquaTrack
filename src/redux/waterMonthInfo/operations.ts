@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const waterApi = axios.create({
+export const waterApi = axios.create({
   baseURL: 'https://6781657985151f714b0a9a51.mockapi.io/',
 });
 
