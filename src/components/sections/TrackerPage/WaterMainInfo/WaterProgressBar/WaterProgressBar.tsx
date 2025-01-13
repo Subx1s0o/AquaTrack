@@ -1,4 +1,3 @@
-// import css from './WaterProgressBar.module.css';
 import React from 'react';
 
 interface WaterProgressBarProps {
@@ -10,9 +9,6 @@ const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
   dailyNorma = 1500,
   currentWater = 0,
 }) => {
-  // currentWater = 1100;
-
-  // Розрахунок прогресу
   const progress = Math.min((currentWater / dailyNorma) * 100, 100);
 
   return (

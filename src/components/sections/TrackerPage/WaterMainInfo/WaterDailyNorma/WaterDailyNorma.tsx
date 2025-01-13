@@ -1,4 +1,3 @@
-// import css from './WaterDailyNorma.module.css';
 import React from 'react';
 
 interface WaterDailyNormaProps {

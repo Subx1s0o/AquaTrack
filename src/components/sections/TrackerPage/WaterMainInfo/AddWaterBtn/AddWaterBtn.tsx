@@ -2,16 +2,13 @@ import React from 'react';
 
 import Icon from '../../../../ui/Icon';
 
-// import css from './AddWaterBtn.module.css';
-
 interface AddWaterBtnProps {
   onClick: () => void;
 }
 
 const AddWaterBtn: React.FC<AddWaterBtnProps> = ({ onClick }) => {
   return (
-    // !перевірити іконку + кольори,розміри,ховер. прописати відкриття модалки)
-    // кнопка до 375 -завелика ( треба w120)
+    // кнопка до 375 -завелика ( треба w120 або посередені)
     <button
       type="button"
       className={
