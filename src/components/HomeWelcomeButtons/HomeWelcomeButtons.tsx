@@ -1,4 +1,4 @@
-export default function MainViewBtn() {
+export default function HomeWelcomeButtons() {
   return (
     <div className="absolute bottom-8 right-4 flex w-[168px] flex-wrap gap-1 md:right-8 md:w-[244px] md:gap-[10px] lg:bottom-16">
       <button className="rounded-full bg-darkGrey pl-6 pr-3 font-poppins text-[8px] font-bold text-white hover:bg-grey md:py-[11px] md:pl-7 md:pr-4 md:text-sm">
