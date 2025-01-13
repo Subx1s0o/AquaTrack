@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className="mx-auto flex h-screen max-w-[375px] p-4 md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
+    <div className="mx-auto flex h-screen max-w-[375px] items-center p-4 md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
       <RouterProvider router={router} />
       <ToastContainer />
     </div>

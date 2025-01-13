@@ -1,5 +1,5 @@
-import MainViewBtn from '@/components/MainViewBtn/MainViewBtn';
-import PictureCostomers from '@/components/PictureCostomers/PictureCostomers';
+import CustomersPictures from '@/components/CustomersPictures/CustomersPictures';
+import HomeWelcomeButtons from '@/components/HomeWelcomeButtons/HomeWelcomeButtons';
 
 export default function AdvantagesSection() {
   return (
@@ -26,8 +26,8 @@ export default function AdvantagesSection() {
           className="size-full"
         />
       </picture>
-      <PictureCostomers />
-      <MainViewBtn />
+      <CustomersPictures />
+      <HomeWelcomeButtons />
     </section>
   );
 }
