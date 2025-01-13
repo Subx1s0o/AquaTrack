@@ -9,7 +9,8 @@ const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
   dailyNorma = 1500,
   currentWater = 0,
 }) => {
-  const progress = Math.min((currentWater / dailyNorma) * 100, 100);
+  const progress =
+    dailyNorma > 0 ? Math.min((currentWater / dailyNorma) * 100, 100) : 0;
 
   return (
     <div

@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
 
-// import Loader from '../../../ui/Loader/Loader.tsx';
+// import Modal from '../../../modals/Modal/Modal';
+// import Loader from '../../../ui/Loader/Loader';
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
 import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
-// import WaterModal from '../../../modals/WaterModal';
+// import WaterModal from '../../../modals/WaterModal/WaterModal';
 
 const WaterMainInfo: React.FC = () => {
-  const dailyNorma = 1500; // useSelector
-  const currentWater = 750; //  тимчасово
-  // const [currentWater, setCurrentWater] = useState(0); //   redux
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleClick = () => {
+  const dailyNorma: number = 1500; // Значення з Redux
+  const currentWater: number = 750; //Значення з Redux
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleOpenModal: () => void = () => {
     setIsModalOpen(true);
   };
+
+  // const handleCloseModal: () => void = () => {
+  //   setIsModalOpen(false);
+  // };
+
   return (
     <div
       className={
@@ -47,9 +53,14 @@ const WaterMainInfo: React.FC = () => {
       </picture>
       <WaterDailyNorma dailyNorma={dailyNorma} />
       <WaterProgressBar dailyNorma={dailyNorma} currentWater={currentWater} />
-      <AddWaterBtn onClick={handleClick} />
+      <AddWaterBtn onClick={handleOpenModal} />
+      {/* {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <WaterModal onClose={handleCloseModal} />
+        </Modal>
+      )} */}
+      {/* тимчасова заглушка: */}
       {isModalOpen && <p>Модалку відкрито</p>}
-      {/* {isModalOpen && <WaterModal onClose={() => setIsModalOpen(false)} />} */}
     </div>
   );
 };
