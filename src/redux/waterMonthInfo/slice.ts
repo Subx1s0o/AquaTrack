@@ -1,19 +1,19 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { WaterState } from 'types/WaterTypes';
+import { WaterMonthState } from 'types/WaterTypes';
 
 import { fetchMonthData } from './operations';
 
-const handlePending = (state: WaterState) => {
+const handlePending = (state: WaterMonthState) => {
   state.water.loading = true;
 };
 
-const handleRejected = (state: WaterState, action: PayloadAction<any>) => {
+const handleRejected = (state: WaterMonthState, action: PayloadAction<any>) => {
   state.water.loading = false;
   state.water.error = action.payload;
   state.water.items = [];
 };
 
-const initialState: WaterState = {
+const initialState: WaterMonthState = {
   water: {
     items: [],
     loading: false,

@@ -1,4 +1,4 @@
-import { DayData, WaterData } from 'types/WaterTypes';
+import { DayData, WaterMonthData } from 'types/WaterTypes';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import CalendarItem from './CalendarItem';
 
 const Calendar = () => {
   const date: string = useSelector(selectDate);
-  const waterDataApi: WaterData[] = useSelector(selectMonthWater);
+  const waterDataApi: WaterMonthData[] = useSelector(selectMonthWater);
 
   const daysArray = Array.from(
     { length: dateHelpers.getMonthDays(date) },

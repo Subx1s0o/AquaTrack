@@ -4,14 +4,15 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectDate } from '@/redux/date/selectors';
-import { fetchDayData } from '@/redux/waterDay/operations';
+import { fetchDayData } from '@/redux/waterDayInfo/operations';
 import { cn } from '@/utils/cn';
 
 interface CalendarItemProps {
   dayData: DayData | undefined;
   day: number;
 }
-const CalendarItem: React.FC<CalendarItemProps> = ({ dayData, day }) => {
+
+const CalendarItem = ({ dayData, day }: CalendarItemProps) => {
   const today = new Date();
   const todayDay: number = today.getDate();
   const currentYear: number = today.getFullYear();

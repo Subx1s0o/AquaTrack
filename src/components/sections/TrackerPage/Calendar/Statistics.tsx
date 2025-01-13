@@ -6,7 +6,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { StatisticData, WaterData } from 'types/WaterTypes';
+import { StatisticData, WaterMonthData } from 'types/WaterTypes';
 
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -17,13 +17,12 @@ import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 interface DataByDay {
   [key: string]: number;
 }
-
 //request from Api
 const waterDailyNorma = 1500;
 
 const Statistics = () => {
   const date: string = useSelector(selectDate);
-  const waterDataApi: WaterData[] = useSelector(selectMonthWater);
+  const waterDataApi: WaterMonthData[] = useSelector(selectMonthWater);
 
   const maxDayShown: number = new Date(date).getDate();
   const allDaysData: StatisticData[] = Array.from(
@@ -36,7 +35,7 @@ const Statistics = () => {
 
   // Transform raw data to day-litre pairs
   const dataByDay: DataByDay = waterDataApi.reduce(
-    (acc: DataByDay, item: WaterData) => {
+    (acc: DataByDay, item: WaterMonthData) => {
       const day: number = new Date(item.date).getDate();
       acc[day] = Number((waterDailyNorma * item.percentage) / 100 / 1000);
       return acc;
