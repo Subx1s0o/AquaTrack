@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-import Loader from '../../../ui/Loader/Loader.tsx';
-import AddWaterBtn from './AddWaterBtn/AddWaterBtn.jsx';
-import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma.jsx';
+// import Loader from '../../../ui/Loader/Loader.tsx';
+import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
+import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
 // import css from './WaterMainInfo.module.css';
-import WaterProgressBar from './WaterProgressBar/WaterProgressBar.jsx';
+import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 // import WaterModal from '../../../modals/WaterModal';
 
-const WaterMainInfo = () => {
+const WaterMainInfo: React.FC = () => {
   const dailyNorma = 1500; // useSelector
-  const [currentWater, setCurrentWater] = useState(0); //   redux
-  const [isModalOpen, setIsModalOpen] = useState(false); //хук
-
-  const onAddWater = () => {
+  const currentWater = 750; //  тимчасово
+  // const [currentWater, setCurrentWater] = useState(0); //   redux
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleClick = () => {
     setIsModalOpen(true);
   };
   return (
     <div
       className={
-        'relative h-[415px] w-full rounded-[30px] bg-green md:h-[704px] md:w-[578px] lg:h-[672px] lg:w-[736px]'
+        'relative h-[415px] w-full rounded-[30px] bg-green md:h-[578px] md:w-[704px] lg:h-[736px] lg:w-[672px]'
       }
     >
       {/* <Logo/> */}
@@ -38,9 +38,9 @@ const WaterMainInfo = () => {
         />
         <img
           className={
-            'z-1 transform-translate-x-1/2 left-1/2 top-[50px] h-[335px] w-[262px] md:top-[69px] md:h-[477px] md:w-[374px] lg:top-[92px] lg:h-[604px] lg:w-[472px]'
+            'absolute left-1/2 top-[50px] z-10 h-[335px] w-[262px] -translate-x-1/2 md:top-[69px] md:h-[477px] md:w-[374px] lg:top-[92px] lg:h-[604px] lg:w-[472px]'
           }
-          src="/public/images/Bottle/bottle-desktop.avif"
+          src="/images/Bottle/bottle-desktop.avif"
           alt="bootle for water"
           width="472"
           height="604"
@@ -48,7 +48,8 @@ const WaterMainInfo = () => {
       </picture>
       <WaterDailyNorma dailyNorma={dailyNorma} />
       <WaterProgressBar dailyNorma={dailyNorma} currentWater={currentWater} />
-      <AddWaterBtn onClick={onAddWater} />
+      <AddWaterBtn onClick={handleClick} />
+      {isModalOpen && <p>Модалку відкрито</p>}
       {/* {isModalOpen && <WaterModal onClose={() => setIsModalOpen(false)} />} */}
     </div>
   );

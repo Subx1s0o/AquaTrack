@@ -1,6 +1,15 @@
 // import css from './WaterProgressBar.module.css';
+import React from 'react';
 
-const WaterProgressBar = ({ dailyNorma = 1500, currentWater = 0 }) => {
+interface WaterProgressBarProps {
+  dailyNorma: number;
+  currentWater: number;
+}
+
+const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
+  dailyNorma = 1500,
+  currentWater = 0,
+}) => {
   // currentWater = 1100;
 
   // Розрахунок прогресу
@@ -9,12 +18,12 @@ const WaterProgressBar = ({ dailyNorma = 1500, currentWater = 0 }) => {
   return (
     <div
       className={
-        'z-2 transform-translate-x-1/2 absolute bottom-[120px] left-1/2 h-[70px] w-[198px] rounded-[15px] bg-white p-3 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:p-5 lg:bottom-[180px]'
+        'absolute bottom-[120px] left-1/2 z-20 h-[70px] w-[198px] -translate-x-1/2 rounded-[15px] bg-white p-3 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:p-5 lg:bottom-[180px]'
       }
     >
       <h3
         className={
-          'mb-2 font-poppins text-base font-bold leading-[14px] md:mb-[6px] md:text-ms'
+          'mb-2 font-poppins text-base font-bold leading-none md:mb-[6px] md:text-ms'
         }
       >
         Today
@@ -28,7 +37,7 @@ const WaterProgressBar = ({ dailyNorma = 1500, currentWater = 0 }) => {
         ></div>
         <div
           className={
-            'absolute top-1/2 h-[12px] w-[12px] -translate-y-1/2 transform rounded-full border border-green bg-white'
+            'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white'
           }
           style={{ left: `${progress}%` }}
         ></div>
