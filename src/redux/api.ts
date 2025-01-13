@@ -8,7 +8,12 @@ import Cookie from 'js-cookie';
 
 const BASE_URL = 'https://node-goit-project.onrender.com';
 
-export const instance = axios.create({
+export const privateInstance = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
+
+export const publicInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
@@ -29,7 +34,7 @@ const clearUserData = (): void => {
   window.location.href = '/login';
 };
 
-instance.interceptors.request.use(
+privateInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const token = Cookie.get('accessToken');
     if (token) {
@@ -53,7 +58,7 @@ instance.interceptors.request.use(
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
-instance.interceptors.response.use(
+privateInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: unknown): Promise<AxiosResponse | void> => {
     if (error instanceof AxiosError) {
@@ -64,7 +69,7 @@ instance.interceptors.response.use(
         try {
           await fetchRefreshToken();
 
-          return instance(originalRequest);
+          return privateInstance(originalRequest);
         } catch (refreshError: unknown) {
           if (
             refreshError instanceof AxiosError &&

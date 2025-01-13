@@ -1,12 +1,12 @@
-// import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-// import { waterReducer } from './water/slice';
+import authReducer from './auth/slice';
 
-// export const store = configureStore({
-//   reducer: {
-//     water: waterReducer,
-//   },
-// });
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+  },
+});
 
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
