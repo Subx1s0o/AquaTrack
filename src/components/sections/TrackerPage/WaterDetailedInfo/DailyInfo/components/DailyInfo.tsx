@@ -5,7 +5,7 @@ import WaterList from './WaterList';
 export default function DailyInfo() {
   return (
     <>
-      <div>
+      <div className="flex justify-between">
         <ChooseDate />
         <AddWaterBtn />
       </div>
