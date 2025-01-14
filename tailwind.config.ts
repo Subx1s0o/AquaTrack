@@ -14,7 +14,10 @@ export default {
         black: '#2F2F2F',
         darkGrey: '#323F47',
         grey: '#F0EFF4',
+        'grey-selector': '#BCBCBC',
         green: '#9BE1A0',
+        'green-selector': '#87D28D',
+        error: '#EF5050',
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
