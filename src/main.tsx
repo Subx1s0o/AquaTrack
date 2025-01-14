@@ -3,29 +3,17 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import LoginPage from '../src/pages/LoginPage';
-import RegistrationPage from '../src/pages/RegistrationPage';
+import WelcomeContent from './components/sections/Home/WelcomeSection/WelcomeSection';
 import './index.css';
+import HomePage from './pages/HomePage/HomePage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Home</div>,
-  },
-  {
-    path: '/signin',
     element: (
-      <div>
-        <LoginPage />
-      </div>
-    ),
-  },
-  {
-    path: '/signup',
-    element: (
-      <div>
-        <RegistrationPage />
-      </div>
+      <HomePage>
+        <WelcomeContent />
+      </HomePage>
     ),
   },
   {
@@ -40,7 +28,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <div className="mx-auto max-w-[375px] md:max-w-screen-md lg:max-w-screen-lg">
+    <div className="mx-auto flex h-screen max-w-[375px] items-center p-4 font-poppins md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
       <RouterProvider router={router} />
       <ToastContainer />
     </div>
