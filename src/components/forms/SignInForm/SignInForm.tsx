@@ -2,9 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
+
+import { useAppDispatch } from '@/redux/hooks';
+import { loginUser } from '@/redux/store/operations';
 
 import validationSchemaSignIn from './validationSchemaSignIn';
 import { SignInFormValues } from './validationSchemaSignIn';
@@ -13,11 +17,18 @@ export default function SignInForm() {
   const { control, handleSubmit } = useForm<SignInFormValues>({
     resolver: yupResolver(validationSchemaSignIn),
   });
-
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (data: SignInFormValues) => {
-    console.log('Form submitted:', data);
+  const onSubmit = async (data: SignInFormValues) => {
+    const result = await dispatch(loginUser(data));
+
+    if (result.meta.requestStatus === 'fulfilled') {
+      navigate('/');
+    } else {
+      console.error('Registration failed', result.payload);
+    }
   };
 
   return (
@@ -58,7 +69,7 @@ export default function SignInForm() {
 
       <button
         type="submit"
-        className="hover:bg-green-selector active:text-grey-selector focus-visible:bg-green-selector h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors active:bg-grey md:h-[60px] md:text-md"
+        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
       >
         Sign In
       </button>

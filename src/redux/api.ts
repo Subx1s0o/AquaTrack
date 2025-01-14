@@ -27,11 +27,10 @@ export const fetchRefreshToken = async (): Promise<void> => {
 };
 
 const clearUserData = (): void => {
-  Cookie.remove('accessToken');
-  Cookie.remove('refreshToken');
-  Cookie.remove('sessionId');
-
-  window.location.href = '/login';
+  // Cookie.remove('accessToken');
+  // Cookie.remove('refreshToken');
+  // Cookie.remove('sessionId');
+  // window.location.href = '/login';
 };
 
 privateInstance.interceptors.request.use(
@@ -61,6 +60,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 privateInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: unknown): Promise<AxiosResponse | void> => {
+    console.log(error);
     if (error instanceof AxiosError) {
       const originalRequest = error.config as CustomAxiosRequestConfig;
 
