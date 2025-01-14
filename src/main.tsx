@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         Home
-        <MonthInfo />
+        {/* <MonthInfo /> */}
       </div>
     ),
   },
