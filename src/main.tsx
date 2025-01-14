@@ -3,8 +3,11 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import WelcomeContent from './components/sections/Home/WelcomeSection/WelcomeSection';
+import SignInContent from './components/sections/Auth/SignInContent';
+import SignUpContent from './components/sections/Auth/SignUpContent';
+import WelcomeContent from './components/sections/Home/Welcome/WelcomeContent';
 import './index.css';
+import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage/HomePage';
 
 const router = createBrowserRouter([
@@ -17,8 +20,20 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: '/about',
-    element: <div>About</div>,
+    path: '/sign-in',
+    element: (
+      <AuthPage>
+        <SignInContent />
+      </AuthPage>
+    ),
+  },
+  {
+    path: '/sign-up',
+    element: (
+      <AuthPage>
+        <SignUpContent />
+      </AuthPage>
+    ),
   },
   {
     path: '*',
