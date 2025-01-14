@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import AdvantagesSection from '@/components/sections/Home/AdvantagesSection/AdvantagesSection';
+import AdvantagesPicture from '@/components/sections/Home/Advantages/AdvantagesPicture';
 import Logo from '@/components/ui/Logo';
 
 export default function HomePage({ children }: PropsWithChildren) {
@@ -11,7 +11,7 @@ export default function HomePage({ children }: PropsWithChildren) {
 
         {children}
       </div>
-      <AdvantagesSection />
+      <AdvantagesPicture />
     </div>
   );
 }

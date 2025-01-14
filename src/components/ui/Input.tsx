@@ -31,14 +31,14 @@ export default function Input({
         {...control.register(name)}
         {...inputProps}
         className={cn(
-          `h-[46px] w-full rounded-[15px] border border-gray-300 bg-transparent px-4 text-base outline-none transition-colors placeholder:text-gray-500 focus-visible:border-green md:h-[56px] ${className}`,
+          `h-[46px] w-full rounded-[15px] border border-gray-300 bg-transparent px-4 text-base outline-none transition-colors placeholder:text-black/60 focus-visible:border-darkGrey md:h-[56px] ${className}`,
           {
-            'border-error': errors?.[name],
+            '!border-error': errors?.[name],
           },
         )}
       />
       {errors[name] && (
-        <p className="text-sm text-red-500">
+        <p className="mt-[10px] text-sm text-red-500">
           {errors[name].message?.toString()}
         </p>
       )}

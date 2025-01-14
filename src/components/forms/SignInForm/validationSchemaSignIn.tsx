@@ -9,8 +9,8 @@ const validationSchemaSignIn = yup.object().shape({
   email: yup
     .string()
     .email('Please enter a valid email address.')
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
+    .min(2, 'Email is too short!')
+    .max(50, 'Email is too long!')
     .required('Email is required.'),
   password: yup
     .string()

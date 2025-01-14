@@ -1,7 +1,7 @@
 import AdvantagesCustomersPictures from './AdvantagesCustomersPictures';
 import AdvantagesSpans from './AdvantagesSpans';
 
-export default function AdvantagesSection() {
+export default function AdvantagesPicture() {
   return (
     <section className="relative block size-full rounded-[30px]">
       <picture className="block size-full">
