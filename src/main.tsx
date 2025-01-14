@@ -9,6 +9,7 @@ import WelcomeContent from './components/sections/Home/Welcome/WelcomeContent';
 import './index.css';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage/HomePage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div>404</div>,
+    element: (
+      <div>
+        <NotFoundPage />
+      </div>
+    ),
   },
 ]);
 
