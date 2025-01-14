@@ -1,5 +1,5 @@
-import CustomersPictures from '@/components/CustomersPictures/CustomersPictures';
-import HomeWelcomeButtons from '@/components/HomeWelcomeButtons/HomeWelcomeButtons';
+import AdvantagesCustomersPictures from './AdvantagesCustomersPictures';
+import AdvantagesSpans from './AdvantagesSpans';
 
 export default function AdvantagesSection() {
   return (
@@ -26,8 +26,8 @@ export default function AdvantagesSection() {
           className="size-full"
         />
       </picture>
-      <CustomersPictures />
-      <HomeWelcomeButtons />
+      <AdvantagesCustomersPictures />
+      <AdvantagesSpans />
     </section>
   );
 }

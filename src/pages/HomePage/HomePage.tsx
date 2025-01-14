@@ -1,14 +1,15 @@
-import Logo from '@/components/Logo/Logo';
-import AdvantagesSection from '@/components/sections/AdvantagesSection/AdvantagesSection';
-import WelcomeSection from '@/components/sections/WelcomeSection/WelcomeSection';
+import { PropsWithChildren } from 'react';
 
-export default function HomePage() {
+import AdvantagesSection from '@/components/sections/Home/AdvantagesSection/AdvantagesSection';
+import Logo from '@/components/ui/Logo';
+
+export default function HomePage({ children }: PropsWithChildren) {
   return (
     <div className="grid h-full grid-rows-1 gap-4 lg:h-auto lg:grid-cols-2">
-      <div className="relative">
+      <div className="relative rounded-[30px] bg-grey">
         <Logo />
 
-        <WelcomeSection />
+        {children}
       </div>
       <AdvantagesSection />
     </div>

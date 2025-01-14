@@ -1,4 +1,4 @@
-export default function CustomersPictures() {
+export default function AdvantagesCustomersPictures() {
   return (
     <div className="absolute bottom-28 left-4 flex h-11 w-40 justify-center gap-1 rounded-[30px] bg-white px-4 py-[8px] shadow-sm md:bottom-24 md:left-8 md:h-[67px] md:w-60 lg:bottom-[132px]">
       <div className="relative flex space-x-4 md:space-x-7">
