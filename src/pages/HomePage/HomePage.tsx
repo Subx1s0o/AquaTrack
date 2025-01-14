@@ -6,7 +6,7 @@ import Logo from '@/components/ui/Logo';
 export default function HomePage({ children }: PropsWithChildren) {
   return (
     <div className="grid size-full grid-rows-1 gap-4 lg:h-auto lg:grid-cols-2">
-      <div className="relative rounded-[30px] bg-grey">
+      <div className="relative flex w-full items-center justify-center rounded-[30px] bg-grey px-4">
         <Logo />
 
         {children}
