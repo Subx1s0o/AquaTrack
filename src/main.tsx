@@ -4,23 +4,39 @@ import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import SignInContent from './components/sections/Auth/SignInContent';
+import SignUpContent from './components/sections/Auth/SignUpContent';
+import WelcomeContent from './components/sections/Home/Welcome/WelcomeContent';
 import MonthInfo from './components/sections/TrackerPage/Calendar/MonthInfo';
 import './index.css';
+import AuthPage from './pages/AuthPage';
+import HomePage from './pages/HomePage/HomePage';
 import { store } from './redux/store';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <div>
-        Home
-        {/* <MonthInfo /> */}
-      </div>
+      <HomePage>
+        <WelcomeContent />
+      </HomePage>
     ),
   },
   {
-    path: '/about',
-    element: <div>About</div>,
+    path: '/sign-in',
+    element: (
+      <AuthPage>
+        <SignInContent />
+      </AuthPage>
+    ),
+  },
+  {
+    path: '/sign-up',
+    element: (
+      <AuthPage>
+        <SignUpContent />
+      </AuthPage>
+    ),
   },
   {
     path: '*',
@@ -30,11 +46,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <div className="mx-auto max-w-[375px] md:max-w-screen-md lg:max-w-screen-lg">
-        <RouterProvider router={router} />
-        <ToastContainer />
-      </div>
-    </Provider>
+    <div className="mx-auto flex h-screen max-w-[375px] items-center p-4 font-poppins md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </div>
   </StrictMode>,
 );
