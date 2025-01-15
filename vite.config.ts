@@ -5,6 +5,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    include: ['redux-persist/integration/react'],
+  },
   css: {
     postcss: {
       plugins: [tailwindcss(), autoprefixer()],
