@@ -4,7 +4,7 @@ export default function NotFoundPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex size-full flex-col items-center justify-center rounded-[30px] bg-grey text-center">
+    <div className="flex size-full flex-col items-center justify-center rounded-[30px] bg-grey px-1 text-center lg:max-h-[736px]">
       <h1 className="text-9xl font-extrabold text-black">404</h1>
       <p className="mt-4 text-2xl font-semibold text-darkGrey">
         Oops! The page you&apos;re looking for doesn&apos;t exist.
