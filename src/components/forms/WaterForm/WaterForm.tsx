@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import Input from '@/components/ui/Input';
+
 const WaterForm = () => {
   const getCurrentTime = () => {
     const now = new Date();
@@ -30,7 +32,7 @@ const WaterForm = () => {
     }
   };
 
-  const { register, handleSubmit } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       time: getCurrentTime(),
       amount: 50,
@@ -46,7 +48,7 @@ const WaterForm = () => {
       <p className="mb-2">Amount of water:</p>
       <div className="mb-4 flex items-center gap-x-2">
         <button
-          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey md:size-[43px]"
+          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
           type="button"
           onClick={handleDecrease}
         >
@@ -56,7 +58,7 @@ const WaterForm = () => {
           {waterAmount} ml
         </span>
         <button
-          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey md:size-[43px]"
+          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
           type="button"
           onClick={handleIncrease}
         >
@@ -65,28 +67,29 @@ const WaterForm = () => {
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label className="mb-6 block">
-          Recording time:
-          <input
-            type="time"
-            className="mt-2 block h-[46px] w-[303px] appearance-none rounded-[15px] border border-[#2F2F2F26] bg-transparent pl-3.5 text-base md:h-14 md:w-[438px] md:pl-4 md:text-md"
-            {...register('time')}
+        <div className="mb-6 w-full">
+          <Input
+            className="md:text-md"
+            control={control}
+            name="time"
+            labelClassName="md:text-md font-normal"
+            label="Recording time:"
           />
-        </label>
-
-        <label className="mb-6 block text-md font-bold leading-5 text-darkGrey md:text-lg">
-          Enter the value of the water used:
-          <input
-            className="mt-2 block h-[46px] w-[303px] rounded-[15px] border border-[#2F2F2F26] pl-3.5 text-base font-normal md:h-14 md:w-[438px] md:pl-4 md:text-md"
-            type="text"
-            {...register('amount')}
+        </div>
+        <div className="mb-6 w-full">
+          <Input
+            className="md:text-md"
+            control={control}
             value={waterAmount}
+            name="amount"
             onChange={handleInputChange}
+            labelClassName="text-md md:text-lg text-darkGrey"
+            label="Enter the value of the water used:"
           />
-        </label>
+        </div>
 
         <button
-          className="h-[46px] min-w-[116px] rounded-[30px] bg-green font-bold text-darkGrey md:h-[60px] md:min-w-[141px]"
+          className="h-[46px] min-w-[116px] rounded-[30px] bg-green font-bold text-darkGrey outline-none transition-colors md:h-[60px] md:min-w-[141px] lg:hover:bg-green-selector lg:focus-visible:bg-green-selector"
           type="submit"
         >
           Save
