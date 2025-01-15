@@ -1,5 +1,6 @@
-import { Store } from 'types/WaterTypes';
+import { RootState } from '../store';
 
-export const selectDayWater = (state: Store) => state.waterDay.water.items;
-export const selectDayLoading = (state: Store) => state.waterDay.water.loading;
-export const selectDayError = (state: Store) => state.waterDay.water.error;
+export const selectDayWater = (state: RootState) => state.waterDay.water.items;
+export const selectDayLoading = (state: RootState) =>
+  state.waterDay.water.loading;
+export const selectDayError = (state: RootState) => state.waterDay.water.error;

@@ -17,3 +17,8 @@ export const dateHelpers = {
     return dateString.slice(0, 3);
   },
 };
+
+export const today = new Date();
+export const todayDay: number = today.getDate();
+export const currentYear: number = today.getFullYear();
+export const currentMonth: number = today.getMonth();

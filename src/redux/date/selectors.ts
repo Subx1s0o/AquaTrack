@@ -1,2 +1,3 @@
-export const selectDate = state => state.date.date;
-export const selectBlockButton = state => state.date.blockChangeMonthBtn;
+import { RootState } from '../store';
+
+export const selectDate = (state: RootState) => state.date.date;

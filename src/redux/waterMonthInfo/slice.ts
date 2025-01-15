@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { WaterMonthState } from 'types/WaterTypes';
+import { WaterMonthData, WaterMonthState } from 'types/WaterTypes';
 
 import { fetchMonthData } from './operations';
 
@@ -7,7 +7,10 @@ const handlePending = (state: WaterMonthState) => {
   state.water.loading = true;
 };
 
-const handleRejected = (state: WaterMonthState, action: PayloadAction<any>) => {
+const handleRejected = (
+  state: WaterMonthState,
+  action: PayloadAction<string | undefined>,
+) => {
   state.water.loading = false;
   state.water.error = action.payload;
   state.water.items = [];
@@ -28,11 +31,14 @@ const slice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchMonthData.pending, handlePending)
-      .addCase(fetchMonthData.fulfilled, (state, action) => {
-        state.water.loading = false;
-        state.water.error = null;
-        state.water.items = action.payload;
-      })
+      .addCase(
+        fetchMonthData.fulfilled,
+        (state: WaterMonthState, action: PayloadAction<WaterMonthData[]>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items = action.payload;
+        },
+      )
       .addCase(fetchMonthData.rejected, handleRejected);
   },
 });

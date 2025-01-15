@@ -1,18 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { AxiosError } from 'axios';
+import { ApiResponseWaterMonth } from 'types/WaterResponse';
+import { WaterMonthData } from 'types/WaterTypes';
 
-export const waterApi = axios.create({
-  baseURL: 'https://6781657985151f714b0a9a51.mockapi.io/',
-});
+import { privateInstance } from '../api';
 
-export const fetchMonthData: any = createAsyncThunk(
-  'water/fetchAll"',
-  async (dateRequested, thunkAPI) => {
-    try {
-      const response = await waterApi.get(`/water/${dateRequested}`);
-      return response.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+export const fetchMonthData = createAsyncThunk<
+  WaterMonthData[],
+  string,
+  { rejectValue: string }
+>('water/:YYYY-MM"', async (dateRequested, thunkAPI) => {
+  try {
+    const { data } = await privateInstance.get<ApiResponseWaterMonth>(
+      `/water/month/${dateRequested}`,
+    );
+    return data.records;
+  } catch (e) {
+    if (e instanceof AxiosError && e.response?.data?.message) {
+      return thunkAPI.rejectWithValue(e.response.data.message);
     }
-  },
-);
+    return thunkAPI.rejectWithValue('Fetch Month Data Failed');
+  }
+});

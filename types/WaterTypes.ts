@@ -1,12 +1,3 @@
-import { DateState } from './DateTypes';
-
-export interface Store {
-  waterMonth: WaterMonthState;
-  date: DateState;
-  waterDay: WaterDayState;
-  water: WaterState;
-}
-
 export interface WaterMonthState {
   water: {
     items: WaterMonthData[];
@@ -16,9 +7,10 @@ export interface WaterMonthState {
 }
 
 export interface WaterMonthData {
-  _id: string;
-  percentage: number;
+  // _id: string;
+  totalPercentage: number;
   date: string;
+  amount: number;
 }
 
 export interface WaterDayState {
@@ -31,8 +23,9 @@ export interface WaterDayState {
 
 export interface WaterDayData {
   _id: string;
-  volume: number;
+  amount: number;
   date: string;
+  time: string;
 }
 
 export interface WaterState {

@@ -1,23 +1,25 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from '@/components/ui/Icon';
 
-import { selectBlockButton, selectDate } from '@/redux/date/selectors';
+import { selectDate } from '@/redux/date/selectors';
 import { nextMonth, previousMonth } from '@/redux/date/slice';
-import { dateHelpers } from '@/utils/dateHelpers';
+import { currentMonth, currentYear, dateHelpers } from '@/utils/dateHelpers';
 
 interface CalendarPaginationProps {
   statisticsToggle: () => void;
 }
 
-const CalendarPagination: React.FC<CalendarPaginationProps> = ({
-  statisticsToggle,
-}) => {
+const CalendarPagination = ({ statisticsToggle }: CalendarPaginationProps) => {
   const dispatch = useDispatch();
   const date: string = useSelector(selectDate);
   const monthName: string = dateHelpers.getMonthName(date);
-  const blockNextMonthBtn: boolean = useSelector(selectBlockButton);
+  const chosenDate = new Date(date);
+  const chosenYear = chosenDate.getFullYear();
+  const chosenMonth = chosenDate.getMonth();
+  const isFutureMonth =
+    chosenYear > currentYear ||
+    (chosenYear === currentYear && chosenMonth >= currentMonth);
 
   return (
     <div className="flex items-center gap-4 md:gap-5">
@@ -38,7 +40,7 @@ const CalendarPagination: React.FC<CalendarPaginationProps> = ({
         </button>
         <p className="text-base font-bold md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
         <button
-          disabled={blockNextMonthBtn}
+          disabled={isFutureMonth}
           type="button"
           className="text-darkGrey"
           onClick={() => {

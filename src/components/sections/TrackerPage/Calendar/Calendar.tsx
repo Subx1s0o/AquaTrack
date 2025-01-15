@@ -17,21 +17,17 @@ const Calendar = () => {
     { length: dateHelpers.getMonthDays(date) },
     (_, i) => i + 1,
   );
-
   // Function to find data for a specific date
   const findDayData = (day: number): DayData | undefined => {
     const dateString = dateHelpers.formatDateString(date, day);
-    // console.log(dateString);
 
-    const waterData = waterDataApi.find(
-      item => item.date.slice(0, 10) === dateString,
-    );
+    const waterData = waterDataApi.find(item => item.date === dateString);
 
     if (waterData) {
       return {
         day,
         date: waterData.date,
-        percentage: waterData.percentage,
+        percentage: waterData.totalPercentage,
       };
     }
 

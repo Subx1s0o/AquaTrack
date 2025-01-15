@@ -37,7 +37,7 @@ const Statistics = () => {
   const dataByDay: DataByDay = waterDataApi.reduce(
     (acc: DataByDay, item: WaterMonthData) => {
       const day: number = new Date(item.date).getDate();
-      acc[day] = Number((waterDailyNorma * item.percentage) / 100 / 1000);
+      acc[day] = Number((waterDailyNorma * item.totalPercentage) / 100 / 1000);
       return acc;
     },
     {},
