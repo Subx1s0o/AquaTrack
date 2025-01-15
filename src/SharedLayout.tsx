@@ -1,9 +1,9 @@
-import { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export default function SharedLayout({ children }: PropsWithChildren) {
+export default function SharedLayout() {
   return (
     <div className="grid size-full grid-rows-1 gap-4 lg:h-auto lg:grid-cols-2">
-      {children}
+      <Outlet />
     </div>
   );
 }
