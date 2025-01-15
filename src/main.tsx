@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
+import ForgotPasswordForm from './components/forms/ForgotPasswordForm/ForgotPasswordForm';
+import ResetPasswordForm from './components/forms/ResetPasswordForm/ResetPasswordForm';
 import SignInContent from './components/sections/Auth/SignInContent';
 import SignUpContent from './components/sections/Auth/SignUpContent';
 import WelcomeContent from './components/sections/Home/Welcome/WelcomeContent';
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
         <SignUpContent />
       </AuthPage>
     ),
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPasswordForm />,
+  },
+  {
+    path: '/reset-password',
+    element: <ResetPasswordForm />,
   },
   {
     path: '*',
