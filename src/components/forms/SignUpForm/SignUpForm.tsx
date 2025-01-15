@@ -8,7 +8,7 @@ import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { registerUser } from '@/redux/store/operations';
+import { register } from '@/redux/store/operations';
 
 import validationSchemaSignUp from './validationSchemaSignUp';
 import { SignUpFormValues } from './validationSchemaSignUp';
@@ -23,7 +23,7 @@ export default function SignUpForm() {
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const onSubmit = async (data: SignUpFormValues) => {
-    const result = await dispatch(registerUser(data));
+    const result = await dispatch(register(data));
 
     if (result.meta.requestStatus === 'fulfilled') {
       navigate('/');

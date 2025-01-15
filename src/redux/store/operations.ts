@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { User } from 'types/user';
+import { AuthResponse } from 'types/AuthResponse';
+
+import { User } from '@/types';
 
 import { privateInstance, publicInstance } from '../api';
 
@@ -9,13 +11,13 @@ interface AuthCredentials {
   password: string;
 }
 
-export const registerUser = createAsyncThunk<
-  User,
+export const register = createAsyncThunk<
+  AuthResponse,
   AuthCredentials,
   { rejectValue: string }
 >('auth/register', async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await publicInstance.post<User>(
+    const { data } = await publicInstance.post<AuthResponse>(
       '/auth/register',
       credentials,
     );
@@ -28,13 +30,13 @@ export const registerUser = createAsyncThunk<
   }
 });
 
-export const loginUser = createAsyncThunk<
-  User,
+export const login = createAsyncThunk<
+  AuthResponse,
   AuthCredentials,
   { rejectValue: string }
 >('auth/login', async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await publicInstance.post<User>(
+    const { data } = await publicInstance.post<AuthResponse>(
       '/auth/login',
       credentials,
     );
@@ -47,7 +49,7 @@ export const loginUser = createAsyncThunk<
   }
 });
 
-export const logoutUser = createAsyncThunk<void, void, { rejectValue: string }>(
+export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {

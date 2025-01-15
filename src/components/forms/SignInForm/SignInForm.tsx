@@ -8,7 +8,7 @@ import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { loginUser } from '@/redux/store/operations';
+import { login } from '@/redux/store/operations';
 
 import validationSchemaSignIn from './validationSchemaSignIn';
 import { SignInFormValues } from './validationSchemaSignIn';
@@ -22,7 +22,7 @@ export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: SignInFormValues) => {
-    const result = await dispatch(loginUser(data));
+    const result = await dispatch(login(data));
 
     if (result.meta.requestStatus === 'fulfilled') {
       navigate('/');

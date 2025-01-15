@@ -2,38 +2,28 @@ import { RouteObject } from 'react-router-dom';
 
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
-import SignInContent from './components/sections/Auth/SignInContent';
-import SignUpContent from './components/sections/Auth/SignUpContent';
-import WelcomeContent from './components/sections/Home/Welcome/WelcomeContent';
-import AuthPage from './pages/AuthPage';
-import HomePage from './pages/HomePage/HomePage';
+import HomePage from './pages/HomePage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: (
-      <HomePage>
-        <WelcomeContent />
-      </HomePage>
-    ),
+    element: <HomePage />,
   },
   {
-    path: '/sign-in',
+    path: '/signin',
     element: (
       <PublicRoute>
-        <AuthPage>
-          <SignInContent />
-        </AuthPage>
+        <SignInPage />
       </PublicRoute>
     ),
   },
   {
-    path: '/sign-up',
+    path: '/signup',
     element: (
       <PublicRoute>
-        <AuthPage>
-          <SignUpContent />
-        </AuthPage>
+        <SignUpPage />
       </PublicRoute>
     ),
   },

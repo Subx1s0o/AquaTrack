@@ -15,7 +15,7 @@ export default function WelcomeButtons() {
       </Link>
       {!isAuthenticated && (
         <Link
-          to="/sign-in"
+          to="/signin"
           className="rounded-[30px] border border-darkGrey px-5 py-[14px] font-bold outline-none transition-colors hover:border-green hover:text-green focus-visible:border-green focus-visible:text-green active:border-grey-selector active:text-grey-selector md:px-10 md:py-[18px] md:text-md"
         >
           Sing in

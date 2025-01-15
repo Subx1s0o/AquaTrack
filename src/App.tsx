@@ -24,7 +24,6 @@ const AppContent = () => {
   }, [accessToken, refreshToken, isAuthenticated, dispatch]);
 
   const router = createBrowserRouter(routes);
-  console.log(isAuthenticated);
   return <RouterProvider router={router} />;
 };
 

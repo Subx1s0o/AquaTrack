@@ -6,8 +6,8 @@ import axios, {
 } from 'axios';
 import Cookie from 'js-cookie';
 
-const BASE_URL = 'https://node-goit-project.onrender.com';
-
+// const BASE_URL = 'https://node-goit-project.onrender.com';
+const BASE_URL = 'http://localhost:4000';
 export const privateInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
@@ -19,18 +19,14 @@ export const publicInstance = axios.create({
 });
 
 export const fetchRefreshToken = async (): Promise<void> => {
-  return await axios.post(
-    `${BASE_URL}/auth/refresh`,
-    {},
-    { withCredentials: true },
-  );
+  return await axios.post(`${BASE_URL}/auth/refresh`);
 };
 
 const clearUserData = (): void => {
-  // Cookie.remove('accessToken');
-  // Cookie.remove('refreshToken');
-  // Cookie.remove('sessionId');
-  // window.location.href = '/login';
+  Cookie.remove('accessToken');
+  Cookie.remove('refreshToken');
+  Cookie.remove('sessionId');
+  window.location.href = '/login';
 };
 
 privateInstance.interceptors.request.use(
