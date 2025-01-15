@@ -23,7 +23,7 @@ const WaterList: React.FC<WaterListProps> = ({
   );
 
   return (
-    <div className="overflow-x-auto whitespace-nowrap">
+    <div className="flex gap-2 overflow-x-auto whitespace-nowrap md:gap-8 lg:gap-4">
       {filteredEntries.map(entry => (
         <WaterItem key={entry.id} entry={entry} />
       ))}
