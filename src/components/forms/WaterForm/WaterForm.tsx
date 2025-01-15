@@ -1,9 +1,23 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Input from '@/components/ui/Input';
 
+import css from './WaterForm.module.css';
+
 const WaterForm = () => {
+  const schema = yup.object().shape({
+    water: yup
+      .number()
+      .required('Enter the amount of water')
+      .min(50, 'The minimum value is 50 ml')
+      .max(5000, 'The maximum value is 5 liters'),
+    time: yup.string().required('Enter the time'),
+  });
+
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -35,8 +49,9 @@ const WaterForm = () => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       time: getCurrentTime(),
-      amount: 50,
+      water: 50,
     },
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = () => {
@@ -69,9 +84,10 @@ const WaterForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6 w-full">
           <Input
-            className="md:text-md"
+            className={`md:text-md ${css.time}`}
             control={control}
             name="time"
+            type="time"
             labelClassName="md:text-md font-normal"
             label="Recording time:"
           />
@@ -81,7 +97,7 @@ const WaterForm = () => {
             className="md:text-md"
             control={control}
             value={waterAmount}
-            name="amount"
+            name="water"
             onChange={handleInputChange}
             labelClassName="text-md md:text-lg text-darkGrey"
             label="Enter the value of the water used:"
