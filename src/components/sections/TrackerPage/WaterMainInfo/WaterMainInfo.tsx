@@ -22,7 +22,7 @@ const WaterMainInfo: React.FC = () => {
   // };
 
   return (
-    <div
+    <section
       className={
         'relative h-[415px] w-full rounded-[30px] bg-green md:h-[578px] md:w-[704px] lg:h-[736px] lg:w-[672px]'
       }
@@ -61,7 +61,7 @@ const WaterMainInfo: React.FC = () => {
       )} */}
       {/* тимчасова заглушка: */}
       {isModalOpen && <p>Модалку відкрито</p>}
-    </div>
+    </section>
   );
 };
 
