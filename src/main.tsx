@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import SharedLayout from './SharedLayout';
 import './index.css';
