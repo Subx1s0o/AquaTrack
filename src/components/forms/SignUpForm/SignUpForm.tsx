@@ -14,7 +14,11 @@ import validationSchemaSignUp from './validationSchemaSignUp';
 import { SignUpFormValues } from './validationSchemaSignUp';
 
 export default function SignUpForm() {
-  const { control, handleSubmit } = useForm<SignUpFormValues>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SignUpFormValues>({
     resolver: yupResolver(validationSchemaSignUp),
   });
   const navigate = useNavigate();
@@ -92,6 +96,7 @@ export default function SignUpForm() {
       </div>
 
       <button
+        disabled={isSubmitting}
         type="submit"
         className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
       >

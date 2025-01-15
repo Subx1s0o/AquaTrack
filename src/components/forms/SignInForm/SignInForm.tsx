@@ -14,7 +14,11 @@ import validationSchemaSignIn from './validationSchemaSignIn';
 import { SignInFormValues } from './validationSchemaSignIn';
 
 export default function SignInForm() {
-  const { control, handleSubmit } = useForm<SignInFormValues>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SignInFormValues>({
     resolver: yupResolver(validationSchemaSignIn),
   });
   const dispatch = useAppDispatch();
@@ -55,6 +59,7 @@ export default function SignInForm() {
         />
         <button
           type="button"
+          disabled={isSubmitting}
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-[16px] top-[46px] hidden md:block"
         >
