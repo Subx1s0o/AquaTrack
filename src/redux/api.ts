@@ -6,8 +6,8 @@ import axios, {
 } from 'axios';
 import Cookie from 'js-cookie';
 
-// const BASE_URL = 'https://node-goit-project.onrender.com';
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://node-goit-project.onrender.com';
+// const BASE_URL = 'http://localhost:4000';
 export const privateInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
