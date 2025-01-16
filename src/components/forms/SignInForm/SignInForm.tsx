@@ -57,6 +57,7 @@ export default function SignInForm() {
           className="text-black placeholder:text-base md:text-md md:placeholder:text-md"
           type={showPassword ? 'text' : 'password'}
         />
+
         <button
           type="button"
           disabled={isSubmitting}
@@ -78,6 +79,12 @@ export default function SignInForm() {
       >
         Sign In
       </button>
+
+      <p className="mt-3 text-center">
+        <a href="/forgot-password" className="text-darkGrey hover:underline">
+          Forgot your password?
+        </a>
+      </p>
     </form>
   );
 }
