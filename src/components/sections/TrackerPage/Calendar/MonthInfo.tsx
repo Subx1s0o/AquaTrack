@@ -2,19 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectDate } from '@/redux/date/selectors';
-import { selectDayWater } from '@/redux/waterDayInfo/selectors';
 import { fetchMonthData } from '@/redux/waterMonthInfo/operations';
 
 import Calendar from './Calendar';
 import CalendarPagination from './CalendarPagination';
 import Statistics from './Statistics';
-import TestComponent from './TestComponent';
 
 const MonthInfo = () => {
   const dispatch = useDispatch();
 
   const dateRequested: string = useSelector(selectDate).slice(0, 7);
-  // const dayData = useSelector(selectDayWater);
 
   useEffect(() => {
     dispatch(fetchMonthData(dateRequested));
@@ -44,7 +41,6 @@ const MonthInfo = () => {
           <Statistics />
         </>
       )}
-      {/* <TestComponent /> */}
     </div>
   );
 };

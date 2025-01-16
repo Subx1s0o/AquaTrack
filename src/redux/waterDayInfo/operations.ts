@@ -57,11 +57,11 @@ export const deleteWaterData = createAsyncThunk<
 
 export const updateWaterData = createAsyncThunk<
   WaterDayData,
-  { waterId: string; amount?: number; date: string; time?: string },
+  { waterId: string; amount?: number; date?: string; time?: string },
   { rejectValue: string }
 >('contacts/updateWater', async ({ waterId, ...water }, thunkAPI) => {
   try {
-    const response = await privateInstance.patch(`/contacts/${waterId}`, water);
+    const response = await privateInstance.patch(`/water/${waterId}`, water);
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError && e.response?.data?.message) {

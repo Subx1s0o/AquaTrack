@@ -75,7 +75,7 @@ const slice = createSlice({
           state.water.error = null;
           const updatedWater = action.payload;
           const waterIndex = state.water.items.findIndex(
-            item => item._id === updatedWater.id,
+            item => item._id === updatedWater._id,
           );
           state.water.items[waterIndex] = updatedWater;
         },
