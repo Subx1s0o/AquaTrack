@@ -1,4 +1,4 @@
-export default function HomeWelcomeText() {
+export default function WelcomeText() {
   return (
     <div>
       <p className="mb-4 text-base font-normal !tracking-[0.6px] text-darkGrey md:text-md">

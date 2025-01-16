@@ -2,23 +2,38 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
+
+import { useAppDispatch } from '@/redux/hooks';
+import { register } from '@/redux/store/operations';
 
 import validationSchemaSignUp from './validationSchemaSignUp';
 import { SignUpFormValues } from './validationSchemaSignUp';
 
 export default function SignUpForm() {
-  const { control, handleSubmit } = useForm<SignUpFormValues>({
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<SignUpFormValues>({
     resolver: yupResolver(validationSchemaSignUp),
   });
-
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
-  const onSubmit = (data: SignUpFormValues) => {
-    console.log('Form submitted:', data);
+  const onSubmit = async (data: SignUpFormValues) => {
+    const result = await dispatch(register(data));
+
+    if (result.meta.requestStatus === 'fulfilled') {
+      navigate('/');
+    } else {
+      console.error('Registration failed', result.payload);
+    }
   };
 
   return (
@@ -81,8 +96,9 @@ export default function SignUpForm() {
       </div>
 
       <button
+        disabled={isSubmitting}
         type="submit"
-        className="hover:bg-green-selector active:text-grey-selector focus-visible:bg-green-selector h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors active:bg-grey md:h-[60px] md:text-md"
+        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
       >
         Sign Up
       </button>
