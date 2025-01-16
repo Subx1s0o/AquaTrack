@@ -54,7 +54,11 @@ const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
 
   const onSubmit = (data: { water: number; time: string }) => {
     try {
-      console.log(data);
+      const typeOfOperation =
+        type === 'add' ? 'За відсутності редаксу' : 'Поки заглушка для лінтеру';
+
+      console.log(typeOfOperation, data);
+
       onClose();
       toast.success('Data saved successfully!');
     } catch (error) {
