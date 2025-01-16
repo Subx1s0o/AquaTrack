@@ -4,9 +4,10 @@ type WaterModalProps = {
   type: 'add' | 'edit';
   amount?: number;
   time?: string;
+  onClose: () => void;
 };
 
-const WaterModal = ({ type, amount = 50, time }: WaterModalProps) => {
+const WaterModal = ({ type, amount = 50, time, onClose }: WaterModalProps) => {
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -22,7 +23,12 @@ const WaterModal = ({ type, amount = 50, time }: WaterModalProps) => {
       <p className="mb-5 font-bold leading-5 text-darkGrey md:text-lg">
         {type === 'add' ? 'Choose a value:' : 'Correct entered data:'}
       </p>
-      <WaterForm amount={amount} time={time || getCurrentTime()} type={type} />
+      <WaterForm
+        amount={amount}
+        time={time || getCurrentTime()}
+        type={type}
+        onClose={onClose}
+      />
     </div>
   );
 };

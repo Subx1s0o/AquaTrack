@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
 import useWaterAmount from '@/hooks/useWaterAmount';
@@ -14,9 +15,10 @@ type WaterFormProps = {
   amount: number;
   time: string;
   type: 'add' | 'edit';
+  onClose: () => void;
 };
 
-const WaterForm = ({ amount, time, type }: WaterFormProps) => {
+const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
   const schema = yup.object().shape({
     water: yup
       .number()
@@ -26,8 +28,13 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
     time: yup.string().required('Enter the time'),
   });
 
-  const { waterAmount, handleIncrease, handleDecrease, setWaterAmount } =
-    useWaterAmount(amount);
+  const {
+    waterAmount,
+    handleIncrease,
+    handleDecrease,
+    setWaterAmount,
+    MAX_VALUE,
+  } = useWaterAmount(amount);
 
   const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
@@ -38,10 +45,8 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
   });
 
   const handleInputChange = (value: number) => {
-    if (isNaN(value)) {
-      setWaterAmount(0);
-    } else if (value > 5000) {
-      setWaterAmount(5000);
+    if (value > MAX_VALUE) {
+      setWaterAmount(MAX_VALUE);
     } else {
       setWaterAmount(value);
     }
@@ -50,6 +55,7 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
   const onSubmit = (data: { water: number; time: string }) => {
     try {
       console.log(data);
+      onClose();
       toast.success('Data saved successfully!');
     } catch (error) {
       console.log(error);
@@ -66,7 +72,7 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
           type="button"
           onClick={handleDecrease}
         >
-          -
+          <Icon id="icon-minus" className="stroke-darkGrey" w={18} h={2} />
         </button>
         <span className="flex max-h-[43px] items-center justify-center rounded-[30px] bg-darkGrey px-5 py-[11px] font-bold text-white md:min-w-[86px] md:text-ms">
           {waterAmount} ml
@@ -76,12 +82,12 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
           type="button"
           onClick={handleIncrease}
         >
-          +
+          <Icon id="icon-plus" className="stroke-darkGrey" w={18} h={18} />
         </button>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-6 w-full">
+        <div className="mb-6">
           <Input
             className={`md:text-md ${css.time}`}
             control={control}
@@ -93,7 +99,7 @@ const WaterForm = ({ amount, time, type }: WaterFormProps) => {
             label="Recording time:"
           />
         </div>
-        <div className="mb-6 w-full">
+        <div className="mb-6">
           <Input
             className="md:text-md"
             control={control}
