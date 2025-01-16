@@ -1,5 +1,6 @@
-import React from 'react';
-import { useAppSelector } from '@/redux/hooks';
+import React, { useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
+import UserBarPopover from "./userBarPopover";
 
 interface User {
   email: string;
@@ -8,8 +9,10 @@ interface User {
   dailyNorm: number;
 }
 
-const UserPanel: React.FC = () => {
+const UserBar: React.FC = () => {
   const user = useAppSelector((state) => state.store.user) as User | undefined;
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const [isRotated, setIsRotated] = useState(false);
 
   if (!user) {
     return (
@@ -22,15 +25,47 @@ const UserPanel: React.FC = () => {
   let displayName = user.name;
 
   if (user.name === "User") {
-    displayName = user.email.split('@')[0];
+    displayName = user.email.split("@")[0];
   }
 
+  const togglePopover = () => setPopoverOpen(!isPopoverOpen);
+  const toggleRotation = () => setIsRotated(!isRotated);
+
   return (
-    <button>
-        <p>{displayName}</p>
-        <img src="" alt="avatar" />
-    </button>
+    <div className="relative">
+      <button
+        onClick={() => {
+          togglePopover();
+          toggleRotation();
+        }}
+        className="inline-flex items-center gap-2 px-3 py-2 bg-gray-800 text-white rounded-full font-poppins text-[14px] font-bold leading-[18px] tracking-[-0.14px] text-center"
+      >
+        <span>{displayName}</span>
+        <img
+          src={user.avatarURL || "/default-avatar.png"}
+          alt="avatar"
+          className="w-8 h-8 sm:w-11 sm:h-11 lg:w-11 lg:h-11 rounded-full"
+        />
+
+        <svg
+          width="12px"
+          height="12px"
+          className={`transition-transform duration-300 ${isRotated ? "rotate-180" : ""}`}
+        >
+          <use href="/sprite.svg#icon-chevron-down"></use>
+        </svg>
+      </button>
+
+      {isPopoverOpen && (
+        <UserBarPopover
+          onClose={() => {
+            setPopoverOpen(false);
+            setIsRotated(false);
+          }}
+        />
+      )}
+    </div>
   );
 };
 
-export default UserPanel;
+export default UserBar;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '@/redux/hooks';
+import UserBar from './userBar';
 
 interface User {
   email: string;
@@ -26,11 +27,11 @@ const UserPanel: React.FC = () => {
   }
 
   return (
-    <div className="">
-      <h2 className="text-2xl font-normal leading-[32px] tracking-[-0.01em]">
+    <div className="flex flex-col gap-[20px] md:flex-row md:justify-between lg:flex-row md:justify-between">
+      <h2 className="text-[#323F47] text-[32px] font-normal leading-[32px] tracking-[-0.32px] sm:text-[36px] sm:leading-[38px] sm:tracking-[-0.36px] lg:leading-[38px] lg:tracking-[-0.36px]">
         Hello<span className="font-bold text-gray-700">, {displayName}!</span>
       </h2>
-      < />
+      <UserBar />
     </div>
   );
 };
