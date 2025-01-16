@@ -9,4 +9,5 @@ export type SpriteTypes =
   | 'icon-pie'
   | 'icon-settings'
   | 'icon-trash'
+  | 'icon-plus'
   | 'icon-upload';
