@@ -6,7 +6,7 @@ export const WaterItem: React.FC<{
   entry: { id: number; volume: number; time: string };
 }> = ({ entry }) => {
   return (
-    <div className="flex flex-row items-center justify-start gap-2 rounded-2xl bg-white md:items-start md:gap-5">
+    <div className="flex h-[86px] w-48 flex-row items-center justify-start gap-5 rounded-2xl bg-white p-5 md:items-start md:gap-5">
       <div className="flex items-center justify-center">
         <Icon
           id="icon-water-glass"
