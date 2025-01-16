@@ -17,9 +17,6 @@ interface UsersSettingsFormProps {
 
 const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-  const [calculateWaterNorm, setCalculateWaterNorm] = useState<string | null>(
-    null,
-  );
 
   const {
     control,
@@ -170,7 +167,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
             The required amount of water in liters per day:
           </p>
           <p className="font-poppins text-sm font-bold leading-[1.29] text-[#green] md:leading-6">
-            {calculateWaterNorm} L
+            Х L
           </p>
         </div>
 
