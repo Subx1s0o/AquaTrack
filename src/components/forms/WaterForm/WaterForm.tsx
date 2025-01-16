@@ -1,14 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import Input from '@/components/ui/Input';
 
+import useWaterAmount from '@/hooks/useWaterAmount';
+
 import css from './WaterForm.module.css';
 
-const WaterForm = () => {
+type WaterFormProps = {
+  amount: number;
+  time: string;
+  type: 'add' | 'edit';
+};
+
+const WaterForm = ({ amount, time, type }: WaterFormProps) => {
   const schema = yup.object().shape({
     water: yup
       .number()
@@ -18,44 +26,35 @@ const WaterForm = () => {
     time: yup.string().required('Enter the time'),
   });
 
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = String(now.getHours()).padStart(2, '0');
-    const minutes = String(now.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
+  const { waterAmount, handleIncrease, handleDecrease, setWaterAmount } =
+    useWaterAmount(amount);
 
-  const [waterAmount, setWaterAmount] = useState(50);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      water: waterAmount,
+      time,
+    },
+    resolver: yupResolver(schema),
+  });
 
-  const handleIncrease = () => {
-    setWaterAmount(prev => (prev >= 5000 ? 5000 : prev + 50));
-  };
-
-  const handleDecrease = () => {
-    setWaterAmount(prev => (prev >= 100 ? prev - 50 : 50));
-  };
-
-  const handleInputChange = e => {
-    const value = parseInt(e.target.value, 10);
+  const handleInputChange = (value: number) => {
     if (isNaN(value)) {
       setWaterAmount(0);
-    } else if (value >= 5000) {
+    } else if (value > 5000) {
       setWaterAmount(5000);
     } else {
       setWaterAmount(value);
     }
   };
 
-  const { handleSubmit, control } = useForm({
-    defaultValues: {
-      time: getCurrentTime(),
-      water: 50,
-    },
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = () => {
-    console.log('done');
+  const onSubmit = (data: { water: number; time: string }) => {
+    try {
+      console.log(data);
+      toast.success('Data saved successfully!');
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to save data');
+    }
   };
 
   return (
@@ -88,6 +87,8 @@ const WaterForm = () => {
             control={control}
             name="time"
             type="time"
+            defaultValue={time}
+            onChange={e => setValue('time', e.target.value)}
             labelClassName="md:text-md font-normal"
             label="Recording time:"
           />
@@ -98,7 +99,7 @@ const WaterForm = () => {
             control={control}
             value={waterAmount}
             name="water"
-            onChange={handleInputChange}
+            onChange={e => handleInputChange(parseInt(e.target.value, 10) || 0)}
             labelClassName="text-md md:text-lg text-darkGrey"
             label="Enter the value of the water used:"
           />
