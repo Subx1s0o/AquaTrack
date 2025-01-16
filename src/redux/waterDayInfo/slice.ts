@@ -1,7 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { WaterDayData, WaterDayState } from 'types/WaterTypes';
 
-import { fetchDayData } from './operations';
+import {
+  addWaterData,
+  deleteWaterData,
+  fetchDayData,
+  updateWaterData,
+} from './operations';
 
 const initialState: WaterDayState = {
   water: {
@@ -33,13 +38,49 @@ const slice = createSlice({
       .addCase(fetchDayData.pending, handlePending)
       .addCase(
         fetchDayData.fulfilled,
-        (state, action: PayloadAction<WaterDayData[]>) => {
+        (state: WaterDayState, action: PayloadAction<WaterDayData[]>) => {
           state.water.loading = false;
           state.water.error = null;
           state.water.items = action.payload;
         },
       )
-      .addCase(fetchDayData.rejected, handleRejected);
+      .addCase(fetchDayData.rejected, handleRejected)
+      .addCase(addWaterData.pending, handlePending)
+      .addCase(
+        addWaterData.fulfilled,
+        (state: WaterDayState, action: PayloadAction<WaterDayData>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items.push(action.payload);
+        },
+      )
+      .addCase(addWaterData.rejected, handleRejected)
+      .addCase(deleteWaterData.pending, handlePending)
+      .addCase(
+        deleteWaterData.fulfilled,
+        (state: WaterDayState, action: PayloadAction<any>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items = state.water.items.filter(
+            item => item._id !== action.payload.id,
+          );
+        },
+      )
+      .addCase(deleteWaterData.rejected, handleRejected)
+      .addCase(updateWaterData.pending, handlePending)
+      .addCase(
+        updateWaterData.fulfilled,
+        (state: WaterDayState, action: PayloadAction<any>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          const updatedWater = action.payload;
+          const waterIndex = state.water.items.findIndex(
+            item => item._id === updatedWater.id,
+          );
+          state.water.items[waterIndex] = updatedWater;
+        },
+      )
+      .addCase(updateWaterData.rejected, handleRejected);
   },
 });
 

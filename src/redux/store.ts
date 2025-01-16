@@ -13,7 +13,6 @@ import storage from 'redux-persist/lib/storage';
 
 import storeReducer from './auth/slice';
 import { dateSlice } from './date/slice';
-import { waterSlice } from './water/slice';
 import { waterDaySlice } from './waterDayInfo/slice';
 import { waterMonthSlice } from './waterMonthInfo/slice';
 
@@ -29,7 +28,6 @@ export const store = configureStore({
     store: persistedReducer,
     waterMonth: waterMonthSlice,
     date: dateSlice,
-    water: waterSlice,
     waterDay: waterDaySlice,
   },
   middleware: getDefaultMiddleware =>

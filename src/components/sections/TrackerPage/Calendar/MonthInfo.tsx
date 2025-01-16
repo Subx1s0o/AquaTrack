@@ -2,30 +2,24 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectDate } from '@/redux/date/selectors';
-import { fetchDayData } from '@/redux/waterDayInfo/operations';
 import { selectDayWater } from '@/redux/waterDayInfo/selectors';
 import { fetchMonthData } from '@/redux/waterMonthInfo/operations';
 
 import Calendar from './Calendar';
 import CalendarPagination from './CalendarPagination';
 import Statistics from './Statistics';
+import TestComponent from './TestComponent';
 
 const MonthInfo = () => {
   const dispatch = useDispatch();
 
   const dateRequested: string = useSelector(selectDate).slice(0, 7);
+  // const dayData = useSelector(selectDayWater);
 
   useEffect(() => {
     dispatch(fetchMonthData(dateRequested));
   }, [dispatch, dateRequested]);
 
-  // useEffect(() => {
-  //   const today = new Date().toISOString().slice(0, 10);
-  //   dispatch(fetchDayData(today));
-  // }, [dispatch]);
-
-  // const dayDataDetails = useSelector(selectDayWater);
-  // console.log(dayDataDetails);
   const [statisticsIsOpen, setStatisticsIsOpen] = useState(false);
 
   const statisticsToggle = (): void => {
@@ -50,17 +44,7 @@ const MonthInfo = () => {
           <Statistics />
         </>
       )}
-      {/* <ul>
-        {dayDataDetails.map(data => {
-          return (
-            <li key={data._id}>
-              <p>
-                {data.time} - {data.amount} ml
-              </p>
-            </li>
-          );
-        })}
-      </ul> */}
+      {/* <TestComponent /> */}
     </div>
   );
 };

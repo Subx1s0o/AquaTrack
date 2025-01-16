@@ -26,22 +26,7 @@ export interface WaterDayData {
   amount: number;
   date: string;
   time: string;
-}
-
-export interface WaterState {
-  water: {
-    items: WaterData[];
-    loading: boolean;
-    error: null | any;
-  };
-}
-
-export interface WaterData {
-  _id?: string;
-  time: string;
-  amount: number;
   dailyNorm: number;
-  date: string;
 }
 
 export interface DayData {
