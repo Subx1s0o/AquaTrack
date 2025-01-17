@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -10,6 +9,7 @@ import Input from '@/components/ui/Input';
 import useWaterAmount from '@/hooks/useWaterAmount';
 
 import css from './WaterForm.module.css';
+import { WaterFormValues, waterFormSchema } from './waterFormSchema';
 
 type WaterFormProps = {
   amount: number;
@@ -18,16 +18,7 @@ type WaterFormProps = {
   onClose: () => void;
 };
 
-const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
-  const schema = yup.object().shape({
-    water: yup
-      .number()
-      .required('Enter the amount of water')
-      .min(50, 'The minimum value is 50 ml')
-      .max(5000, 'The maximum value is 5 liters'),
-    time: yup.string().required('Enter the time'),
-  });
-
+function WaterForm({ amount, time, type, onClose }: WaterFormProps) {
   const {
     waterAmount,
     handleIncrease,
@@ -36,23 +27,23 @@ const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
     MAX_VALUE,
   } = useWaterAmount(amount);
 
-  const { handleSubmit, setValue, control } = useForm({
+  const { handleSubmit, setValue, control } = useForm<WaterFormValues>({
     defaultValues: {
       water: waterAmount,
       time,
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(waterFormSchema),
   });
 
-  const handleInputChange = (value: number) => {
+  function handleInputChange(value: number) {
     if (value > MAX_VALUE) {
       setWaterAmount(MAX_VALUE);
     } else {
       setWaterAmount(value);
     }
-  };
+  }
 
-  const onSubmit = (data: { water: number; time: string }) => {
+  function onSubmit(data: WaterFormValues) {
     try {
       const typeOfOperation =
         type === 'add' ? 'За відсутності редаксу' : 'Поки заглушка для лінтеру';
@@ -65,14 +56,14 @@ const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
       console.log(error);
       toast.error('Failed to save data');
     }
-  };
+  }
 
   return (
     <div className="font-poppins text-base md:text-md">
       <p className="mb-2">Amount of water:</p>
       <div className="mb-4 flex items-center gap-x-2">
         <button
-          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
+          className="flex size-10 items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
           type="button"
           onClick={handleDecrease}
         >
@@ -82,7 +73,7 @@ const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
           {waterAmount} ml
         </span>
         <button
-          className="flex size-[40px] items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
+          className="flex size-10 items-center justify-center rounded-[30px] border-[1.5px] border-darkGrey outline-none transition-opacity md:size-[43px] lg:hover:opacity-70 lg:focus-visible:opacity-70"
           type="button"
           onClick={handleIncrease}
         >
@@ -124,6 +115,6 @@ const WaterForm = ({ amount, time, type, onClose }: WaterFormProps) => {
       </form>
     </div>
   );
-};
+}
 
 export default WaterForm;

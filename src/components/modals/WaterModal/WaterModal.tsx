@@ -7,7 +7,7 @@ type WaterModalProps = {
   onClose: () => void;
 };
 
-const WaterModal = ({ type, amount = 50, time, onClose }: WaterModalProps) => {
+function WaterModal({ type, amount = 50, time, onClose }: WaterModalProps) {
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -31,5 +31,6 @@ const WaterModal = ({ type, amount = 50, time, onClose }: WaterModalProps) => {
       />
     </div>
   );
-};
+}
+
 export default WaterModal;

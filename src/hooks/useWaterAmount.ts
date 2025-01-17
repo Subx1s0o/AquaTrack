@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useWaterAmount = (initialAmount: number = 50) => {
+function useWaterAmount(initialAmount: number = 50) {
   const [waterAmount, setWaterAmount] = useState(initialAmount);
 
   const MIN_VALUE = 50;
@@ -21,6 +21,6 @@ const useWaterAmount = (initialAmount: number = 50) => {
     setWaterAmount,
     MAX_VALUE,
   };
-};
+}
 
 export default useWaterAmount;
