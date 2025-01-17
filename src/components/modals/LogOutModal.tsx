@@ -1,18 +1,19 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../redux/hooks";
+import { logout } from "../../../redux/store/operations";
 
-interface DeleteWaterModalProps {
+interface LogoutModalProps {
 	onClose: () => void;
 }
 
-export const LogOutModal = ({ onClose }: DeleteWaterModalProps) => {
-	// const navigate = useNavigate();
+export const LogOutModal = ({ onClose }: LogoutModalProps) => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
 	const handleLogout = async () => {
-		// тут виклик функції логауту, наприклад:
-		// await dispatch(logOut());
-
+		await dispatch(logout());
 		onClose();
-		// navigate("/");
+		navigate("/");
 	};
 
 	return (
