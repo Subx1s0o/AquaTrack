@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../../redux/hooks";
-import { logout } from "../../../redux/store/operations";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/store/operations";
 
 interface LogoutModalProps {
 	onClose: () => void;
