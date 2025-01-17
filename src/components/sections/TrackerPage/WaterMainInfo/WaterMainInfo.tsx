@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 
-// import Modal from '../../../modals/Modal/Modal';
-// import Loader from '../../../ui/Loader/Loader';
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
 import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
-// import WaterModal from '../../../modals/WaterModal/WaterModal';
-
-const WaterMainInfo: React.FC = () => {
+export default function WaterMainInfo() {
   const dailyNorma: number = 1500; // Значення з Redux
   const currentWater: number = 750; //Значення з Redux
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -63,6 +59,4 @@ const WaterMainInfo: React.FC = () => {
       {isModalOpen && <p>Модалку відкрито</p>}
     </section>
   );
-};
-
-export default WaterMainInfo;
+}
