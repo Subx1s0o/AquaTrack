@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { WaterItem } from './WaterItem';
 
 export const WaterList: React.FC = () => {
-  const mockEntries = [
-    { id: 1, volume: 250, time: '7:00' },
-    { id: 2, volume: 250, time: '11:00' },
-    { id: 3, volume: 250, time: '14:00' },
-  ];
+  const mockEntries = useMemo(
+    () => [
+      { id: 1, volume: 250, time: '7:00' },
+      { id: 2, volume: 250, time: '11:00' },
+      { id: 3, volume: 250, time: '14:00' },
+    ],
+    [],
+  );
 
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [isScrollable, setIsScrollable] = useState(false);
@@ -18,30 +21,24 @@ export const WaterList: React.FC = () => {
     if (container) {
       setIsScrollable(container.scrollWidth > container.clientWidth);
 
-      const progress =
-        (container.scrollLeft /
-          (container.scrollWidth - container.clientWidth)) *
-        100;
-      setScrollProgress(progress);
+      const updateProgress = () => {
+        const progress =
+          (container.scrollLeft /
+            (container.scrollWidth - container.clientWidth || 1)) *
+          100;
+        setScrollProgress(progress);
+      };
+
+      updateProgress();
+      container.addEventListener('scroll', updateProgress);
+      return () => container.removeEventListener('scroll', updateProgress);
     }
   }, [mockEntries]);
-
-  const handleScroll = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const progress =
-        (container.scrollLeft /
-          (container.scrollWidth - container.clientWidth)) *
-        100;
-      setScrollProgress(progress);
-    }
-  };
 
   return (
     <div className="relative">
       <div
         ref={scrollContainerRef}
-        onScroll={handleScroll}
         className="box-content flex h-[74px] w-[303px] gap-2 overflow-x-auto scroll-smooth whitespace-nowrap pb-[24px] md:h-[86px] md:w-[640px] md:gap-8 lg:w-[608px] lg:gap-4"
         style={{
           scrollbarWidth: 'none',
