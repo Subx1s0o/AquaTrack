@@ -1,8 +1,7 @@
 import { DayData } from 'types/WaterTypes';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import { selectDate } from '@/redux/date/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchDayData } from '@/redux/waterDayInfo/operations';
 import { cn } from '@/utils/cn';
 import { currentMonth, currentYear, todayDay } from '@/utils/dateHelpers';
@@ -12,9 +11,9 @@ interface CalendarItemProps {
   day: number;
 }
 
-const CalendarItem = ({ dayData, day }: CalendarItemProps) => {
-  const date = useSelector(selectDate);
-  const dispatch = useDispatch();
+export function CalendarItem({ dayData, day }: CalendarItemProps) {
+  const date = useAppSelector(selectDate);
+  const dispatch = useAppDispatch();
 
   const chosenDate = new Date(date);
   const chosenYear = chosenDate.getFullYear();
@@ -62,5 +61,5 @@ const CalendarItem = ({ dayData, day }: CalendarItemProps) => {
       </p>
     </>
   );
-};
+}
 export default CalendarItem;

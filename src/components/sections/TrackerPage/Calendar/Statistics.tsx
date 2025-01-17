@@ -8,10 +8,8 @@ import {
 } from 'recharts';
 import { StatisticData, WaterMonthData } from 'types/WaterTypes';
 
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 import { selectDate } from '@/redux/date/selectors';
+import { useAppSelector } from '@/redux/hooks';
 import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 
 interface DataByDay {
@@ -20,9 +18,9 @@ interface DataByDay {
 //request from Api
 const waterDailyNorma = 1500;
 
-const Statistics = () => {
-  const date: string = useSelector(selectDate);
-  const waterDataApi: WaterMonthData[] = useSelector(selectMonthWater);
+export function Statistics() {
+  const date: string = useAppSelector(selectDate);
+  const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
 
   const maxDayShown: number = new Date(date).getDate();
   const allDaysData: StatisticData[] = Array.from(
@@ -55,7 +53,7 @@ const Statistics = () => {
   );
 
   return (
-    <div className="mt-[8px] flex h-[300px] w-[303px] items-end text-ms font-normal md:mt-[40px] md:h-[305px] md:w-[640px] lg:mt-[25px] lg:h-[305px] lg:w-[608px]">
+    <div className="mt-[8px] flex h-[300px] items-end text-ms font-normal md:mt-[40px] md:h-[305px] md:w-[640px] lg:mt-[25px] lg:h-[305px] lg:w-[608px]">
       <ResponsiveContainer width="100%" height="95%">
         <AreaChart
           data={reducedTransformedData}
@@ -119,7 +117,7 @@ const Statistics = () => {
       </ResponsiveContainer>
     </div>
   );
-};
+}
 
 export default Statistics;
 

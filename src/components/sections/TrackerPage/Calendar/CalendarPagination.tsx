@@ -1,18 +1,19 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import Icon from '@/components/ui/Icon';
 
 import { selectDate } from '@/redux/date/selectors';
 import { nextMonth, previousMonth } from '@/redux/date/slice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { currentMonth, currentYear, dateHelpers } from '@/utils/dateHelpers';
 
 interface CalendarPaginationProps {
   statisticsToggle: () => void;
 }
 
-const CalendarPagination = ({ statisticsToggle }: CalendarPaginationProps) => {
-  const dispatch = useDispatch();
-  const date: string = useSelector(selectDate);
+export function CalendarPagination({
+  statisticsToggle,
+}: CalendarPaginationProps) {
+  const dispatch = useAppDispatch();
+  const date: string = useAppSelector(selectDate);
   const monthName: string = dateHelpers.getMonthName(date);
   const chosenDate = new Date(date);
   const chosenYear = chosenDate.getFullYear();
@@ -23,7 +24,7 @@ const CalendarPagination = ({ statisticsToggle }: CalendarPaginationProps) => {
 
   return (
     <div className="flex items-center gap-4 md:gap-5">
-      <div className="flex items-center gap-4 md:gap-5">
+      <div className="flex items-center gap-1 md:gap-2">
         <button
           type="button"
           className="text-darkGrey"
@@ -38,7 +39,7 @@ const CalendarPagination = ({ statisticsToggle }: CalendarPaginationProps) => {
             w={18}
           />
         </button>
-        <p className="text-base font-bold md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
+        <p className="w-[123px] text-center text-base font-bold md:w-[138px] md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
         <button
           disabled={isFutureMonth}
           type="button"
@@ -69,6 +70,6 @@ const CalendarPagination = ({ statisticsToggle }: CalendarPaginationProps) => {
       </button>
     </div>
   );
-};
+}
 
 export default CalendarPagination;

@@ -1,17 +1,15 @@
 import { DayData, WaterMonthData } from 'types/WaterTypes';
 
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 import { selectDate } from '@/redux/date/selectors';
+import { useAppSelector } from '@/redux/hooks';
 import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 import { dateHelpers } from '@/utils/dateHelpers';
 
 import CalendarItem from './CalendarItem';
 
-const Calendar = () => {
-  const date: string = useSelector(selectDate);
-  const waterDataApi: WaterMonthData[] = useSelector(selectMonthWater);
+export function Calendar() {
+  const date: string = useAppSelector(selectDate);
+  const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
 
   const daysArray = Array.from(
     { length: dateHelpers.getMonthDays(date) },
@@ -49,6 +47,6 @@ const Calendar = () => {
       })}
     </ul>
   );
-};
+}
 
 export default Calendar;
