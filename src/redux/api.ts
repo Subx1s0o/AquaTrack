@@ -19,14 +19,24 @@ export const publicInstance = axios.create({
 });
 
 export const fetchRefreshToken = async (): Promise<void> => {
-  return await axios.post(`${BASE_URL}/auth/refresh`);
+  const refreshToken = Cookie.get('refreshToken');
+  const sessionId = Cookie.get('sessionId');
+  if (!refreshToken || !sessionId) {
+    clearUserData();
+    return;
+  }
+
+  return await axios.post(`${BASE_URL}/auth/refresh`, {
+    refreshToken,
+    sessionId,
+  });
 };
 
 const clearUserData = (): void => {
   Cookie.remove('accessToken');
   Cookie.remove('refreshToken');
   Cookie.remove('sessionId');
-  window.location.href = '/login';
+  window.location.href = '/signin';
 };
 
 privateInstance.interceptors.request.use(

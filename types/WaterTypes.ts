@@ -2,7 +2,7 @@ export interface WaterMonthState {
   water: {
     items: WaterMonthData[];
     loading: boolean;
-    error: null | any;
+    error: null | string;
   };
 }
 
@@ -17,7 +17,7 @@ export interface WaterDayState {
   water: {
     items: WaterDayData[];
     loading: boolean;
-    error: null | any;
+    error: null | string;
   };
 }
 

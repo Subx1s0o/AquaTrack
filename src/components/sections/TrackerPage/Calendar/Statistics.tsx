@@ -12,13 +12,15 @@ import { selectDate } from '@/redux/date/selectors';
 import { useAppSelector } from '@/redux/hooks';
 import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 
+import CustomTooltip from './CustomTooltip';
+
 interface DataByDay {
   [key: string]: number;
 }
 //request from Api
 const waterDailyNorma = 1500;
 
-export function Statistics() {
+export default function Statistics() {
   const date: string = useAppSelector(selectDate);
   const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
 
@@ -118,25 +120,3 @@ export function Statistics() {
     </div>
   );
 }
-
-export default Statistics;
-
-const CustomTooltip = ({ active, payload }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div
-        className="relative flex h-[32px] w-[53px] items-center justify-center rounded-[13px] bg-white shadow-md md:h-[40px] md:w-[80px]"
-        style={{
-          transform: 'translateY(-190%)',
-          marginLeft: '-46px',
-        }}
-      >
-        <div className="absolute -bottom-1.5 left-1/2 size-[12px] -translate-x-1/2 rotate-45 bg-white"></div>
-        <p className="md: text-center font-poppins text-xs font-bold md:text-sm md:leading-[22.4px]">
-          {`${payload[0].value * 1000} ml`}
-        </p>
-      </div>
-    );
-  }
-  return null;
-};
