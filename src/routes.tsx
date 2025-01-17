@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
 import SharedLayout from './SharedLayout';
+import ToastTest from './components/ToastTest';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
 import HomePage from './pages/HomePage';
@@ -14,6 +15,7 @@ const routes: RouteObject[] = [
     element: <SharedLayout />,
     children: [
       { path: '/', element: <HomePage /> },
+      { path: '/test-toasts', element: <ToastTest /> },
       {
         path: '/signin',
         element: (

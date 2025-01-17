@@ -5,10 +5,12 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './index.css';
 import { persistor, store } from './redux/store';
 import routes from './routes';
+import './toastify.css';
 
 const router = createBrowserRouter(routes);
 
