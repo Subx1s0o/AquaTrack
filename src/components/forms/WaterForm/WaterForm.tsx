@@ -18,7 +18,12 @@ type WaterFormProps = {
   onClose: () => void;
 };
 
-function WaterForm({ amount, time, type, onClose }: WaterFormProps) {
+export default function WaterForm({
+  amount,
+  time,
+  type,
+  onClose,
+}: WaterFormProps) {
   const {
     waterAmount,
     handleIncrease,
@@ -116,5 +121,3 @@ function WaterForm({ amount, time, type, onClose }: WaterFormProps) {
     </div>
   );
 }
-
-export default WaterForm;
