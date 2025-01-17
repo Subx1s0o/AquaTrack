@@ -10,7 +10,6 @@ import SharedLayout from './SharedLayout';
 import './index.css';
 import { persistor, store } from './redux/store';
 import routes from './routes';
-import UserPanel from './components/user/userPanel';
 
 const router = createBrowserRouter(routes);
 
@@ -25,7 +24,6 @@ createRoot(document.getElementById('root')!).render(
           <ToastContainer />
         </div>
       </PersistGate>
-      <UserPanel/>
     </Provider>
   </StrictMode>,
 );
