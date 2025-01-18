@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 
+import { selectUser } from '@/redux/auth/selectors';
+import { useAppSelector } from '@/redux/hooks';
+import { selectDayWater } from '@/redux/waterDayInfo/selectors';
+
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
 import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 export default function WaterMainInfo() {
-  const dailyNorma: number = 1500; // Значення з Redux
-  const currentWater: number = 750; //Значення з Redux
+  const dailyNorma = useAppSelector(selectUser)?.dailyNorm;
+  const currentWater = useAppSelector(selectDayWater);
+  console.log(currentWater);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleOpenModal: () => void = () => {
@@ -26,15 +31,15 @@ export default function WaterMainInfo() {
       {/* <Logo/> */}
       <picture>
         <source
-          srcSet="/public/images/Bottle/bottle-desktop.avif, /public/images/Bottle/bottle-desktop@2x.avif 2x"
+          srcSet="/images/Bottle/bottle-desktop.avif, /images/Bottle/bottle-desktop@2x.avif 2x"
           media="(min-width: 1440px)"
         />
         <source
-          srcSet="/public/images/Bottle/bottle-tablet.avif, /public/images/Bottle/bottle-tablet@2x.avif 2x "
+          srcSet="/images/Bottle/bottle-tablet.avif, /images/Bottle/bottle-tablet@2x.avif 2x "
           media="(min-width: 768px)"
         />
         <source
-          srcSet="/public/images/Bottle/bottle-mobile.avif, /public/images/Bottle/bottle-mobile@2x.avif 2x"
+          srcSet="/images/Bottle/bottle-mobile.avif, /images/Bottle/bottle-mobile@2x.avif 2x"
           media="(max-width: 767px)"
         />
         <img
@@ -47,8 +52,15 @@ export default function WaterMainInfo() {
           height="604"
         />
       </picture>
-      <WaterDailyNorma dailyNorma={dailyNorma} />
-      <WaterProgressBar dailyNorma={dailyNorma} currentWater={currentWater} />
+      {dailyNorma && (
+        <>
+          <WaterDailyNorma dailyNorma={dailyNorma} />
+          <WaterProgressBar
+            dailyNorma={dailyNorma}
+            currentWater={currentWater}
+          />
+        </>
+      )}
       <AddWaterBtn onClick={handleOpenModal} />
       {/* {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

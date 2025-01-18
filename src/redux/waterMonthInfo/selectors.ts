@@ -1,8 +1,7 @@
 import { RootState } from '../store';
 
-export const selectMonthWater = (state: RootState) =>
-  state.waterMonth.water.items;
+export const selectMonthWater = (state: RootState) => state.waterMonth.records;
 export const selectMonthLoading = (state: RootState) =>
-  state.waterMonth.water.loading;
-export const selectMonthError = (state: RootState) =>
-  state.waterMonth.water.error;
+  state.waterMonth.loading;
+
+export const selectMonthError = (state: RootState) => state.waterMonth.error;

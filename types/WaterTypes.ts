@@ -1,32 +1,8 @@
-export interface WaterMonthState {
-  water: {
-    items: WaterMonthData[];
-    loading: boolean;
-    error: string | null | undefined;
-  };
-}
-
-export interface WaterMonthData {
-  // _id: string;
+export interface WaterData {
+  _id: string;
   totalPercentage: number;
   date: string;
   amount: number;
-}
-
-export interface WaterDayState {
-  water: {
-    items: WaterDayData[];
-    loading: boolean;
-    error: string | null | undefined;
-  };
-}
-
-export interface WaterDayData {
-  _id: string;
-  amount: number;
-  date: string;
-  time: string;
-  dailyNorm: number;
 }
 
 export interface DayData {
@@ -38,4 +14,16 @@ export interface DayData {
 export interface StatisticData {
   day: number;
   litr: number;
+}
+
+export interface WaterState {
+  records: WaterData[];
+  totalPercentage: number;
+  loading: boolean;
+  error: string | null | undefined;
+}
+
+export interface ApiResponseWater {
+  records: WaterData[];
+  totalPercentage: number;
 }
