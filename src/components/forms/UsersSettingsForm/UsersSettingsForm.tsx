@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import * as React from 'react';
-import { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
+import AvatarUpload from './SettingsComponents/AvatarUpload';
+import WaterNormDescription from './SettingsComponents/WaterNormDescription';
 import validationSettingSchema, {
   SettingsFormValues,
 } from './validationSchemaUsersSettings';
@@ -16,8 +16,6 @@ interface UsersSettingsFormProps {
 }
 
 const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-
   const {
     control,
     handleSubmit,
@@ -27,83 +25,52 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
     resolver: yupResolver(validationSettingSchema),
   });
 
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setValue('avatar', file);
-      setAvatarPreview(URL.createObjectURL(file));
-    }
-  };
+  const height = window.innerHeight;
+  const maxHeight = height * 0.8;
 
-  const onSubmit: SubmitHandler<SettingsFormValues> = (
-    data: SettingsFormValues,
-  ) => {
+  const onSubmit: SubmitHandler<SettingsFormValues> = data => {
     console.log(data);
     onClose?.();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="p-2.5 sm:p-5 md:p-10">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="mx-auto w-full max-w-4xl lg:max-w-6xl"
+    >
+      <div
+        className="mt-40 flex min-h-screen flex-col justify-between overflow-y-auto p-2.5 sm:p-5 md:p-10"
+        style={{ maxHeight: maxHeight }}
+      >
         <h2 className="font-poppins text-xl font-bold md:text-3xl">Setting</h2>
-        <div className="mb-10 flex flex-col items-center justify-center gap-4 p-4">
-          {avatarPreview ? (
-            <img
-              className="size-[75px] rounded-full md:size-[100px]"
-              src={avatarPreview}
-              alt="Avatar"
-            />
-          ) : (
-            <div className="flex size-[75px] items-center justify-center rounded-full bg-gray-300 text-xl text-white md:size-[100px]">
-              N
-            </div>
-          )}
-          <div>
-            <button
-              className="flex items-center justify-center gap-2 border-0 bg-transparent"
-              type="button"
-              onClick={() => document.getElementById('avatarInput')?.click()}
-            >
-              <Icon
-                id="icon-upload"
-                w={20}
-                h={20}
-                className="fill-none stroke-black stroke-[4px] md:size-[20px]"
-              />
-              <span className="font-poppins text-base md:leading-normal">
-                Upload a photo
-              </span>
-            </button>
-            <input
-              type="file"
-              id="avatarInput"
-              onChange={handleAvatarChange}
-              style={{ display: 'none' }}
-            />
-          </div>
-        </div>
+
+        <AvatarUpload setValue={setValue} />
 
         <div className="flex flex-col gap-6">
-          <div className="mb-6">
+          <div>
             <p className="mb-[14px] font-poppins text-md font-bold leading-tight text-darkGrey md:text-lg md:leading-normal">
               Your gender identity
             </p>
-            <div className="flex size-5 gap-3">
-              <Input
-                control={control}
-                name="gender"
-                type="radio"
-                value="woman"
-                className="size-5 rounded-full border-green text-green"
-              />
+            <div className="flex items-center gap-3">
+              <label className="flex items-center gap-2 rounded-full border border-green p-1">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="woman"
+                  className="peer hidden"
+                />
+                <span className="rounded-full p-2 peer-checked:bg-green"></span>
+              </label>
               <span className="text-black">Woman</span>
-              <Input
-                control={control}
-                name="gender"
-                type="radio"
-                value="man"
-                className="size-5 rounded-full border-green text-green"
-              />
+              <label className="flex items-center gap-2 rounded-full border border-green p-1">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="man"
+                  className="peer hidden"
+                />
+                <span className="rounded-full p-2 peer-checked:bg-green"></span>
+              </label>
               <span className="text-black">Man</span>
             </div>
           </div>
@@ -128,21 +95,8 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                 <p className="font-poppins text-md font-bold leading-tight text-darkGrey md:text-lg md:leading-normal">
                   My daily norma
                 </p>
-                <div className="gap-10 md:flex">
-                  <div className="mb-2 flex flex-col gap-2">
-                    <p className="mb-1">For woman:</p>
-                    <p className="font-bold text-green">
-                      V = (M * 0.03) + (T * 0.4)
-                    </p>
-                  </div>
 
-                  <div className="flex flex-col gap-2">
-                    <p className="mb-1">For man:</p>
-                    <p className="font-bold text-green">
-                      V = (M * 0.04) + (T * 0.6)
-                    </p>
-                  </div>
-                </div>
+                <WaterNormDescription />
 
                 <p className="rounded-[15px] border border-solid border-grey-selector p-4 text-sm text-darkGrey">
                   <span className="font-bold text-green">*</span> V is the
@@ -159,13 +113,19 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 lg:w-1/2">
-              <p>Your weight in kilograms:</p>
-              <Input name="weight" control={control} type="number" />
-
-              <p>The time of active participation in sports:</p>
-              <Input name="activityTime" control={control} type="number" />
-
+            <div className="flex flex-col gap-2 lg:w-1/2">
+              <div className="mb-4">
+                <p className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
+                  Your weight in kilograms:
+                </p>
+                <Input name="weight" control={control} type="number" />
+              </div>
+              <div className="lg:mb-6">
+                <p className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
+                  The time of active participation in sports:
+                </p>
+                <Input name="activityTime" control={control} type="number" />
+              </div>
               <div className="flex flex-col items-start justify-start gap-3.5">
                 <p className="font-poppins text-ms font-normal leading-[1.29] text-black md:leading-6">
                   The required amount of water in liters per day:
@@ -190,9 +150,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
           <button
             disabled={isSubmitting}
             type="submit"
-            className={
-              'mt-6 rounded-[30px] bg-green px-10 py-[14px] font-bold outline-none transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:px-10 md:py-[18px] md:text-md'
-            }
+            className="mt-6 rounded-[30px] bg-green px-10 py-[14px] font-bold outline-none transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:px-10 md:py-[18px] md:text-md"
           >
             Save
           </button>
