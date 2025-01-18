@@ -1,10 +1,8 @@
-import React from 'react';
-
 interface ChooseDateProps {
   date: string;
 }
 
-export const ChooseDate: React.FC<ChooseDateProps> = ({ date }) => {
+export default function ChooseDate({ date }: ChooseDateProps) {
   const currentDate = new Date();
   const selectedDate = new Date(date);
 
@@ -34,4 +32,4 @@ export const ChooseDate: React.FC<ChooseDateProps> = ({ date }) => {
       {isToday ? 'Today' : formattedDate}
     </h2>
   );
-};
+}

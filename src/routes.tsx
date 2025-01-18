@@ -41,14 +41,10 @@ const routes: RouteObject[] = [
       },
     ],
   },
-  {
-    path: '/dailyinfo',
-    element: (
-      <PublicRoute>
-        <DailyInfo />
-      </PublicRoute>
-    ),
-  },
+  // {
+  //   path: '/dailyinfo',
+  //   element: <DailyInfo />,
+  // },
   {
     path: '*',
     element: <NotFoundPage />,

@@ -1,10 +1,10 @@
-import React from 'react';
-
 import Icon from '@/components/ui/Icon';
 
-export const WaterItem: React.FC<{
+interface WaterItemProps {
   entry: { id: number; volume: number; time: string };
-}> = ({ entry }) => {
+}
+
+export default function WaterItem({ entry }: WaterItemProps) {
   return (
     <li className="flex h-[74px] w-[149px] flex-row items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:h-[86px] md:w-48 md:items-start md:gap-5 md:p-5">
       <div className="flex items-center justify-center">
@@ -33,4 +33,4 @@ export const WaterItem: React.FC<{
       </div>
     </li>
   );
-};
+}
