@@ -12,10 +12,11 @@ export const DeleteWaterModal = ({ onClose, waterId }: DeleteWaterModalProps) =>
 	
 	const handleDelete = async () => {
 		try {
-			await dispatch(deleteWaterData(waterId).unwrap());
-			onClose();
+			await dispatch(deleteWaterData(waterId));
 		} catch (error) {
 			toast.error(`${error}. Please try again.`);
+		} finally {
+			onClose();
 		}
 	};
 
