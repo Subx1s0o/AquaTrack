@@ -4,6 +4,7 @@ import SharedLayout from './SharedLayout';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
 import { MonthInfo } from './components/sections/TrackerPage/Calendar/MonthInfo';
+import DailyInfo from './components/sections/TrackerPage/WaterDetailedInfo/DailyInfo';
 import WaterMainInfo from './components/sections/TrackerPage/WaterMainInfo/WaterMainInfo';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -38,6 +39,7 @@ const routes: RouteObject[] = [
           <PrivateRoute redirectTo="/signin">
             <WaterMainInfo />
             <div>
+              <DailyInfo />
               <MonthInfo />
             </div>
           </PrivateRoute>
@@ -45,6 +47,7 @@ const routes: RouteObject[] = [
       },
     ],
   },
+
   {
     path: '*',
     element: <NotFoundPage />,

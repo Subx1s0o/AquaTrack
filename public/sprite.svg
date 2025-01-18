@@ -38,7 +38,7 @@
       <path fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.88" d="M28 20v5.333A2.668 2.668 0 0 1 25.333 28H6.666a2.668 2.668 0 0 1-2.667-2.667V20M22.666 10.667 15.999 4l-6.667 6.667M16 4v16"/>
     </symbol>
     <symbol id="icon-plus" viewBox="0 0 32 32">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M16 6.667v18.667M6.667 16h18.667"/>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.667" d="M16 6.667v18.667M6.667 16h18.667"/>
     </symbol>
     <symbol id="icon-minus" viewBox="0 0 18 2">
       <path d="M1.85693 1H16.1426" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
