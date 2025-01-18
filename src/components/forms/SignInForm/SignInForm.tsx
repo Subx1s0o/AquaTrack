@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
+import { login } from '@/redux/auth/operations';
 import { useAppDispatch } from '@/redux/hooks';
-import { login } from '@/redux/store/operations';
 
 import validationSchemaSignIn from './validationSchemaSignIn';
 import { SignInFormValues } from './validationSchemaSignIn';
@@ -57,6 +57,7 @@ export default function SignInForm() {
           className="text-black placeholder:text-base md:text-md md:placeholder:text-md"
           type={showPassword ? 'text' : 'password'}
         />
+
         <button
           type="button"
           disabled={isSubmitting}
@@ -74,10 +75,16 @@ export default function SignInForm() {
 
       <button
         type="submit"
-        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
+        className="hover:bg-green-selector focus-visible:bg-green-selector active:text-grey-selector h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors active:bg-grey md:h-[60px] md:text-md"
       >
         Sign In
       </button>
+
+      <p className="mt-3 text-center">
+        <a href="/forgot-password" className="text-darkGrey hover:underline">
+          Forgot your password?
+        </a>
+      </p>
     </form>
   );
 }
