@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from "react";
+import Icon from "../ui/Icon";
 
 interface UserBarPopoverProps {
   onClose: () => void;
 }
 
-const UserBarPopover: React.FC<UserBarPopoverProps> = ({ onClose }) => {
+function UserBarPopover({ onClose }: UserBarPopoverProps) {
   const popoverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,50 +24,35 @@ const UserBarPopover: React.FC<UserBarPopoverProps> = ({ onClose }) => {
   return (
     <div
       ref={popoverRef}
-      className="flex flex-col justify-center items-start gap-2 w-[137px] px-[20px] py-[14px] rounded-[15px] bg-white shadow-[0px_4px_50px_0px_rgba(0,0,0,0.10)]"
+      className="flex flex-col justify-center items-start gap-2 w-[137px] px-5 py-3.5 rounded-2xl bg-white shadow-[0px_4px_50px_0px_rgba(0,0,0,0.10)]"
     >
       <button
         className="flex items-center gap-2 
-       text-[#323F47] font-poppins text-[14px] font-bold leading-[18px] 
-       hover:text-[rgba(50,63,71,0.40)] 
-       md:text-[15px] md:leading-[22.4px] 
-       lg:text-[15px] lg:leading-[22.4px] 
-       md:hover:text-[rgba(50,63,71,0.40)] 
-       lg:hover:text-[rgba(50,63,71,0.40)]"
+        text-darkGrey font-poppins text-base font-bold 
+        hover:text-darkGrey/40 
+        md:text-ms"
         onClick={() => {
           alert("Settings clicked!");
           onClose();
         }}
       >
-        <svg
-          width="16px"
-          height="16px"
-        >
-          <use href="/sprite.svg#icon-settings"></use>
-        </svg> Setting
+        <Icon id="icon-settings" w={16} h={16} className="text-inherit" /> Settings
       </button>
+
       <button
         className="flex items-center gap-2 
-       text-[#323F47] font-poppins text-[14px] font-bold leading-[18px] 
-       hover:text-[rgba(50,63,71,0.40)] 
-       md:text-[15px] md:leading-[22.4px] 
-       lg:text-[15px] lg:leading-[22.4px] 
-       md:hover:text-[rgba(50,63,71,0.40)] 
-       lg:hover:text-[rgba(50,63,71,0.40)]"
+        text-darkGrey font-poppins text-base font-bold 
+        hover:text-darkGrey/40 
+        md:text-ms"
         onClick={() => {
           alert("Log out clicked!");
-          onClose(); 
+          onClose();
         }}
       >
-        <svg
-          width="16px"
-          height="16px"
-        >
-          <use href="/sprite.svg#icon-log-out"></use>
-        </svg> Log out
+        <Icon id="icon-log-out" w={16} h={16} className="text-inherit" /> Log out
       </button>
     </div>
   );
-};
+}
 
 export default UserBarPopover;

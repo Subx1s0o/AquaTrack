@@ -1,31 +1,27 @@
 import React, { useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
+import { selectUser } from "@/redux/auth/selectors";
 import UserBarPopover from "./userBarPopover";
+import Icon from "../ui/Icon";
 
-interface User {
-  email: string;
-  name?: string;
-  avatarURL?: string;
-  dailyNorm: number;
-}
+function UserBar() {
+  const user = useAppSelector(selectUser); 
 
-const UserBar: React.FC = () => {
-  const user = useAppSelector((state) => state.store.user) as User | undefined;
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const [isRotated, setIsRotated] = useState(false);
 
   if (!user) {
     return (
       <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800">No user data</h1>
+        <h1 className="text-2xl font-bold text-gray-800">User data not available</h1>
       </div>
     );
   }
 
-  let displayName = user.name;
+  let displayName = user.name || "Guest";
 
   if (user.name === "User") {
-    displayName = user.email.split("@")[0];
+    displayName = user.email.split("@")[0]; 
   }
 
   const togglePopover = () => setPopoverOpen(!isPopoverOpen);
@@ -47,13 +43,12 @@ const UserBar: React.FC = () => {
           className="w-8 h-8 sm:w-11 sm:h-11 lg:w-11 lg:h-11 rounded-full"
         />
 
-        <svg
-          width="12px"
-          height="12px"
-          className={`transition-transform duration-300 ${isRotated ? "rotate-180" : ""}`}
-        >
-          <use href="/sprite.svg#icon-chevron-down"></use>
-        </svg>
+        <Icon
+          id="icon-chevron-down" 
+          w={12} 
+          h={12} 
+          className={`transition-transform duration-300 ${isRotated ? "rotate-180" : ""}`} 
+        />
       </button>
 
       {isPopoverOpen && (
@@ -66,6 +61,6 @@ const UserBar: React.FC = () => {
       )}
     </div>
   );
-};
+}
 
 export default UserBar;

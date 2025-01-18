@@ -1,16 +1,10 @@
 import React from 'react';
 import { useAppSelector } from '@/redux/hooks';
 import UserBar from './userBar';
+import { selectUser } from '@/redux/auth/selectors';
 
-interface User {
-  email: string;
-  name?: string;
-  avatarURL?: string;
-  dailyNorm: number;
-}
-
-const UserPanel: React.FC = () => {
-  const user = useAppSelector((state) => state.store.user) as User | undefined;
+function UserPanel() {
+  const user = useAppSelector(selectUser);
 
   if (!user) {
     return (
@@ -23,17 +17,19 @@ const UserPanel: React.FC = () => {
   let displayName = user.name;
 
   if (user.name === "User") {
-    displayName = user.email.split('@')[0];
+    displayName = user.email.split('@')[0]; 
   }
 
   return (
-    <div className="flex flex-col gap-[20px] md:flex-row md:justify-between lg:flex-row md:justify-between">
-      <h2 className="text-[#323F47] text-[32px] font-normal leading-[32px] tracking-[-0.32px] sm:text-[36px] sm:leading-[38px] sm:tracking-[-0.36px] lg:leading-[38px] lg:tracking-[-0.36px]">
+    <div className="flex flex-col items-center gap-[20px] md:flex-row md:justify-between lg:flex-row md:justify-between">
+      <h2 className="text-darkGrey text-2xl font-normal leading-8 tracking-tight 
+md:text-3xl md:leading-9 md:tracking-tighter 
+lg:leading-9 lg:tracking-tighter">
         Hello<span className="font-bold text-gray-700">, {displayName}!</span>
       </h2>
       <UserBar />
     </div>
   );
-};
+}
 
 export default UserPanel;
