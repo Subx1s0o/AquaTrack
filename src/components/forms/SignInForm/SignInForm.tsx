@@ -75,16 +75,17 @@ export default function SignInForm() {
 
       <button
         type="submit"
-        className="hover:bg-green-selector focus-visible:bg-green-selector active:text-grey-selector h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors active:bg-grey md:h-[60px] md:text-md"
+        disabled={isSubmitting}
+        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
       >
         Sign In
       </button>
 
-      <p className="mt-3 text-center">
+      {/* <p className="mt-3 text-center">
         <a href="/forgot-password" className="text-darkGrey hover:underline">
           Forgot your password?
         </a>
-      </p>
+      </p> */}
     </form>
   );
 }

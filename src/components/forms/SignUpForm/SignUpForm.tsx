@@ -98,7 +98,7 @@ export default function SignUpForm() {
       <button
         disabled={isSubmitting}
         type="submit"
-        className="hover:bg-green-selector focus-visible:bg-green-selector active:text-grey-selector h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors active:bg-grey md:h-[60px] md:text-md"
+        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
       >
         Sign Up
       </button>
