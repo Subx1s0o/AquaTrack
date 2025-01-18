@@ -1,21 +1,21 @@
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/hooks";
+import { deleteWaterData } from "@/redux/waterDayInfo/operations";
 
 interface DeleteWaterModalProps {
 	onClose: () => void;
+	waterId: string;
 }
 
-export const DeleteWaterModal = ({ onClose }: DeleteWaterModalProps) => {
+export const DeleteWaterModal = ({ onClose, waterId }: DeleteWaterModalProps) => {
+	const dispatch = useAppDispatch();
+	
 	const handleDelete = async () => {
 		try {
-			// Тут виклик функції видалення, наприклад:
-			// await dispatch(deleteWater());
-
-			toast.success("Entry deleted successfully!");
-
+			await dispatch(deleteWaterData(waterId).unwrap());
 			onClose();
 		} catch (error) {
-			toast.error("Failed to delete the entry. Please try again.");
-			console.error(error);
+			toast.error(`${error}. Please try again.`);
 		}
 	};
 
