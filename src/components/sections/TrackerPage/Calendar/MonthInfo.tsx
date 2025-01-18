@@ -23,7 +23,7 @@ export function MonthInfo() {
     setStatisticsIsOpen(!statisticsIsOpen);
   };
   return (
-    <div className="mx-auto flex w-[303px] flex-col gap-[26px] bg-grey font-poppins md:w-[640px] md:gap-[24px] lg:w-[608px]">
+    <div className="flex w-full flex-col gap-[26px] bg-grey font-poppins md:gap-[24px]">
       {!statisticsIsOpen ? (
         <>
           <div className="flex items-center justify-between">

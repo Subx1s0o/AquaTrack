@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
-import { selectDayWater } from '@/redux/waterDayInfo/selectors';
+import { selectDayTotalPercentage } from '@/redux/waterDayInfo/selectors';
 
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
@@ -10,7 +10,7 @@ import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 export default function WaterMainInfo() {
   const dailyNorma = useAppSelector(selectUser)?.dailyNorm;
-  const currentWater = useAppSelector(selectDayWater);
+  const currentWater = useAppSelector(selectDayTotalPercentage);
   console.log(currentWater);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 

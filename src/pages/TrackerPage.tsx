@@ -1,4 +1,5 @@
-import MonthInfo from '@/components/sections/TrackerPage/Calendar/MonthInfo';
+import Calendar from '@/components/sections/TrackerPage/Calendar/Calendar';
+import { MonthInfo } from '@/components/sections/TrackerPage/Calendar/MonthInfo';
 import DailyInfo from '@/components/sections/TrackerPage/WaterDetailedInfo/DailyInfo';
 import WaterMainInfo from '@/components/sections/TrackerPage/WaterMainInfo/WaterMainInfo';
 import UserPanel from '@/components/user/userPanel';
@@ -8,9 +9,9 @@ export default function TrackerPage() {
     <>
       <WaterMainInfo />
       <div className="">
-        {/* <UserPanel />
-        <DailyInfo />
-        <MonthInfo /> */}
+        {/* <UserPanel /> */}
+        {/* <DailyInfo /> */}
+        <MonthInfo />
       </div>
     </>
   );

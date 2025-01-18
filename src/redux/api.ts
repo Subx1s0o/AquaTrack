@@ -6,6 +6,9 @@ import axios, {
 } from 'axios';
 import Cookie from 'js-cookie';
 
+import { logout } from './auth/operations';
+import { store } from './store';
+
 const BASE_URL = 'https://node-goit-project.onrender.com';
 // const BASE_URL = 'http://localhost:4000';
 export const privateInstance = axios.create({
@@ -36,6 +39,7 @@ const clearUserData = (): void => {
   Cookie.remove('accessToken');
   Cookie.remove('refreshToken');
   Cookie.remove('sessionId');
+  store.dispatch(logout());
   window.location.href = '/signin';
 };
 

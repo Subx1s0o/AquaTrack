@@ -1,19 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { ApiResponseWater } from 'types/WaterTypes';
+import { ApiResponseWaterMonth } from 'types/WaterResponse';
+import { WaterMonthData } from 'types/WaterTypes';
 
 import { privateInstance } from '../api';
 
 export const fetchMonthData = createAsyncThunk<
-  ApiResponseWater,
+  WaterMonthData[],
   string,
   { rejectValue: string }
 >('water/:YYYY-MM"', async (dateRequested, thunkAPI) => {
   try {
-    const { data } = await privateInstance.get<ApiResponseWater>(
+    const { data } = await privateInstance.get<ApiResponseWaterMonth>(
       `/water/month/${dateRequested}`,
     );
-    return data;
+    return data.records;
   } catch (e) {
     if (e instanceof AxiosError && e.response?.data?.message) {
       return thunkAPI.rejectWithValue(e.response.data.message);

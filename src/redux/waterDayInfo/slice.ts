@@ -1,28 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ApiResponseWaterDay } from 'types/WaterResponse';
+import { WaterDayData, WaterDayState } from 'types/WaterTypes';
 
-import { ApiResponseWater, WaterData, WaterState } from '@/types';
+import {
+  addWaterData,
+  deleteWaterData,
+  fetchDayData,
+  updateWaterData,
+} from './operations';
 
-import { addWaterData, deleteWaterData, fetchDayData } from './operations';
-
-const initialState: WaterState = {
-  records: [],
-  totalPercentage: 0,
-  loading: false,
-  error: null,
+const initialState: WaterDayState = {
+  water: {
+    items: [],
+    loading: false,
+    error: null,
+    totalPercentage: 0,
+  },
 };
 
-const handlePending = (state: WaterState) => {
-  state.loading = true;
+const handlePending = (state: WaterDayState) => {
+  state.water.loading = true;
 };
 
 const handleRejected = (
-  state: WaterState,
+  state: WaterDayState,
   action: PayloadAction<string | undefined>,
 ) => {
-  state.loading = false;
-  state.error = action.payload;
-  state.records = [];
-  state.totalPercentage = 0;
+  state.water.loading = false;
+  state.water.error = action.payload;
+  state.water.items = [];
 };
 
 const slice = createSlice({
@@ -34,50 +41,50 @@ const slice = createSlice({
       .addCase(fetchDayData.pending, handlePending)
       .addCase(
         fetchDayData.fulfilled,
-        (state: WaterState, action: PayloadAction<ApiResponseWater>) => {
-          state.loading = false;
-          state.error = null;
-          state.records = action.payload.records;
-          state.totalPercentage = action.payload.totalPercentage;
+        (state: WaterDayState, action: PayloadAction<ApiResponseWaterDay>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items = action.payload.records;
+          state.water.totalPercentage = action.payload.totalPercentage;
         },
       )
       .addCase(fetchDayData.rejected, handleRejected)
       .addCase(addWaterData.pending, handlePending)
       .addCase(
         addWaterData.fulfilled,
-        (state: WaterState, action: PayloadAction<WaterData>) => {
-          state.loading = false;
-          state.error = null;
-          state.records.push(action.payload);
+        (state: WaterDayState, action: PayloadAction<WaterDayData>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items.push(action.payload);
         },
       )
       .addCase(addWaterData.rejected, handleRejected)
       .addCase(deleteWaterData.pending, handlePending)
       .addCase(
         deleteWaterData.fulfilled,
-        (state: WaterState, action: PayloadAction<WaterData>) => {
-          state.loading = false;
-          state.error = null;
-          state.records = state.records.filter(
-            item => item._id !== action.payload._id,
+        (state: WaterDayState, action: PayloadAction<any>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items = state.water.items.filter(
+            item => item._id !== action.payload.id,
           );
         },
       )
-      .addCase(deleteWaterData.rejected, handleRejected);
-    // .addCase(updateWaterData.pending, handlePending)
-    // .addCase(
-    //   updateWaterData.fulfilled,
-    //   (state: WaterState, action: PayloadAction<WaterData>) => {
-    //     state.loading = false;
-    //     state.error = null;
-    //     const updatedWater = action.payload;
-    //     const waterIndex = state.records.findIndex(
-    //       item => item._id === updatedWater._id,
-    //     );
-    //     state.records[waterIndex] = updatedWater;
-    //   },
-    // )
-    // .addCase(updateWaterData.rejected, handleRejected);
+      .addCase(deleteWaterData.rejected, handleRejected)
+      .addCase(updateWaterData.pending, handlePending)
+      .addCase(
+        updateWaterData.fulfilled,
+        (state: WaterDayState, action: PayloadAction<any>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          const updatedWater = action.payload;
+          const waterIndex = state.water.items.findIndex(
+            item => item._id === updatedWater._id,
+          );
+          state.water.items[waterIndex] = updatedWater;
+        },
+      )
+      .addCase(updateWaterData.rejected, handleRejected);
   },
 });
 

@@ -1,28 +1,27 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { WaterState } from 'types/WaterTypes';
-
-import { ApiResponseWater } from '@/types';
+import { WaterMonthData, WaterMonthState } from 'types/WaterTypes';
 
 import { fetchMonthData } from './operations';
 
-const handlePending = (state: WaterState) => {
-  state.loading = true;
+const handlePending = (state: WaterMonthState) => {
+  state.water.loading = true;
 };
 
 const handleRejected = (
-  state: WaterState,
+  state: WaterMonthState,
   action: PayloadAction<string | undefined>,
 ) => {
-  state.loading = false;
-  state.error = action.payload;
-  state.records = [];
+  state.water.loading = false;
+  state.water.error = action.payload;
+  state.water.items = [];
 };
 
-const initialState: WaterState = {
-  records: [],
-  totalPercentage: 0,
-  loading: false,
-  error: null,
+const initialState: WaterMonthState = {
+  water: {
+    items: [],
+    loading: false,
+    error: null,
+  },
 };
 
 const slice = createSlice({
@@ -34,11 +33,10 @@ const slice = createSlice({
       .addCase(fetchMonthData.pending, handlePending)
       .addCase(
         fetchMonthData.fulfilled,
-        (state: WaterState, action: PayloadAction<ApiResponseWater>) => {
-          state.loading = false;
-          state.error = null;
-          state.records = action.payload.records;
-          state.totalPercentage = action.payload.totalPercentage;
+        (state: WaterMonthState, action: PayloadAction<WaterMonthData[]>) => {
+          state.water.loading = false;
+          state.water.error = null;
+          state.water.items = action.payload;
         },
       )
       .addCase(fetchMonthData.rejected, handleRejected);

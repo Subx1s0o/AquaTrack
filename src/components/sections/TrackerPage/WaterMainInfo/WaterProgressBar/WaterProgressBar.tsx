@@ -4,12 +4,9 @@ interface WaterProgressBarProps {
 }
 
 export default function WaterProgressBar({
-  dailyNorma = 1500,
-  currentWater = 0,
+  dailyNorma,
+  currentWater,
 }: WaterProgressBarProps) {
-  const progress =
-    dailyNorma > 0 ? Math.min((currentWater / dailyNorma) * 100, 100) : 0;
-
   return (
     <div
       className={
@@ -26,15 +23,15 @@ export default function WaterProgressBar({
       <div className={'relative h-[6px] w-full rounded-[9px] bg-grey md:h-2'}>
         <div
           className={
-            'h-full rounded-[9px] bg-green transition-[width] duration-300 ease-in-out'
+            'h-full rounded-[9px] bg-green transition-[width] duration-300'
           }
-          style={{ width: `${progress}%` }}
+          style={{ width: `${currentWater}%` }}
         ></div>
         <div
           className={
-            'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white'
+            'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white transition-[left] duration-300'
           }
-          style={{ left: `${progress}%` }}
+          style={{ left: `${currentWater}%` }}
         ></div>
       </div>
       <div
