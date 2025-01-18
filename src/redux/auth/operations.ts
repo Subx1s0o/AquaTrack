@@ -77,3 +77,18 @@ export const getUser = createAsyncThunk<User, void, { rejectValue: string }>(
     }
   },
 );
+export const updateUserInfo = createAsyncThunk<
+  User,
+  { name?: string; email?: string; avatarURL?: string; dailyNorm: number },
+  { rejectValue: string }
+>('auth/getUser', async (userInfo, { rejectWithValue }) => {
+  try {
+    const { data } = await privateInstance.patch<User>('/users', userInfo);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.message) {
+      return rejectWithValue(error.response.data.message);
+    }
+    return rejectWithValue('Failed to fetch user.');
+  }
+});

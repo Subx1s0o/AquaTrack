@@ -10,23 +10,33 @@ const BASE_URL = 'https://node-goit-project.onrender.com';
 // const BASE_URL = 'http://localhost:4000';
 export const privateInstance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 export const publicInstance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
+  // withCredentials: true,
 });
 
 export const fetchRefreshToken = async (): Promise<void> => {
-  return await axios.post(`${BASE_URL}/auth/refresh`);
+  const refreshToken = Cookie.get('refreshToken');
+  const sessionId = Cookie.get('sessionId');
+  if (!refreshToken || !sessionId) {
+    clearUserData();
+    return;
+  }
+
+  return await axios.post(`${BASE_URL}/auth/refresh`, {
+    refreshToken,
+    sessionId,
+  });
 };
 
 const clearUserData = (): void => {
   Cookie.remove('accessToken');
   Cookie.remove('refreshToken');
   Cookie.remove('sessionId');
-  window.location.href = '/login';
+  window.location.href = '/signin';
 };
 
 privateInstance.interceptors.request.use(

@@ -1,14 +1,12 @@
-import React from 'react';
-
 interface WaterProgressBarProps {
   dailyNorma: number;
   currentWater: number;
 }
 
-const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
+export default function WaterProgressBar({
   dailyNorma = 1500,
   currentWater = 0,
-}) => {
+}: WaterProgressBarProps) {
   const progress =
     dailyNorma > 0 ? Math.min((currentWater / dailyNorma) * 100, 100) : 0;
 
@@ -41,15 +39,13 @@ const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
       </div>
       <div
         className={
-          'mt-2 flex justify-between font-poppins text-xs text-black/60 md:mt-[6px] md:text-sm md:leading-[22px]'
+          'relative mt-2 flex justify-between font-poppins text-xs text-black/60 md:mt-[6px] md:text-sm md:leading-[22px]'
         }
       >
         <span>0%</span>
-        <span>50%</span>
+        <span className="absolute left-1/2 -translate-x-1/2">50%</span>
         {dailyNorma < currentWater ? <span>&#62;100%</span> : <span>100%</span>}
       </div>
     </div>
   );
-};
-
-export default WaterProgressBar;
+}

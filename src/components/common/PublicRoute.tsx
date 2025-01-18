@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
+import { selectIsAuthenticated } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
-import { selectIsAuthenticated } from '@/redux/store/selectors';
 
 type PublicRouteProps = {
   children: ReactNode;

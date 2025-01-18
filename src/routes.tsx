@@ -3,7 +3,9 @@ import { RouteObject } from 'react-router-dom';
 import SharedLayout from './SharedLayout';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
+import { MonthInfo } from './components/sections/TrackerPage/Calendar/MonthInfo';
 import DailyInfo from './components/sections/TrackerPage/WaterDetailedInfo/DailyInfo';
+import WaterMainInfo from './components/sections/TrackerPage/WaterMainInfo/WaterMainInfo';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignInPage from './pages/SignInPage';
@@ -35,7 +37,10 @@ const routes: RouteObject[] = [
         path: '/tracker',
         element: (
           <PrivateRoute redirectTo="/signin">
-            <div>tracker</div>
+            <WaterMainInfo />
+            <div>
+              <MonthInfo />
+            </div>
           </PrivateRoute>
         ),
       },
