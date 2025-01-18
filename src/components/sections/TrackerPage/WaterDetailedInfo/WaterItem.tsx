@@ -6,7 +6,7 @@ interface WaterItemProps {
 
 export default function WaterItem({ entry }: WaterItemProps) {
   return (
-    <li className="flex h-[74px] w-[149px] flex-row items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:h-[86px] md:w-48 md:items-start md:gap-5 md:p-5">
+    <li className="flex items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:items-start md:gap-5 md:p-5">
       <div className="flex items-center justify-center">
         <Icon
           id="icon-water-glass"

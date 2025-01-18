@@ -5,7 +5,7 @@
   display: flex;
   gap: 8px;
   padding-left: 0;
-  height: 106px;
+
 }
 .waterList::-webkit-scrollbar {
   width: 8px;
