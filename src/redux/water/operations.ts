@@ -15,7 +15,7 @@ export const fetchTodayWater = createAsyncThunk<number, void>(
       const today = new Date().toISOString().split('T')[0];
 
       const response = await privateInstance.get(`/water/day/${today}`);
-      console.log(response.data);
+
       const data = await response.data;
       return data.totalPercentage;
     } catch (error) {

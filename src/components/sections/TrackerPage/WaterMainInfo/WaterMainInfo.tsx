@@ -31,7 +31,6 @@ export default function WaterMainInfo() {
     dispatch(fetchTodayWater());
   }, [todayPercentage, dispatch]);
 
-  console.log(todayPercentage, 'todayPercentage');
   return (
     <section
       className={

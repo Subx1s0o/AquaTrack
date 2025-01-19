@@ -57,7 +57,7 @@ export default function Statistics() {
   );
 
   return (
-    <div className="mt-[8px] flex h-[300px] items-end text-ms font-normal md:mt-[40px] md:h-[305px] md:w-[640px] lg:mt-[25px] lg:h-[305px] lg:w-[608px]">
+    <div className="flex h-[300px] items-end text-ms font-normal md:h-[305px] md:w-[640px] lg:h-[305px] lg:w-[608px]">
       <ResponsiveContainer width="100%" height="95%">
         <AreaChart
           data={reducedTransformedData}
@@ -94,8 +94,9 @@ export default function Statistics() {
             content={<CustomTooltip />}
             cursor={false}
             isAnimationActive={false}
-            allowEscapeViewBox={{ y: true, x: true }}
+            allowEscapeViewBox={{ x: true, y: true }}
           />
+
           <Area
             type="linear"
             dataKey="litr"
