@@ -25,7 +25,7 @@ export default function WaterMainInfo() {
   return (
     <section
       className={
-        'relative size-full min-h-[415px] rounded-[30px] bg-green md:min-h-[578px] md:w-[704px] lg:w-[672px]'
+        'relative min-h-[415px] rounded-[30px] bg-green md:min-h-[578px] md:w-[704px] lg:w-[672px]'
       }
     >
       {/* <Logo/> */}

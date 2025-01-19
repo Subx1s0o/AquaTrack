@@ -7,7 +7,7 @@ import Logo from '@/components/ui/Logo';
 export default function SignUpPage() {
   return (
     <>
-      <div className="relative flex w-full items-center justify-center rounded-[30px] bg-grey px-4">
+      <div className="relative flex min-h-[780px] w-full items-center justify-center rounded-[30px] bg-grey px-4 md:min-h-[960px] lg:min-h-[736px]">
         <Logo />
         <div className="w-full md:w-[436px]">
           <h2 className="mb-8 text-4xl font-bold text-darkGrey md:text-5xl">

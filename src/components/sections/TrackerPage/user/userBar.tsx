@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import Icon from '@/components/ui/Icon';
 
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
 
-import Icon from '../ui/Icon';
 import UserBarPopover from './userBarPopover';
 
 function UserBar() {
   const user = useAppSelector(selectUser);
 
   const [isPopoverOpen, setPopoverOpen] = useState(false);
-  const [isRotated, setIsRotated] = useState(false);
+  const popoverRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target as Node)
+      ) {
+        setPopoverOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
   if (!user) {
     return (
       <div className="rounded-lg bg-gray-100 p-4 shadow-md">
@@ -29,14 +45,13 @@ function UserBar() {
   }
 
   const togglePopover = () => setPopoverOpen(!isPopoverOpen);
-  const toggleRotation = () => setIsRotated(!isRotated);
 
   return (
     <div className="relative">
       <button
-        onClick={() => {
+        onClick={e => {
+          e.stopPropagation();
           togglePopover();
-          toggleRotation();
         }}
         className="inline-flex items-center gap-2 rounded-full bg-gray-800 px-3 py-2 text-center font-poppins text-[14px] font-bold leading-[18px] tracking-[-0.14px] text-white"
       >
@@ -44,24 +59,27 @@ function UserBar() {
         <img
           src={user.avatarURL || '/images/default-avatar.avif'}
           alt="avatar"
-          className="size-8 rounded-full sm:size-11 lg:size-11"
+          className="size-[38px] rounded-full md:size-11 lg:size-[48px]"
         />
 
         <Icon
           id="icon-chevron-down"
           w={12}
           h={12}
-          className={`transition-transform duration-300 ${isRotated ? 'rotate-180' : ''}`}
+          className={`transition-transform duration-300 ${
+            isPopoverOpen ? '' : 'rotate-180'
+          }`}
         />
       </button>
 
       {isPopoverOpen && (
-        <UserBarPopover
-          onClose={() => {
-            setPopoverOpen(false);
-            setIsRotated(false);
-          }}
-        />
+        <div ref={popoverRef}>
+          <UserBarPopover
+            onClose={() => {
+              setPopoverOpen(false);
+            }}
+          />
+        </div>
       )}
     </div>
   );

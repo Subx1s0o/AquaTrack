@@ -8,16 +8,11 @@ interface WaterItemProps {
 
 export default function WaterItem({ data }: WaterItemProps) {
   return (
-    <li className="flex w-[149px] items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:w-[192px] md:items-start md:gap-5 md:p-5">
-      <div className="flex items-center justify-center">
-        <Icon
-          id="icon-water-glass"
-          w={38}
-          h={38}
-          className="text-green md:h-[45px] md:w-11"
-        />
+    <li className="flex min-w-[149px] shrink-0 items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:min-w-[192px] md:items-start md:gap-5 md:p-5">
+      <div className="flex h-full items-center justify-center">
+        <Icon id="icon-water-glass" w={38} h={38} className="text-green" />
       </div>
-      <div className="flex w-[49px] flex-col items-start justify-center gap-1 md:h-[46px] md:w-[52px] md:gap-0">
+      <div className="flex min-w-[49px] flex-col items-start justify-center gap-1 md:h-[46px] md:min-w-[52px] md:gap-0">
         <p className="font-poppins text-base font-bold text-darkGrey md:text-ms">
           {data.amount} ml
         </p>

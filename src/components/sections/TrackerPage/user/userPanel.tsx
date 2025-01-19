@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
 
@@ -23,7 +21,7 @@ export default function UserPanel() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-[20px] md:flex-row md:justify-between lg:flex-row">
+    <div className="flex flex-col items-start gap-[20px] md:flex-row md:items-center md:justify-between">
       <h2 className="text-2xl font-normal leading-8 tracking-tight text-darkGrey md:text-3xl md:leading-9 md:tracking-tighter lg:leading-9 lg:tracking-tighter">
         Hello<span className="font-bold text-gray-700">, {displayName}!</span>
       </h2>

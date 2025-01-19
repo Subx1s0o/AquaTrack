@@ -25,13 +25,13 @@ export default function WaterProgressBar({
           className={
             'h-full rounded-[9px] bg-green transition-[width] duration-300'
           }
-          style={{ width: `${currentWater}%` }}
+          style={{ width: `${Math.min(currentWater, 100)}%` }}
         ></div>
         <div
           className={
             'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white transition-[left] duration-300'
           }
-          style={{ left: `${currentWater}%` }}
+          style={{ left: `${Math.min(currentWater, 100)}%` }}
         ></div>
       </div>
       <div
