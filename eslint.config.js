@@ -39,7 +39,7 @@ export default [
       react: {
         version: 'detect',
       },
-      tailwindcss: {"callees": ["cn"] }
+      tailwindcss: { callees: ['cn'] },
     },
     rules: {
       ...js.configs.recommended.rules,

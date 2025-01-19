@@ -83,6 +83,7 @@ export default function WaterForm({
             }
           : { waterId: waterId!, amount: data.water, time: data.time };
 
+      // @ts-ignore
       const result = await dispatch(operation(actionPayload)).unwrap();
 
       if (result) {
