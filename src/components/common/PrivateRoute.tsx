@@ -1,19 +1,38 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '@/redux/hooks';
-import { selectIsAuthenticated } from '@/redux/store/selectors';
+import Loader from '@/components/ui/Loader/Loader';
 
-type PrivateRouteProps = {
+import { getUser } from '@/redux/auth/operations';
+import { selectIsAuthenticated, selectIsLoading } from '@/redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
+interface PrivateRouteProps {
   children: ReactNode;
-  redirectTo?: string;
-};
+  redirectTo: string;
+}
 
 export default function PrivateRoute({
   children,
-  redirectTo = '/sign-in',
+  redirectTo,
 }: PrivateRouteProps) {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const loading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
 
-  return isAuthenticated ? children : <Navigate to={redirectTo} />;
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      dispatch(getUser());
+    }
+  }, [dispatch, isAuthenticated, loading]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  return isAuthenticated ? <>{children}</> : <Navigate to={redirectTo} />;
 }

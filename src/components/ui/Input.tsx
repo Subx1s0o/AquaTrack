@@ -8,12 +8,14 @@ type FormInputProps = ComponentProps<'input'> & {
   control: Control<any>;
   label?: string;
   name: string;
+  labelClassName?: string;
 };
 export default function Input({
   control,
   name,
   label,
   className,
+  labelClassName,
   ...inputProps
 }: FormInputProps) {
   const {
@@ -23,7 +25,11 @@ export default function Input({
   return (
     <div className="flex flex-col">
       {label && (
-        <label className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
+        <label
+          className={cn(
+            `mb-2 font-poppins text-base font-bold text-[#2f2f2f] ${labelClassName}`,
+          )}
+        >
           {label}
         </label>
       )}

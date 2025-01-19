@@ -1,21 +1,16 @@
-import React from 'react';
-
 interface WaterProgressBarProps {
   dailyNorma: number;
   currentWater: number;
 }
 
-const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
-  dailyNorma = 1500,
-  currentWater = 0,
-}) => {
-  const progress =
-    dailyNorma > 0 ? Math.min((currentWater / dailyNorma) * 100, 100) : 0;
-
+export default function WaterProgressBar({
+  dailyNorma,
+  currentWater,
+}: WaterProgressBarProps) {
   return (
     <div
       className={
-        'absolute bottom-[120px] left-1/2 z-20 h-[70px] w-[198px] -translate-x-1/2 rounded-[15px] bg-white p-3 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:p-5 lg:bottom-[180px]'
+        'absolute bottom-[118px] left-1/2 z-20 h-[70px] w-[198px] -translate-x-1/2 rounded-[15px] bg-white p-3 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:p-5 lg:bottom-[180px]'
       }
     >
       <h3
@@ -28,28 +23,26 @@ const WaterProgressBar: React.FC<WaterProgressBarProps> = ({
       <div className={'relative h-[6px] w-full rounded-[9px] bg-grey md:h-2'}>
         <div
           className={
-            'h-full rounded-[9px] bg-green transition-[width] duration-300 ease-in-out'
+            'h-full rounded-[9px] bg-green transition-[width] duration-300'
           }
-          style={{ width: `${progress}%` }}
+          style={{ width: `${Math.min(currentWater, 100)}%` }}
         ></div>
         <div
           className={
-            'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white'
+            'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white transition-[left] duration-300'
           }
-          style={{ left: `${progress}%` }}
+          style={{ left: `${Math.min(currentWater, 100)}%` }}
         ></div>
       </div>
       <div
         className={
-          'mt-2 flex justify-between font-poppins text-xs text-black/60 md:mt-[6px] md:text-sm md:leading-[22px]'
+          'relative mt-2 flex justify-between font-poppins text-xs text-black/60 md:mt-[6px] md:text-sm md:leading-[22px]'
         }
       >
         <span>0%</span>
-        <span>50%</span>
+        <span className="absolute left-1/2 -translate-x-1/2">50%</span>
         {dailyNorma < currentWater ? <span>&#62;100%</span> : <span>100%</span>}
       </div>
     </div>
   );
-};
-
-export default WaterProgressBar;
+}

@@ -6,35 +6,35 @@ import { User } from '@/types';
 
 import { getUser, login, logout, register } from './operations';
 
-interface StoreState {
+interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
 }
 
-const initialState: StoreState = {
+const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
   loading: false,
   error: null,
 };
 
-const setLoading = (state: StoreState) => {
+const setLoading = (state: AuthState) => {
   state.loading = true;
   state.error = null;
 };
 
 const setError = (
-  state: StoreState,
+  state: AuthState,
   action: PayloadAction<string | undefined>,
 ) => {
   state.loading = false;
   state.error = action.payload || 'An error occurred.';
 };
 
-const storeSlice = createSlice({
-  name: 'store',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     resetError(state) {
@@ -96,5 +96,5 @@ function removeCookies() {
   Cookies.remove('refreshToken');
   Cookies.remove('sessionId');
 }
-export const { resetError } = storeSlice.actions;
-export default storeSlice.reducer;
+export const { resetError } = authSlice.actions;
+export default authSlice.reducer;

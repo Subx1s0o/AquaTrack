@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+import Cookies from 'js-cookie';
 import { AuthResponse } from 'types/AuthResponse';
 
 import { User } from '@/types';
@@ -52,8 +53,9 @@ export const login = createAsyncThunk<
 export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {
+    const sessionId = Cookies.get('sessionId');
     try {
-      await privateInstance.post('/auth/logout');
+      await privateInstance.post('/auth/logout', { sessionId });
     } catch (error) {
       if (error instanceof AxiosError && error.response?.data?.message) {
         return rejectWithValue(error.response.data.message);
@@ -77,3 +79,18 @@ export const getUser = createAsyncThunk<User, void, { rejectValue: string }>(
     }
   },
 );
+export const updateUserInfo = createAsyncThunk<
+  User,
+  { name?: string; email?: string; avatarURL?: string; dailyNorm: number },
+  { rejectValue: string }
+>('auth/getUser', async (userInfo, { rejectWithValue }) => {
+  try {
+    const { data } = await privateInstance.patch<User>('/users', userInfo);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.message) {
+      return rejectWithValue(error.response.data.message);
+    }
+    return rejectWithValue('Failed to fetch user.');
+  }
+});
