@@ -7,7 +7,7 @@ import { dateHelpers } from '@/utils/dateHelpers';
 
 import CalendarItem from './CalendarItem';
 
-export function Calendar() {
+export default function Calendar() {
   const date: string = useAppSelector(selectDate);
   const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
 
@@ -33,7 +33,7 @@ export function Calendar() {
   };
 
   return (
-    <ul className="flex flex-wrap gap-x-[17.5px] gap-y-[20px] md:gap-x-[48px] md:gap-y-[15px] lg:gap-x-[43px] lg:gap-y-[42px]">
+    <ul className="grid grid-cols-[repeat(7,28px)] gap-x-[calc((100%-196px)/6)] gap-y-5 md:grid-cols-[repeat(8,calc((100%-301px)/8))] md:gap-x-[43px] md:gap-y-[15px]">
       {daysArray.map(day => {
         const dayData: DayData | undefined = findDayData(day);
         return (
@@ -48,5 +48,3 @@ export function Calendar() {
     </ul>
   );
 }
-
-export default Calendar;

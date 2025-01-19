@@ -1,6 +1,7 @@
 import { RouteObject } from 'react-router-dom';
 
-import SharedLayout from './SharedLayout';
+import SharedHomeLayout from './SharedHomeLayout';
+import SharedTrackerLayout from './SharedTrackerLayout';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
 import HomePage from './pages/HomePage';
@@ -12,7 +13,7 @@ import TrackerPage from './pages/TrackerPage';
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <SharedLayout />,
+    element: <SharedHomeLayout />,
     children: [
       { path: '/', element: <HomePage /> },
       {
@@ -31,17 +32,18 @@ const routes: RouteObject[] = [
           </PublicRoute>
         ),
       },
-      {
-        path: '/tracker',
-        element: (
-          <PrivateRoute redirectTo="/signin">
-            <TrackerPage />
-          </PrivateRoute>
-        ),
-      },
     ],
   },
-
+  {
+    path: '/tracker',
+    element: (
+      <PrivateRoute redirectTo="/signin">
+        <SharedTrackerLayout>
+          <TrackerPage />
+        </SharedTrackerLayout>
+      </PrivateRoute>
+    ),
+  },
   {
     path: '*',
     element: <NotFoundPage />,

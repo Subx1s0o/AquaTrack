@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <div className="mx-auto flex h-screen max-w-[375px] items-center p-4 font-poppins md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
+        <div className="mx-auto flex h-screen min-h-[812px] max-w-[375px] items-center p-4 font-poppins md:min-h-[1024px] md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
           <RouterProvider router={router} />
           <ToastContainer />
         </div>

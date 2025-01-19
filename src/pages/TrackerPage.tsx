@@ -8,7 +8,7 @@ export default function TrackerPage() {
   return (
     <>
       <WaterMainInfo />
-      <div className="">
+      <div className="rounded-[30px] bg-grey px-5 py-10 md:p-8">
         {/* <UserPanel /> */}
         {/* <DailyInfo /> */}
         <MonthInfo />

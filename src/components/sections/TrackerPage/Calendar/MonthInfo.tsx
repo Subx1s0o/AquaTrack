@@ -23,10 +23,10 @@ export function MonthInfo() {
     setStatisticsIsOpen(!statisticsIsOpen);
   };
   return (
-    <div className="flex w-full flex-col gap-[26px] bg-grey font-poppins md:gap-[24px]">
+    <div className="flex w-full flex-col gap-[26px] font-poppins md:gap-[24px]">
       {!statisticsIsOpen ? (
         <>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-5">
             <h3 className="text-xl font-bold md:text-3xl">Month</h3>
             <CalendarPagination statisticsToggle={statisticsToggle} />
           </div>
@@ -34,7 +34,7 @@ export function MonthInfo() {
         </>
       ) : (
         <>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-5">
             <h3 className="text-xl font-bold md:text-3xl">Statistics</h3>
             <CalendarPagination statisticsToggle={statisticsToggle} />
           </div>

@@ -39,7 +39,7 @@ export function CalendarPagination({
             w={18}
           />
         </button>
-        <p className="w-[123px] text-center text-base font-bold md:w-[138px] md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
+        <p className="w-[120px] text-center text-base font-bold md:w-[138px] md:text-md">{`${monthName}, ${date.slice(0, 4)}`}</p>
         <button
           disabled={isFutureMonth}
           type="button"

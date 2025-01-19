@@ -25,7 +25,7 @@ export default function WaterMainInfo() {
   return (
     <section
       className={
-        'relative h-[415px] w-full rounded-[30px] bg-green md:h-[578px] md:w-[704px] lg:h-[736px] lg:w-[672px]'
+        'relative size-full min-h-[415px] rounded-[30px] bg-green md:min-h-[578px] md:w-[704px] lg:w-[672px]'
       }
     >
       {/* <Logo/> */}
@@ -44,7 +44,7 @@ export default function WaterMainInfo() {
         />
         <img
           className={
-            'absolute left-1/2 top-[50px] z-10 h-[335px] w-[262px] -translate-x-1/2 md:top-[69px] md:h-[477px] md:w-[374px] lg:top-[92px] lg:h-[604px] lg:w-[472px]'
+            'absolute left-1/2 top-1/2 z-10 h-[335px] w-[262px] -translate-x-1/2 -translate-y-1/2 md:h-[477px] md:w-[374px] lg:h-[604px] lg:w-[472px]'
           }
           src="/images/Bottle/bottle-desktop.avif"
           alt="bootle for water"
