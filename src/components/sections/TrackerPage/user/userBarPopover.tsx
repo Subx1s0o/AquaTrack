@@ -4,11 +4,7 @@ import { LogOutModal } from '@/components/modals/LogOutModal';
 import Modal from '@/components/modals/Modal/Modal';
 import Icon from '@/components/ui/Icon';
 
-interface UserBarPopoverProps {
-  onClose: () => void;
-}
-
-function UserBarPopover({ onClose }: UserBarPopoverProps) {
+function UserBarPopover() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   return (
