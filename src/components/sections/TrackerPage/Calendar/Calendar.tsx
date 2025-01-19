@@ -2,42 +2,42 @@ import { DayData, WaterMonthData } from 'types/WaterTypes';
 
 import { useEffect, useMemo, useState } from 'react';
 
-import { selectDate } from '@/redux/date/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { fetchDayData } from '@/redux/waterDayInfo/operations';
-import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
+import { fetchDayData } from '@/redux/water/operations';
+import {
+  selectCurrentMonthDate,
+  selectWaterMonthlyData,
+} from '@/redux/water/selectors';
 import { dateHelpers } from '@/utils/dateHelpers';
 
 import CalendarItem from './CalendarItem';
 
 export default function Calendar() {
-  const date: string = useAppSelector(selectDate);
-  const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
+  const date: string = useAppSelector(selectCurrentMonthDate);
+  const waterDataApi: WaterMonthData[] = useAppSelector(selectWaterMonthlyData);
   const dispatch = useAppDispatch();
 
   const today = useMemo(() => new Date(), []);
   const [selectedItem, setSelectedItem] = useState<number | null>(() => {
     const chosenDate = new Date(date);
 
-    // Перевірка на зміну місяця
     if (
       chosenDate.getFullYear() === today.getFullYear() &&
       chosenDate.getMonth() === today.getMonth()
     ) {
-      return today.getDate(); // Встановлюємо поточний день, якщо місяць і рік збігаються
+      return today.getDate();
     }
-    return null; // Якщо місяць не збігається, не вибираємо день
+    return null;
   });
 
   useEffect(() => {
-    // Якщо змінюється місяць, скидаємо вибране число
     const chosenDate = new Date(date);
     const isCurrentMonth =
       chosenDate.getFullYear() === today.getFullYear() &&
       chosenDate.getMonth() === today.getMonth();
 
     if (!isCurrentMonth) {
-      setSelectedItem(null); // Якщо місяць не поточний, скидаємо вибір
+      setSelectedItem(null);
     }
   }, [date, today]);
 

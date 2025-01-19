@@ -1,9 +1,9 @@
 import { RootState } from '../store';
 
-export const selectUser = (state: RootState) => state.store.user;
+export const selectUser = (state: RootState) => state.auth.user;
 
 export const selectIsAuthenticated = (state: RootState) =>
-  state.store.isAuthenticated;
-export const selectIsLoading = (state: RootState) => state.store.loading;
+  state.auth.isAuthenticated;
+export const selectIsLoading = (state: RootState) => state.auth.loading;
 
-export const selectIsError = (state: RootState) => state.store.error;
+export const selectIsError = (state: RootState) => state.auth.error;

@@ -1,9 +1,9 @@
 import { useAppSelector } from '@/redux/hooks';
-import { selectCurrentDate } from '@/redux/waterDayInfo/selectors';
+import { selectWaterDailyCurrentDate } from '@/redux/water/selectors';
 
 export default function ChooseDate() {
   const currentDate = new Date();
-  const selectedDay = useAppSelector(selectCurrentDate);
+  const selectedDay = useAppSelector(selectWaterDailyCurrentDate);
 
   const selectedDate = selectedDay ? new Date(selectedDay) : null;
 

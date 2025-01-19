@@ -1,9 +1,31 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { ApiResponseWaterDay } from 'types/WaterResponse';
-import { WaterDayData } from 'types/WaterTypes';
+import {
+  ApiResponseWaterDay,
+  ApiResponseWaterMonth,
+} from 'types/WaterResponse';
+import { WaterDayData, WaterMonthData } from 'types/WaterTypes';
 
 import { privateInstance } from '../api';
+
+export const fetchTodayWater = createAsyncThunk<number, void>(
+  'water/fetchTodayWater',
+  async (_, { rejectWithValue }) => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+
+      const response = await privateInstance.get(`/water/day/${today}`);
+      console.log(response.data);
+      const data = await response.data;
+      return data.totalPercentage;
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.data?.message) {
+        return rejectWithValue(error.response.data.message);
+      }
+      return rejectWithValue('Failed to fetch today data.');
+    }
+  },
+);
 
 export const fetchDayData = createAsyncThunk<
   ApiResponseWaterDay,
@@ -69,5 +91,23 @@ export const updateWaterData = createAsyncThunk<
       return thunkAPI.rejectWithValue(e.response.data.message);
     }
     return thunkAPI.rejectWithValue('Edit water value or time failed');
+  }
+});
+
+export const fetchMonthData = createAsyncThunk<
+  WaterMonthData[],
+  string,
+  { rejectValue: string }
+>('water/:YYYY-MM"', async (dateRequested, thunkAPI) => {
+  try {
+    const { data } = await privateInstance.get<ApiResponseWaterMonth>(
+      `/water/month/${dateRequested}`,
+    );
+    return data.records;
+  } catch (e) {
+    if (e instanceof AxiosError && e.response?.data?.message) {
+      return thunkAPI.rejectWithValue(e.response.data.message);
+    }
+    return thunkAPI.rejectWithValue('Fetch Month Data Failed');
   }
 });

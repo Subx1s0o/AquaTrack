@@ -2,9 +2,9 @@ import { DayData } from 'types/WaterTypes';
 
 import React from 'react';
 
-import { selectDate } from '@/redux/date/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { fetchDayData } from '@/redux/waterDayInfo/operations';
+import { fetchDayData } from '@/redux/water/operations';
+import { selectCurrentMonthDate } from '@/redux/water/selectors';
 import { cn } from '@/utils/cn';
 import { currentMonth, currentYear, todayDay } from '@/utils/dateHelpers';
 
@@ -21,7 +21,7 @@ export default function CalendarItem({
   setSelectedItem,
   selectedItem,
 }: CalendarItemProps) {
-  const date = useAppSelector(selectDate);
+  const date = useAppSelector(selectCurrentMonthDate);
   const dispatch = useAppDispatch();
   const chosenDate = new Date(date);
   const chosenYear = chosenDate.getFullYear();

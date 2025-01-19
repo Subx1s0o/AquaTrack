@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Logo from '@/components/ui/Logo';
 
 import { selectUser } from '@/redux/auth/selectors';
-import { useAppSelector } from '@/redux/hooks';
-import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { fetchTodayWater } from '@/redux/water/operations';
+import { selectTodayWaterPercentage } from '@/redux/water/selectors';
 
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
@@ -12,18 +13,20 @@ import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 export default function WaterMainInfo() {
   const dailyNorma = useAppSelector(selectUser)?.dailyNorm;
-  const currentWater = useAppSelector(selectMonthWater);
-  const today = new Date().getDate();
+  const todayPercentage = useAppSelector(selectTodayWaterPercentage);
+  const dispatch = useAppDispatch();
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleOpenModal: () => void = () => {
     setIsModalOpen(true);
   };
 
-  // const handleCloseModal: () => void = () => {
-  //   setIsModalOpen(false);
-  // };
+  useEffect(() => {
+    dispatch(fetchTodayWater());
+  }, [dispatch]);
 
+  console.log(todayPercentage, 'todayPercentage');
   return (
     <section
       className={
@@ -59,7 +62,7 @@ export default function WaterMainInfo() {
           <WaterDailyNorma dailyNorma={dailyNorma} />
           <WaterProgressBar
             dailyNorma={dailyNorma}
-            currentWater={currentWater[today - 1]?.totalPercentage || 0}
+            currentWater={todayPercentage}
           />
         </>
       )}

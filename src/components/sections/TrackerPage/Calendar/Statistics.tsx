@@ -8,9 +8,11 @@ import {
 } from 'recharts';
 import { StatisticData, WaterMonthData } from 'types/WaterTypes';
 
-import { selectDate } from '@/redux/date/selectors';
 import { useAppSelector } from '@/redux/hooks';
-import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
+import {
+  selectCurrentMonthDate,
+  selectWaterMonthlyData,
+} from '@/redux/water/selectors';
 
 import CustomTooltip from './CustomTooltip';
 
@@ -21,8 +23,8 @@ interface DataByDay {
 const waterDailyNorma = 1500;
 
 export default function Statistics() {
-  const date: string = useAppSelector(selectDate);
-  const waterDataApi: WaterMonthData[] = useAppSelector(selectMonthWater);
+  const date: string = useAppSelector(selectCurrentMonthDate);
+  const waterDataApi: WaterMonthData[] = useAppSelector(selectWaterMonthlyData);
 
   const maxDayShown: number = new Date(date).getDate();
   const allDaysData: StatisticData[] = Array.from(

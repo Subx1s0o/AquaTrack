@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { selectDate } from '@/redux/date/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { fetchMonthData } from '@/redux/waterMonthInfo/operations';
+import { fetchMonthData } from '@/redux/water/operations';
+import { selectCurrentMonthDate } from '@/redux/water/selectors';
 
 import Calendar from './Calendar';
 import CalendarPagination from './CalendarPagination';
@@ -11,7 +11,10 @@ import Statistics from './Statistics';
 export function MonthInfo() {
   const dispatch = useAppDispatch();
 
-  const dateRequested: string = useAppSelector(selectDate).slice(0, 7);
+  const dateRequested: string = useAppSelector(selectCurrentMonthDate).slice(
+    0,
+    7,
+  );
 
   useEffect(() => {
     dispatch(fetchMonthData(dateRequested));

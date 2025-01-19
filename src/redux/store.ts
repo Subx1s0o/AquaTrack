@@ -12,12 +12,14 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import storeReducer from './auth/slice';
-import { dateSlice } from './date/slice';
-import { waterDaySlice } from './waterDayInfo/slice';
-import { waterMonthSlice } from './waterMonthInfo/slice';
+import { waterSlice } from './water/slice';
+
+// import { dateSlice } from './date/slice';
+// import { waterDaySlice } from './waterDayInfo/slice';
+// import { waterMonthSlice } from './waterMonthInfo/slice';
 
 const storePersistConfig = {
-  key: 'store',
+  key: 'auth',
   storage,
 };
 
@@ -25,10 +27,11 @@ const persistedReducer = persistReducer(storePersistConfig, storeReducer);
 
 export const store = configureStore({
   reducer: {
-    store: persistedReducer,
-    waterMonth: waterMonthSlice,
-    date: dateSlice,
-    waterDay: waterDaySlice,
+    auth: persistedReducer,
+    // waterMonth: waterMonthSlice,
+    // date: dateSlice,
+    // waterDay: waterDaySlice,
+    water: waterSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

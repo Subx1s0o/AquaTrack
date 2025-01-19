@@ -1,8 +1,8 @@
 import Icon from '@/components/ui/Icon';
 
-import { selectDate } from '@/redux/date/selectors';
-import { nextMonth, previousMonth } from '@/redux/date/slice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { selectCurrentMonthDate } from '@/redux/water/selectors';
+import { nextMonth, previousMonth } from '@/redux/water/slice';
 import { currentMonth, currentYear, dateHelpers } from '@/utils/dateHelpers';
 
 interface CalendarPaginationProps {
@@ -13,7 +13,7 @@ export function CalendarPagination({
   statisticsToggle,
 }: CalendarPaginationProps) {
   const dispatch = useAppDispatch();
-  const date: string = useAppSelector(selectDate);
+  const date: string = useAppSelector(selectCurrentMonthDate);
   const monthName: string = dateHelpers.getMonthName(date);
   const chosenDate = new Date(date);
   const chosenYear = chosenDate.getFullYear();
