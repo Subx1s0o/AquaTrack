@@ -4,7 +4,7 @@ import Logo from '@/components/ui/Logo';
 
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
-import { selectDayTotalPercentage } from '@/redux/waterDayInfo/selectors';
+import { selectMonthWater } from '@/redux/waterMonthInfo/selectors';
 
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
@@ -12,8 +12,8 @@ import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 export default function WaterMainInfo() {
   const dailyNorma = useAppSelector(selectUser)?.dailyNorm;
-  const currentWater = useAppSelector(selectDayTotalPercentage);
-  console.log(currentWater);
+  const currentWater = useAppSelector(selectMonthWater);
+  const today = new Date().getDate();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleOpenModal: () => void = () => {
@@ -59,7 +59,7 @@ export default function WaterMainInfo() {
           <WaterDailyNorma dailyNorma={dailyNorma} />
           <WaterProgressBar
             dailyNorma={dailyNorma}
-            currentWater={currentWater}
+            currentWater={currentWater[today - 1]?.totalPercentage || 0}
           />
         </>
       )}
