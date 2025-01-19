@@ -13,7 +13,6 @@ export const fetchTodayWater = createAsyncThunk<number, void>(
   async (_, { rejectWithValue }) => {
     try {
       const today = new Date().toISOString().split('T')[0];
-
       const response = await privateInstance.get(`/water/day/${today}`);
 
       const data = await response.data;
