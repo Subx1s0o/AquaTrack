@@ -8,6 +8,7 @@ export interface ApiResponseWaterMonth {
 export interface ApiResponseWaterDay {
   records: WaterDayData[];
   totalPercentage: number;
+  date: string;
 }
 
 export interface ApiError {

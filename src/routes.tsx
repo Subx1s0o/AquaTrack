@@ -19,17 +19,17 @@ const routes: RouteObject[] = [
       {
         path: '/signin',
         element: (
-          <PublicRoute>
-            <SignInPage />
-          </PublicRoute>
+          // <PublicRoute>
+          <SignInPage />
+          // </PublicRoute>
         ),
       },
       {
         path: '/signup',
         element: (
-          <PublicRoute>
-            <SignUpPage />
-          </PublicRoute>
+          // <PublicRoute>
+          <SignUpPage />
+          // </PublicRoute>
         ),
       },
     ],
@@ -37,11 +37,11 @@ const routes: RouteObject[] = [
   {
     path: '/tracker',
     element: (
-      <PrivateRoute redirectTo="/signin">
-        <SharedTrackerLayout>
-          <TrackerPage />
-        </SharedTrackerLayout>
-      </PrivateRoute>
+      // <PrivateRoute redirectTo="/signin">
+      <SharedTrackerLayout>
+        <TrackerPage />
+      </SharedTrackerLayout>
+      // </PrivateRoute>
     ),
   },
   {

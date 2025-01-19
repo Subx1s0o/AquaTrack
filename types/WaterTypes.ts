@@ -19,6 +19,7 @@ export interface WaterDayState {
     loading: boolean;
     error: string | null | undefined;
     totalPercentage: number;
+    date: string | null;
   };
 }
 

@@ -1,4 +1,3 @@
-import Calendar from '@/components/sections/TrackerPage/Calendar/Calendar';
 import { MonthInfo } from '@/components/sections/TrackerPage/Calendar/MonthInfo';
 import DailyInfo from '@/components/sections/TrackerPage/WaterDetailedInfo/DailyInfo';
 import WaterMainInfo from '@/components/sections/TrackerPage/WaterMainInfo/WaterMainInfo';
@@ -9,8 +8,8 @@ export default function TrackerPage() {
     <>
       <WaterMainInfo />
       <div className="rounded-[30px] bg-grey px-5 py-10 md:p-8">
-        {/* <UserPanel /> */}
-        {/* <DailyInfo /> */}
+        <UserPanel />
+        <DailyInfo />
         <MonthInfo />
       </div>
     </>

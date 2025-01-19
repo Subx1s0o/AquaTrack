@@ -1,25 +1,17 @@
 .loaderContainer {
-  margin: 100px auto;
-  width: 300px;
-  height: 100px;
   opacity: 0.95;
 }
 
 .tile01 {
   margin: auto;
-  width: 300px;
-  height: 100px;
+
 }
 
 .mask {
-  position: relative;
-  top: 5px;
-  margin: auto;
-  width: 300px;
-  height: 100px;
+
   font-size: 60px;
-  font-weight: 700;
-  font-family: 'Gilroy-Regular', sans-serif;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
   line-height: 90px;
   text-shadow:

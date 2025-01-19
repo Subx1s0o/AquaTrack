@@ -4,9 +4,7 @@ interface WaterDailyNormaProps {
   dailyNorma: number;
 }
 
-const WaterDailyNorma: React.FC<WaterDailyNormaProps> = ({
-  dailyNorma = 1500,
-}) => {
+const WaterDailyNorma: React.FC<WaterDailyNormaProps> = ({ dailyNorma }) => {
   const dailyNormaConverted = dailyNorma / 1000;
 
   return (

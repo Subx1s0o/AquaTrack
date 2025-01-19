@@ -6,3 +6,5 @@ export const selectDayTotalPercentage = (state: RootState) =>
 export const selectDayLoading = (state: RootState) =>
   state.waterDay.water.loading;
 export const selectDayError = (state: RootState) => state.waterDay.water.error;
+export const selectCurrentDate = (state: RootState) =>
+  state.waterDay.water.date;

@@ -1,12 +1,14 @@
+import { WaterDayData } from 'types/WaterTypes';
+
 import Icon from '@/components/ui/Icon';
 
 interface WaterItemProps {
-  entry: { id: number; volume: number; time: string };
+  data: WaterDayData;
 }
 
-export default function WaterItem({ entry }: WaterItemProps) {
+export default function WaterItem({ data }: WaterItemProps) {
   return (
-    <li className="flex items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:items-start md:gap-5 md:p-5">
+    <li className="flex w-[149px] items-center justify-start gap-[10px] rounded-2xl bg-white px-[14px] py-[18px] md:w-[192px] md:items-start md:gap-5 md:p-5">
       <div className="flex items-center justify-center">
         <Icon
           id="icon-water-glass"
@@ -17,10 +19,10 @@ export default function WaterItem({ entry }: WaterItemProps) {
       </div>
       <div className="flex w-[49px] flex-col items-start justify-center gap-1 md:h-[46px] md:w-[52px] md:gap-0">
         <p className="font-poppins text-base font-bold text-darkGrey md:text-ms">
-          {entry.volume} ml
+          {data.amount} ml
         </p>
         <p className="font-poppins text-sm font-normal text-darkGrey">
-          {entry.time}
+          {data.time}
         </p>
       </div>
       <div className="flex flex-col items-start justify-center gap-2 md:gap-3.5">

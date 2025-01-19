@@ -1,8 +1,11 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { ReactNode, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import { selectIsAuthenticated } from '@/redux/auth/selectors';
-import { useAppSelector } from '@/redux/hooks';
+import { getUser } from '@/redux/auth/operations';
+import { selectIsAuthenticated, selectIsLoading } from '@/redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+
+import Loader from '../ui/Loader/Loader';
 
 type PublicRouteProps = {
   children: ReactNode;
@@ -14,9 +17,24 @@ export default function PublicRoute({
   redirectTo = '/',
 }: PublicRouteProps) {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const location = useLocation();
+  const loading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
 
-  if (isAuthenticated && location.pathname !== redirectTo) {
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      dispatch(getUser());
+    }
+  }, [dispatch, isAuthenticated, loading]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (isAuthenticated) {
     return <Navigate to={redirectTo} />;
   }
 

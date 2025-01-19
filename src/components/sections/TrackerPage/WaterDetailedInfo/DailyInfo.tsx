@@ -1,16 +1,26 @@
+import { useAppSelector } from '@/redux/hooks';
+import {
+  selectCurrentDate,
+  selectDayLoading,
+  selectDayWater,
+} from '@/redux/waterDayInfo/selectors';
+
 import AddWaterBtn from './AddWaterBtn';
 import ChooseDate from './ChooseDate';
 import WaterList from './WaterList';
 
 export default function DailyInfo() {
+  const selectedDay = useAppSelector(selectCurrentDate);
+  const selectedWater = useAppSelector(selectDayWater);
+  const isLoading = useAppSelector(selectDayLoading);
   return (
-    <div className="flex w-full flex-col gap-6 bg-gray-200 p-5 md:px-8">
+    <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <ChooseDate date="2025-01-17" />
+        <ChooseDate date={selectedDay || ''} />
         <AddWaterBtn />
       </div>
 
-      <WaterList />
+      {isLoading ? <p>loading</p> : <WaterList waters={selectedWater} />}
     </div>
   );
 }

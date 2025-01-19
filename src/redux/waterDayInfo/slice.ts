@@ -16,6 +16,7 @@ const initialState: WaterDayState = {
     loading: false,
     error: null,
     totalPercentage: 0,
+    date: null,
   },
 };
 
@@ -30,6 +31,8 @@ const handleRejected = (
   state.water.loading = false;
   state.water.error = action.payload;
   state.water.items = [];
+  state.water.totalPercentage = 0;
+  state.water.date = null;
 };
 
 const slice = createSlice({
@@ -46,6 +49,7 @@ const slice = createSlice({
           state.water.error = null;
           state.water.items = action.payload.records;
           state.water.totalPercentage = action.payload.totalPercentage;
+          state.water.date = action.payload.date;
         },
       )
       .addCase(fetchDayData.rejected, handleRejected)
