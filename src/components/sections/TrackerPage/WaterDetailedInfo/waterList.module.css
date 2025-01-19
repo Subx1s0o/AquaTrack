@@ -1,0 +1,30 @@
+.waterList {
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  gap: 8px;
+  height: 118px;
+  padding-bottom: 24px;
+  white-space: nowrap; 
+  width: 100%; 
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.waterList::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  transition: all ease 0.3s;
+}
+.waterList::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 10px;
+}
+.waterList::-webkit-scrollbar-thumb {
+  background-color: #2f2f2f;
+  border-radius: 5px;
+}
+.waterList::-webkit-scrollbar-thumb:hover {
+  background-color: #454f56;
+}
+

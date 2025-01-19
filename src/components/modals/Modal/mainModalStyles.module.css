@@ -1,0 +1,56 @@
+.mainModalOverlay {
+	background-color: #2f2f2f99;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 100;
+}
+
+
+.mainModalContent {
+	background: #ffffff;
+	border-radius: 15px;
+	box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+	margin: auto;
+	position: relative;
+	max-height: calc(100vh - 40px);
+	z-index: 101;
+}
+
+.closeMainModalButton {
+	top: 20px;
+	right: 16px;
+	cursor: pointer;
+}
+
+@media screen and (min-width: 375px) {
+	.mainModalContent {
+		min-width: 344px;
+		padding: 20px 40px;
+		max-width: 344px;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.mainModalContent {
+		padding: 40px;
+		min-width: 514px;
+		width: auto;
+		max-width: none;
+	}
+
+	.closeMainModalButton {
+		top: 20px;
+		right: 20px;
+	}
+	
+	.closeModalIcon svg {
+		width: 28px;
+		height: 28px;
+	}
+}
