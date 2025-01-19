@@ -56,6 +56,7 @@ export const addWaterData = createAsyncThunk<
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError && e.response?.data?.message) {
+      console.log(e);
       return thunkAPI.rejectWithValue(e.response.data.message);
     }
     return thunkAPI.rejectWithValue('Add water failed');
@@ -80,7 +81,7 @@ export const deleteWaterData = createAsyncThunk<
 
 export const updateWaterData = createAsyncThunk<
   WaterDayData,
-  { waterId: string; amount?: number; date?: string; time?: string },
+  Partial<WaterDayData> & { waterId: string },
   { rejectValue: string }
 >('contacts/updateWater', async ({ waterId, ...water }, thunkAPI) => {
   try {

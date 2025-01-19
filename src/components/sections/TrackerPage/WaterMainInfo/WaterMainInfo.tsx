@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import { Modal } from '@/components/modals/Modal/Modal';
+import WaterModal from '@/components/modals/WaterModal/WaterModal';
 import Logo from '@/components/ui/Logo';
 
 import { selectUser } from '@/redux/auth/selectors';
@@ -21,10 +23,13 @@ export default function WaterMainInfo() {
   const handleOpenModal: () => void = () => {
     setIsModalOpen(true);
   };
+  const handleCloseModal: () => void = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     dispatch(fetchTodayWater());
-  }, [dispatch]);
+  }, [todayPercentage, dispatch]);
 
   console.log(todayPercentage, 'todayPercentage');
   return (
@@ -67,13 +72,11 @@ export default function WaterMainInfo() {
         </>
       )}
       <AddWaterBtn onClick={handleOpenModal} />
-      {/* {isModalOpen && (
+      {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <WaterModal onClose={handleCloseModal} />
+          <WaterModal type="add" onClose={handleCloseModal} />
         </Modal>
-      )} */}
-      {/* тимчасова заглушка: */}
-      {isModalOpen && <p>Модалку відкрито</p>}
+      )}
     </section>
   );
 }

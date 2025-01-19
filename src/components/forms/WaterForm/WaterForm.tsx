@@ -8,17 +8,30 @@ import Input from '@/components/ui/Input';
 
 import useWaterAmount from '@/hooks/useWaterAmount';
 
+import { selectUser } from '@/redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  addWaterData,
+  fetchMonthData,
+  fetchTodayWater,
+  updateWaterData,
+} from '@/redux/water/operations';
+import { selectWaterDailyCurrentDate } from '@/redux/water/selectors';
+
 import css from './WaterForm.module.css';
 import { WaterFormValues, waterFormSchema } from './waterFormSchema';
 
 type WaterFormProps = {
+  waterId?: string;
   amount: number;
   time: string;
+  date: string;
   type: 'add' | 'edit';
   onClose: () => void;
 };
 
 export default function WaterForm({
+  waterId,
   amount,
   time,
   type,
@@ -30,35 +43,58 @@ export default function WaterForm({
     handleDecrease,
     setWaterAmount,
     MAX_VALUE,
-  } = useWaterAmount(amount);
+  } = useWaterAmount(amount, (name: 'water' | 'time', value: number) =>
+    setValue(name, value),
+  );
 
+  const dispatch = useAppDispatch();
+
+  const selectedDate = useAppSelector(selectWaterDailyCurrentDate);
+  const date = selectedDate.split('T')[0];
+  const dailyNorm = useAppSelector(selectUser)?.dailyNorm;
   const { handleSubmit, setValue, control } = useForm<WaterFormValues>({
-    defaultValues: {
-      water: waterAmount,
-      time,
-    },
     resolver: yupResolver(waterFormSchema),
   });
 
   function handleInputChange(value: number) {
     if (value > MAX_VALUE) {
       setWaterAmount(MAX_VALUE);
+      setValue('water', MAX_VALUE);
     } else {
       setWaterAmount(value);
+      setValue('water', value);
     }
   }
 
   function onSubmit(data: WaterFormValues) {
+    console.log(data);
     try {
-      const typeOfOperation =
-        type === 'add' ? 'За відсутності редаксу' : 'Поки заглушка для лінтеру';
+      const operation = type === 'add' ? addWaterData : updateWaterData;
 
-      console.log(typeOfOperation, data);
+      const actionPayload =
+        type === 'add'
+          ? {
+              amount: data.water,
+              time: data.time,
+              date: date,
+              dailyNorm: dailyNorm,
+            }
+          : { waterId: waterId!, amount: data.water, date: data.time };
+
+      const result = dispatch(operation(actionPayload));
+
+      if (result) {
+        dispatch(fetchMonthData(date));
+      }
+      const today = new Date().toISOString().split('T')[0];
+      if (date === today) {
+        dispatch(fetchTodayWater());
+      }
 
       onClose();
       toast.success('Data saved successfully!');
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error('Failed to save data');
     }
   }
@@ -105,7 +141,10 @@ export default function WaterForm({
             control={control}
             value={waterAmount}
             name="water"
-            onChange={e => handleInputChange(parseInt(e.target.value, 10) || 0)}
+            onChange={e => {
+              const value = parseInt(e.target.value, 10) || 0;
+              handleInputChange(value);
+            }}
             labelClassName="text-md md:text-lg text-darkGrey"
             label="Enter the value of the water used:"
           />

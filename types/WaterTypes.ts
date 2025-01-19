@@ -5,13 +5,12 @@ export interface WaterMonthData {
   amount: number; // Обсяг води для цього місяця
 }
 
-// Тип для даних по днях
 export interface WaterDayData {
-  _id: string; // Ідентифікатор
-  amount: number; // Обсяг води для цього дня
-  date: Date; // Дата запису
-  time: string; // Час, коли було зафіксовано споживання
-  dailyNorm: number; // Добова норма води
+  _id?: string;
+  amount: number;
+  date: Date | string;
+  time?: string;
+  dailyNorm?: number;
 }
 
 // Тип для даних по окремому дню для статистики

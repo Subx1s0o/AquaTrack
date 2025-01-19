@@ -1,18 +1,25 @@
 import { useState } from 'react';
 
-function useWaterAmount(initialAmount: number = 50) {
+function useWaterAmount(
+  initialAmount: number = 50,
+  setValue: (name: 'time' | 'water', value: number) => void,
+) {
   const [waterAmount, setWaterAmount] = useState(initialAmount);
 
   const MIN_VALUE = 50;
   const MAX_VALUE = 5000;
 
-  const handleIncrease = () => {
-    setWaterAmount(prev => (prev <= MAX_VALUE ? prev + 50 : MAX_VALUE));
-  };
+  function handleIncrease() {
+    const newAmount = Math.min(waterAmount + 50, MAX_VALUE);
+    setWaterAmount(newAmount);
+    setValue('water', newAmount);
+  }
 
-  const handleDecrease = () => {
-    setWaterAmount(prev => (prev > MIN_VALUE ? prev - 50 : MIN_VALUE));
-  };
+  function handleDecrease() {
+    const newAmount = Math.max(waterAmount - 50, MIN_VALUE);
+    setWaterAmount(newAmount);
+    setValue('water', newAmount);
+  }
 
   return {
     waterAmount,
