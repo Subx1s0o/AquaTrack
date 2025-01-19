@@ -2,6 +2,7 @@ import { WaterDayData } from 'types/WaterTypes';
 
 import { useState } from 'react';
 
+import { DeleteWaterModal } from '@/components/modals/DeleteWaterModal';
 import Modal from '@/components/modals/Modal/Modal';
 import WaterModal from '@/components/modals/WaterModal/WaterModal';
 import Icon from '@/components/ui/Icon';
@@ -54,6 +55,18 @@ export default function WaterItem({ data }: WaterItemProps) {
             amount={data.amount}
             time={data.time}
             onClose={() => setIsModalEditOpen(false)}
+          />
+        </Modal>
+      )}
+
+      {isModalDeleteOpen && (
+        <Modal
+          isOpen={isModalDeleteOpen}
+          onClose={() => setIsModalDeleteOpen(false)}
+        >
+          <DeleteWaterModal
+            waterId={data._id || ''}
+            onClose={() => setIsModalDeleteOpen(false)}
           />
         </Modal>
       )}

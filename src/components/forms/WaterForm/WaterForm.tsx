@@ -83,7 +83,8 @@ export default function WaterForm({
             }
           : { waterId: waterId!, amount: data.water, time: data.time };
 
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const result = await dispatch(operation(actionPayload)).unwrap();
 
       if (result) {
@@ -95,10 +96,10 @@ export default function WaterForm({
       }
 
       onClose();
-      toast.success('Data saved successfully!');
+      toast.success('Water saved successfully!');
     } catch (error) {
       console.error(error);
-      toast.error('Failed to save data');
+      toast.error('Failed to save water');
     }
   }
 

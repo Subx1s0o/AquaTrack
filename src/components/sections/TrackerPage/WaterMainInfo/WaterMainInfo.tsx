@@ -24,6 +24,7 @@ export default function WaterMainInfo() {
   const todayPercentage = useAppSelector(selectTodayWaterPercentage);
   const selectedDate = useAppSelector(selectWaterDailyCurrentDate);
   const selectDailyData = useAppSelector(selectWaterDailyData);
+
   useEffect(() => {
     if (selectedDate) {
       dispatch(fetchTodayWater());

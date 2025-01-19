@@ -74,11 +74,7 @@ function UserBar() {
 
       {isPopoverOpen && (
         <div ref={popoverRef}>
-          <UserBarPopover
-            onClose={() => {
-              setPopoverOpen(false);
-            }}
-          />
+          <UserBarPopover />
         </div>
       )}
     </div>
