@@ -19,14 +19,14 @@ export interface WaterDayState {
     loading: boolean;
     error: string | null | undefined;
     totalPercentage: number;
-    date: string | null;
+    date: Date | null;
   };
 }
 
 export interface WaterDayData {
   _id: string;
   amount: number;
-  date: string;
+  date: Date;
   time: string;
   dailyNorm: number;
 }

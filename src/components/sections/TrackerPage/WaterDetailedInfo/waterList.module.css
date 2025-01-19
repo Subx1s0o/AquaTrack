@@ -3,6 +3,7 @@
   overflow-y: hidden;
   display: flex;
   gap: 8px;
+  height: 118px;
   padding-bottom: 24px;
   white-space: nowrap; 
   width: 100%; 
