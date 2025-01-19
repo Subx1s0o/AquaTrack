@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import Logo from '@/components/ui/Logo';
+
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
 import { selectDayTotalPercentage } from '@/redux/waterDayInfo/selectors';
@@ -28,7 +30,7 @@ export default function WaterMainInfo() {
         'relative min-h-[415px] rounded-[30px] bg-green md:min-h-[578px] md:w-[704px] lg:w-[672px]'
       }
     >
-      {/* <Logo/> */}
+      <Logo />
       <picture>
         <source
           srcSet="/images/Bottle/bottle-desktop.avif, /images/Bottle/bottle-desktop@2x.avif 2x"
