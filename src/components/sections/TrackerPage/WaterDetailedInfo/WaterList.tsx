@@ -5,7 +5,7 @@ import css from './waterList.module.css';
 
 export default function WaterList({ waters }: { waters: WaterDayData[] }) {
   if (waters.length === 0) {
-    return <p className="py-[55px]">Nothing to show</p>;
+    return <p className="py-[55px] text-center">Nothing to show</p>;
   }
   return (
     <ul className={css.waterList}>
