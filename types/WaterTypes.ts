@@ -8,7 +8,7 @@ export interface WaterMonthData {
 export interface WaterDayData {
   _id?: string;
   amount: number;
-  date: Date | string;
+  date: string;
   time?: string;
   dailyNorm?: number;
 }

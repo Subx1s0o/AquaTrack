@@ -8,7 +8,9 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 100;
 }
+
 
 .mainModalContent {
 	background: #ffffff;
@@ -17,6 +19,7 @@
 	margin: auto;
 	position: relative;
 	max-height: calc(100vh - 40px);
+	z-index: 101;
 }
 
 .closeMainModalButton {

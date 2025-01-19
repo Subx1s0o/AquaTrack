@@ -86,6 +86,7 @@ export const updateWaterData = createAsyncThunk<
 >('contacts/updateWater', async ({ waterId, ...water }, thunkAPI) => {
   try {
     const response = await privateInstance.patch(`/water/${waterId}`, water);
+
     return response.data;
   } catch (e) {
     if (e instanceof AxiosError && e.response?.data?.message) {

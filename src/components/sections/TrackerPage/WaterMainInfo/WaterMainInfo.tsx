@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Modal } from '@/components/modals/Modal/Modal';
+import Modal from '@/components/modals/Modal/Modal';
 import WaterModal from '@/components/modals/WaterModal/WaterModal';
 import Logo from '@/components/ui/Logo';
 

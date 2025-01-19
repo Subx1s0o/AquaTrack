@@ -66,8 +66,7 @@ export default function WaterForm({
     }
   }
 
-  function onSubmit(data: WaterFormValues) {
-    console.log(data);
+  async function onSubmit(data: WaterFormValues) {
     try {
       const operation = type === 'add' ? addWaterData : updateWaterData;
 
@@ -79,16 +78,16 @@ export default function WaterForm({
               date: date,
               dailyNorm: dailyNorm,
             }
-          : { waterId: waterId!, amount: data.water, date: data.time };
+          : { waterId: waterId!, amount: data.water, time: data.time };
 
-      const result = dispatch(operation(actionPayload));
+      const result = await dispatch(operation(actionPayload)).unwrap();
 
       if (result) {
-        dispatch(fetchMonthData(date));
+        await dispatch(fetchMonthData(date));
       }
       const today = new Date().toISOString().split('T')[0];
       if (date === today) {
-        dispatch(fetchTodayWater());
+        await dispatch(fetchTodayWater());
       }
 
       onClose();

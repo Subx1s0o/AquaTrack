@@ -1,13 +1,22 @@
 import WaterForm from '@/components/forms/WaterForm/WaterForm';
 
 type WaterModalProps = {
+  id?: string;
   type: 'add' | 'edit';
   amount?: number;
+  date?: string;
   time?: string;
   onClose: () => void;
 };
 
-function WaterModal({ type, amount = 50, time, onClose }: WaterModalProps) {
+function WaterModal({
+  type,
+  date,
+  id,
+  amount = 50,
+  time,
+  onClose,
+}: WaterModalProps) {
   const getCurrentTime = () => {
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
@@ -24,6 +33,8 @@ function WaterModal({ type, amount = 50, time, onClose }: WaterModalProps) {
         {type === 'add' ? 'Choose a value:' : 'Correct entered data:'}
       </p>
       <WaterForm
+        date={date || ''}
+        waterId={id}
         amount={amount}
         time={time || getCurrentTime()}
         type={type}
