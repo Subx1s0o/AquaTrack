@@ -25,7 +25,7 @@ type WaterFormProps = {
   waterId?: string;
   amount: number;
   time: string;
-  date: string;
+  isToday?: boolean;
   type: 'add' | 'edit';
   onClose: () => void;
 };
@@ -36,6 +36,7 @@ export default function WaterForm({
   time,
   type,
   onClose,
+  isToday,
 }: WaterFormProps) {
   const {
     waterAmount,
@@ -55,6 +56,8 @@ export default function WaterForm({
   const { handleSubmit, setValue, control } = useForm<WaterFormValues>({
     resolver: yupResolver(waterFormSchema),
   });
+  const todayDate = new Date();
+  const formattedDate = todayDate.toISOString().split('T')[0];
 
   function handleInputChange(value: number) {
     if (value > MAX_VALUE) {
@@ -75,7 +78,7 @@ export default function WaterForm({
           ? {
               amount: data.water,
               time: data.time,
-              date: date,
+              date: isToday ? formattedDate : date,
               dailyNorm: dailyNorm,
             }
           : { waterId: waterId!, amount: data.water, time: data.time };

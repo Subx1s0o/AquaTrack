@@ -7,29 +7,38 @@ import Logo from '@/components/ui/Logo';
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchTodayWater } from '@/redux/water/operations';
-import { selectTodayWaterPercentage } from '@/redux/water/selectors';
+import {
+  selectTodayWaterPercentage,
+  selectWaterDailyCurrentDate,
+  selectWaterDailyData,
+} from '@/redux/water/selectors';
 
 import AddWaterBtn from './AddWaterBtn/AddWaterBtn';
 import WaterDailyNorma from './WaterDailyNorma/WaterDailyNorma';
 import WaterProgressBar from './WaterProgressBar/WaterProgressBar';
 
 export default function WaterMainInfo() {
+  const dispatch = useAppDispatch();
+
   const dailyNorma = useAppSelector(selectUser)?.dailyNorm;
   const todayPercentage = useAppSelector(selectTodayWaterPercentage);
-  const dispatch = useAppDispatch();
+  const selectedDate = useAppSelector(selectWaterDailyCurrentDate);
+  const selectDailyData = useAppSelector(selectWaterDailyData);
+  useEffect(() => {
+    if (selectedDate) {
+      dispatch(fetchTodayWater());
+    }
+  }, [selectedDate, dispatch, selectDailyData]);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleOpenModal: () => void = () => {
+  const handleOpenModal = () => {
     setIsModalOpen(true);
   };
-  const handleCloseModal: () => void = () => {
+
+  const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    dispatch(fetchTodayWater());
-  }, [todayPercentage, dispatch]);
 
   return (
     <section
@@ -73,7 +82,7 @@ export default function WaterMainInfo() {
       <AddWaterBtn onClick={handleOpenModal} />
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-          <WaterModal type="add" onClose={handleCloseModal} />
+          <WaterModal type="add" isToday onClose={handleCloseModal} />
         </Modal>
       )}
     </section>

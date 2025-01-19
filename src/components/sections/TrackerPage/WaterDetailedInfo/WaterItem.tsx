@@ -50,7 +50,6 @@ export default function WaterItem({ data }: WaterItemProps) {
         >
           <WaterModal
             type="edit"
-            date={data.date}
             id={data._id}
             amount={data.amount}
             time={data.time}

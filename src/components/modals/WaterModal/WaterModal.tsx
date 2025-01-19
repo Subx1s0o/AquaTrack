@@ -4,14 +4,14 @@ type WaterModalProps = {
   id?: string;
   type: 'add' | 'edit';
   amount?: number;
-  date?: string;
+  isToday?: boolean;
   time?: string;
   onClose: () => void;
 };
 
 function WaterModal({
   type,
-  date,
+  isToday,
   id,
   amount = 50,
   time,
@@ -33,7 +33,7 @@ function WaterModal({
         {type === 'add' ? 'Choose a value:' : 'Correct entered data:'}
       </p>
       <WaterForm
-        date={date || ''}
+        isToday={isToday}
         waterId={id}
         amount={amount}
         time={time || getCurrentTime()}
