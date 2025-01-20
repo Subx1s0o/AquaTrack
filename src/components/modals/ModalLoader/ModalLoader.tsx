@@ -4,7 +4,7 @@ import 'react-responsive-modal/styles.css';
 
 import Icon from '../../ui/Icon';
 import Loader from '../../ui/Loader/Loader';
-import css from './mainModalStyles.module.css';
+import css from '../Modal/mainModalStyles.module.css';
 
 interface ModalLoaderProps extends PropsWithChildren {
   isOpen: boolean;
@@ -23,7 +23,7 @@ const ModalLoader = ({
   return (
     <ResponsiveModal
       open={isOpen}
-      onClose={onClose}
+      onClose={isShowCloseIcon ? onClose : () => {}}
       focusTrapped={false}
       center
       closeIcon={
