@@ -18,16 +18,13 @@ const validationSettingSchema = yup.object().shape({
   weight: yup
     .number()
     .typeError('Weight must be a valid number')
-    .min(5, 'Weight is too small.')
-    .max(250, 'Max weight is 250 kg')
-    .required('Weight is required'),
-
+    .min(0, 'Weight is too small.')
+    .max(250, 'Max weight is 250 kg'),
   activeTime: yup
     .number()
     .typeError('Active time must be a valid number')
     .min(0, 'Active time cannot be negative')
-    .max(24, 'Max hours are taken')
-    .required('Active time is required'),
+    .max(24, 'Max hours are taken'),
   dailyNorm: yup
     .number()
     .typeError('Water norm must be a valid number')
