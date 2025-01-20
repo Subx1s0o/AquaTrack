@@ -10,7 +10,7 @@ export const dateHelpers = {
   },
 
   getMonthName: (dateString: string): string => {
-    return new Date(dateString).toLocaleString('default', { month: 'long' });
+    return new Date(dateString).toLocaleString('en-US', { month: 'long' });
   },
 
   getYearShort: (dateString: string): string => {
