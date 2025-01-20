@@ -213,7 +213,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-[14px] lg:w-1/2">
+              <div className="flex flex-col gap-[14px] lg:w-1/2 lg:gap-6">
                 <div className="">
                   <p className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
                     Your weight in kilograms:
@@ -225,7 +225,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                     min="0"
                   />
                 </div>
-                <div className="lg:mb-6">
+                <div className="">
                   <p className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
                     The time of active participation in sports:
                   </p>
@@ -237,7 +237,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                   />
                 </div>
                 <div className="flex flex-col items-start justify-start gap-3.5">
-                  <p className="flex flex-col gap-[5px] font-poppins text-ms font-normal leading-[1.29] text-black md:leading-6">
+                  <p className="flex flex-col gap-[5px] font-poppins text-ms font-normal leading-[1.29] text-black md:flex-row md:leading-6">
                     The required amount of water in liters per day:
                     <span className="size-[18px] whitespace-nowrap font-bold text-green">
                       {waterNorm !== null ? waterNorm.toFixed(1) : '0'} L
