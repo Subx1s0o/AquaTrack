@@ -2,10 +2,9 @@ import { RouteObject } from 'react-router-dom';
 
 import SharedHomeLayout from './SharedHomeLayout';
 import SharedTrackerLayout from './SharedTrackerLayout';
-import PrivateRoute from './components/common/PrivateRoute';
-import PublicRoute from './components/common/PublicRoute';
+// import PrivateRoute from './components/common/PrivateRoute';
+// import PublicRoute from './components/common/PublicRoute';
 import HomePage from './pages/HomePage';
-import NotFoundPage from './pages/NotFoundPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import TrackerPage from './pages/TrackerPage';
@@ -46,7 +45,7 @@ const routes: RouteObject[] = [
   },
   {
     path: '*',
-    element: <NotFoundPage />,
+    element: <div>404</div>,
   },
 ];
 

@@ -81,11 +81,36 @@ export const getUser = createAsyncThunk<User, void, { rejectValue: string }>(
 );
 export const updateUserInfo = createAsyncThunk<
   User,
-  { name?: string; email?: string; avatarURL?: string; dailyNorm: number },
+  Partial<User>,
   { rejectValue: string }
->('auth/getUser', async (userInfo, { rejectWithValue }) => {
+>('auth/updateUser', async (userInfo, { rejectWithValue }) => {
   try {
     const { data } = await privateInstance.patch<User>('/users', userInfo);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.message) {
+      return rejectWithValue(error.response.data.message);
+    }
+    return rejectWithValue('Failed to fetch user.');
+  }
+});
+
+export const updateUserAvatar = createAsyncThunk<
+  User,
+  { file: File },
+  { rejectValue: string }
+>('auth/updateUserAvatar', async (userInfo, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', userInfo.file);
+
+    const { data } = await privateInstance.post<User>(
+      '/users/avatar',
+      formData,
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      },
+    );
     return data;
   } catch (error) {
     if (error instanceof AxiosError && error.response?.data?.message) {
