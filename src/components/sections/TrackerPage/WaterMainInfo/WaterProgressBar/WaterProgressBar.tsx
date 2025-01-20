@@ -32,15 +32,13 @@ export default function WaterProgressBar({
           }
           style={{ left: `${Math.min(currentWater, 100)}%` }}
         >
-          {currentWater > 0 && currentWater < 100 && (
-            <span
-              className={
-                'absolute left-1/2 top-[-10px] -translate-x-1/2 font-poppins text-extrasm font-medium text-green md:top-[-14px] md:text-xs'
-              }
-            >
-              {Math.round(currentWater)}%
-            </span>
-          )}
+          <span
+            className={
+              'absolute left-1/2 top-[-10px] -translate-x-1/2 font-poppins text-extrasm font-medium text-green md:top-[-14px] md:text-xs'
+            }
+          >
+            {Math.round(currentWater)}%
+          </span>
         </div>
       </div>
       <div
