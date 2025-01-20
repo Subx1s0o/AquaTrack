@@ -35,7 +35,7 @@ const AvatarUpload = () => {
             alt="Avatar"
           />
         ) : (
-          <img src="/images/default-avatar.png" alt="default avatar" />
+          <img src="/images/default-avatar.avif" alt="default avatar" />
         )}
       </div>
       <button
