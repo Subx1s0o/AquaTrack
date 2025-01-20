@@ -5,10 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
+import ModalLoader from '@/components/modals/ModalLoader/ModalLoader';
 import Input from '@/components/ui/Input';
 
 import { updateUserInfo } from '@/redux/auth/operations';
-import { selectUser } from '@/redux/auth/selectors';
+import { selectIsLoading, selectUser } from '@/redux/auth/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchMonthData } from '@/redux/water/operations';
 
@@ -23,7 +24,7 @@ interface UsersSettingsFormProps {
 
 const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
   const [waterNorm, setWaterNorm] = useState<number | null>(null);
-
+  const userLoading = useAppSelector(selectIsLoading);
   const {
     control,
     handleSubmit,
@@ -119,6 +120,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
     }
 
     await dispatch(fetchMonthData(new Date().toISOString().split('T')[0]));
+
     onClose();
   };
 
@@ -128,6 +130,8 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
 
   return (
     <div onClick={handleModalClick}>
+      {userLoading && <ModalLoader isOpen={userLoading}></ModalLoader>}
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto w-full max-w-[303px] md:max-w-[568px] lg:max-w-[840px]"
