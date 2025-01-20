@@ -28,7 +28,7 @@ export default function PrivateRoute({
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center">
+      <div className="flex size-full items-center justify-center">
         <Loader />
       </div>
     );

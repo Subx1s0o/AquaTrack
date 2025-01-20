@@ -79,6 +79,7 @@ export const getUser = createAsyncThunk<User, void, { rejectValue: string }>(
     }
   },
 );
+
 export const updateUserInfo = createAsyncThunk<
   User,
   Partial<User>,
