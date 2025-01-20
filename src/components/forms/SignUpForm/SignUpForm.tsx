@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
+import { register } from '@/redux/auth/operations';
 import { useAppDispatch } from '@/redux/hooks';
-import { register } from '@/redux/store/operations';
 
 import validationSchemaSignUp from './validationSchemaSignUp';
 import { SignUpFormValues } from './validationSchemaSignUp';
@@ -30,7 +30,7 @@ export default function SignUpForm() {
     const result = await dispatch(register(data));
 
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/');
+      navigate('/tracker');
     } else {
       console.error('Registration failed', result.payload);
     }

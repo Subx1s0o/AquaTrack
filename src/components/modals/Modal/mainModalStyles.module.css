@@ -8,7 +8,9 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 100;
 }
+
 
 .mainModalContent {
 	background: #ffffff;
@@ -17,6 +19,10 @@
 	margin: auto;
 	position: relative;
 	max-height: calc(100vh - 40px);
+	z-index: 101;
+	padding: 40px 20px;
+	width: 90%;
+	max-width: 343px;
 }
 
 .closeMainModalButton {
@@ -25,13 +31,6 @@
 	cursor: pointer;
 }
 
-@media screen and (min-width: 375px) {
-	.mainModalContent {
-		min-width: 344px;
-		padding: 20px 40px;
-		max-width: 344px;
-	}
-}
 
 @media screen and (min-width: 768px) {
 	.mainModalContent {

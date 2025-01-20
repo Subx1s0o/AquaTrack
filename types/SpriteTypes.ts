@@ -10,4 +10,5 @@ export type SpriteTypes =
   | 'icon-settings'
   | 'icon-trash'
   | 'icon-plus'
-  | 'icon-upload';
+  | 'icon-upload'
+  | 'icon-minus';

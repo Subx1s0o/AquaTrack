@@ -1,19 +1,33 @@
-import { ReactNode } from 'react';
+import Cookies from 'js-cookie';
+
+import { ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '@/redux/hooks';
-import { selectIsAuthenticated } from '@/redux/store/selectors';
+import { getUser } from '@/redux/auth/operations';
+import { selectIsAuthenticated, selectIsLoading } from '@/redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-type PrivateRouteProps = {
+interface PrivateRouteProps {
   children: ReactNode;
-  redirectTo?: string;
-};
+  redirectTo: string;
+}
 
 export default function PrivateRoute({
   children,
-  redirectTo = '/sign-in',
+  redirectTo,
 }: PrivateRouteProps) {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const loading = useAppSelector(selectIsLoading);
+  const dispatch = useAppDispatch();
 
-  return isAuthenticated ? children : <Navigate to={redirectTo} />;
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      const token = Cookies.get('accessToken');
+      if (token) {
+        dispatch(getUser());
+      }
+    }
+  }, [dispatch, isAuthenticated, loading]);
+
+  return isAuthenticated ? <>{children}</> : <Navigate to={redirectTo} />;
 }

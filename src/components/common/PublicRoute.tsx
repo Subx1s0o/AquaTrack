@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
+import { selectIsAuthenticated } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
-import { selectIsAuthenticated } from '@/redux/store/selectors';
 
 type PublicRouteProps = {
   children: ReactNode;
@@ -14,9 +14,8 @@ export default function PublicRoute({
   redirectTo = '/',
 }: PublicRouteProps) {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
-  const location = useLocation();
 
-  if (isAuthenticated && location.pathname !== redirectTo) {
+  if (isAuthenticated) {
     return <Navigate to={redirectTo} />;
   }
 

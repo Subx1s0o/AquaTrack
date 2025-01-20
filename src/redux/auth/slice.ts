@@ -4,37 +4,44 @@ import { AuthResponse } from 'types/AuthResponse';
 
 import { User } from '@/types';
 
-import { getUser, login, logout, register } from './operations';
+import {
+  getUser,
+  login,
+  logout,
+  register,
+  updateUserAvatar,
+  updateUserInfo,
+} from './operations';
 
-interface StoreState {
+interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
 }
 
-const initialState: StoreState = {
+const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
   loading: false,
   error: null,
 };
 
-const setLoading = (state: StoreState) => {
+const setLoading = (state: AuthState) => {
   state.loading = true;
   state.error = null;
 };
 
 const setError = (
-  state: StoreState,
+  state: AuthState,
   action: PayloadAction<string | undefined>,
 ) => {
   state.loading = false;
   state.error = action.payload || 'An error occurred.';
 };
 
-const storeSlice = createSlice({
-  name: 'store',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {
     resetError(state) {
@@ -75,13 +82,33 @@ const storeSlice = createSlice({
         removeCookies();
       })
       .addCase(logout.rejected, setError)
+
       .addCase(getUser.pending, setLoading)
       .addCase(getUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
       })
-      .addCase(getUser.rejected, setError);
+      .addCase(getUser.rejected, setError)
+
+      .addCase(updateUserInfo.pending, setLoading)
+      .addCase(
+        updateUserInfo.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.loading = false;
+          state.user = action.payload;
+        },
+      )
+      .addCase(updateUserInfo.rejected, setError)
+      .addCase(updateUserAvatar.pending, setLoading)
+      .addCase(
+        updateUserAvatar.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.loading = false;
+          state.user = action.payload;
+        },
+      )
+      .addCase(updateUserAvatar.rejected, setError);
   },
 });
 
@@ -96,5 +123,5 @@ function removeCookies() {
   Cookies.remove('refreshToken');
   Cookies.remove('sessionId');
 }
-export const { resetError } = storeSlice.actions;
-export default storeSlice.reducer;
+export const { resetError } = authSlice.actions;
+export default authSlice.reducer;

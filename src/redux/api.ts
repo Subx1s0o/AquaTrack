@@ -6,78 +6,86 @@ import axios, {
 } from 'axios';
 import Cookie from 'js-cookie';
 
+import { logout } from './auth/operations';
+import { store } from './store';
+
 const BASE_URL = 'https://node-goit-project.onrender.com';
-// const BASE_URL = 'http://localhost:4000';
+
 export const privateInstance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
 });
 
 export const publicInstance = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true,
 });
 
-export const fetchRefreshToken = async (): Promise<void> => {
-  return await axios.post(`${BASE_URL}/auth/refresh`);
-};
+interface RefreshTokenResponse {
+  accessToken: string;
+  sessionId: string;
+  refreshToken: string;
+}
+
+export const fetchRefreshToken =
+  async (): Promise<RefreshTokenResponse | null> => {
+    const refreshToken = Cookie.get('refreshToken');
+    const sessionId = Cookie.get('sessionId');
+
+    if (!refreshToken || !sessionId) {
+      clearUserData();
+      return null;
+    }
+
+    try {
+      const { data } = await axios.post<RefreshTokenResponse>(
+        `${BASE_URL}/auth/refresh`,
+        {
+          refreshToken,
+          sessionId,
+        },
+      );
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log('Error from Api Refresh: ', error);
+      clearUserData();
+      throw error;
+    }
+  };
 
 const clearUserData = (): void => {
+  store.dispatch(logout());
   Cookie.remove('accessToken');
   Cookie.remove('refreshToken');
   Cookie.remove('sessionId');
-  window.location.href = '/login';
 };
 
 privateInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const token = Cookie.get('accessToken');
-    if (token) {
-      if (token) {
-        if (config.headers instanceof AxiosHeaders) {
-          config.headers.set('Authorization', `Bearer ${token}`);
-        } else {
-          config.headers = new AxiosHeaders({
-            Authorization: `Bearer ${token}`,
-          });
-        }
-      }
+
+    if (!token) {
+      return config;
     }
+
+    if (config.headers instanceof AxiosHeaders) {
+      config.headers.set('Authorization', `Bearer ${token}`);
+    } else {
+      config.headers = new AxiosHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+    }
+
     return config;
   },
-  (error: AxiosError) => {
-    return Promise.reject(error);
-  },
+  (error: AxiosError) => Promise.reject(error),
 );
 
-interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
-  _retry?: boolean;
-}
 privateInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  async (error: unknown): Promise<AxiosResponse | void> => {
-    console.log(error);
-    if (error instanceof AxiosError) {
-      const originalRequest = error.config as CustomAxiosRequestConfig;
-
-      if (error.response?.status === 401 && !originalRequest?._retry) {
-        originalRequest._retry = true;
-        try {
-          await fetchRefreshToken();
-
-          return privateInstance(originalRequest);
-        } catch (refreshError: unknown) {
-          if (
-            refreshError instanceof AxiosError &&
-            refreshError.response?.status === 401
-          ) {
-            clearUserData();
-          }
-          return Promise.reject(refreshError);
-        }
-      }
+  (error: AxiosError) => {
+    if (error.response?.status === 401 && Cookie.get('accessToken')) {
+      store.dispatch(logout());
     }
-
     return Promise.reject(error);
   },
 );
