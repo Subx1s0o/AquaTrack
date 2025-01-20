@@ -30,7 +30,7 @@ export default function SignUpForm() {
     const result = await dispatch(register(data));
 
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/');
+      navigate('/tracker');
     } else {
       console.error('Registration failed', result.payload);
     }

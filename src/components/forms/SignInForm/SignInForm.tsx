@@ -29,7 +29,7 @@ export default function SignInForm() {
     const result = await dispatch(login(data));
 
     if (result.meta.requestStatus === 'fulfilled') {
-      navigate('/');
+      navigate('/tracker');
     } else {
       console.error('Registration failed', result.payload);
     }

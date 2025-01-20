@@ -59,7 +59,8 @@ export default function CalendarItem({
               !isFutureDay,
             'bg-gray-300 text-gray-500': isFutureDay,
             'bg-white': dayData && Math.round(dayData.percentage) >= 100,
-            'bg-darkGrey text-green': selectedItem === day,
+            'border-2 border-green bg-darkGrey text-green':
+              selectedItem === day,
           },
         )}
       >

@@ -30,12 +30,16 @@ const AvatarUpload = () => {
       <div className="flex size-[75px] items-center justify-center rounded-full bg-gray-300 text-xl text-white md:size-[100px]">
         {avatarPreview || user?.avatarURL ? (
           <img
-            className="rounded-full"
+            className="size-full rounded-full object-cover"
             src={avatarPreview || user?.avatarURL}
             alt="Avatar"
           />
         ) : (
-          <img src="/images/default-avatar.avif" alt="default avatar" />
+          <img
+            src="/images/default-avatar.avif"
+            alt="default avatar"
+            className="size-full rounded-full object-cover"
+          />
         )}
       </div>
       <button

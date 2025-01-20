@@ -5,6 +5,7 @@ import SharedTrackerLayout from './SharedTrackerLayout';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
 import HomePage from './pages/HomePage';
+import NotFoundPage from './pages/NotFoundPage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
 import TrackerPage from './pages/TrackerPage';
@@ -36,7 +37,7 @@ const routes: RouteObject[] = [
   {
     path: '/tracker',
     element: (
-      <PrivateRoute redirectTo="/signin">
+      <PrivateRoute redirectTo="/signup">
         <SharedTrackerLayout>
           <TrackerPage />
         </SharedTrackerLayout>
@@ -45,7 +46,11 @@ const routes: RouteObject[] = [
   },
   {
     path: '*',
-    element: <div>404</div>,
+    element: (
+      <div className="mx-auto flex h-screen max-w-[375px] items-center p-4 font-poppins md:max-w-screen-md md:p-8 lg:max-w-screen-lg">
+        <NotFoundPage />
+      </div>
+    ),
   },
 ];
 
