@@ -5,7 +5,7 @@ export interface User {
   avatarURL?: string;
   weight: number;
   activeTime: number;
-  gender: 'woman' | 'man' | 'other';
+  gender: 'female' | 'male' | 'other';
   dailyNorm: number;
   createdAt: string;
   updatedAt: string;

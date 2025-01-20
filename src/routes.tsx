@@ -2,8 +2,8 @@ import { RouteObject } from 'react-router-dom';
 
 import SharedHomeLayout from './SharedHomeLayout';
 import SharedTrackerLayout from './SharedTrackerLayout';
-import PrivateRoute from './components/common/PrivateRoute';
-import PublicRoute from './components/common/PublicRoute';
+// import PrivateRoute from './components/common/PrivateRoute';
+// import PublicRoute from './components/common/PublicRoute';
 import HomePage from './pages/HomePage';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';

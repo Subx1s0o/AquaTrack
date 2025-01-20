@@ -1,8 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'types/user';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import Input from '@/components/ui/Input';
 
@@ -21,15 +22,19 @@ interface UsersSettingsFormProps {
 }
 
 const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
+  const [waterNorm, setWaterNorm] = useState<number | null>(null);
+
   const {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { isSubmitting, errors },
   } = useForm<SettingsFormValues>({
     resolver: yupResolver(validationSettingSchema),
     mode: 'onSubmit',
   });
+
   const handleBlur =
     (fieldName: keyof SettingsFormValues) =>
     (e: React.FocusEvent<HTMLInputElement>) => {
@@ -37,6 +42,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
         setValue(fieldName, 0);
       }
     };
+
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
@@ -44,8 +50,8 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
     if (user) {
       setValue('name', user.name || '');
       setValue('email', user.email || '');
-      if (user.gender === 'woman' || user.gender === 'man') {
-        setValue('gender', user.gender || '');
+      if (user.gender === 'female' || user.gender === 'male') {
+        setValue('gender', user.gender === 'female' ? 'woman' : 'man');
       }
       setValue('weight', user.weight || 0);
       setValue('activeTime', user.activeTime || 0);
@@ -55,6 +61,24 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
       );
     }
   }, [user, setValue]);
+
+  useEffect(() => {
+    const weight = watch('weight');
+    const activeTime = watch('activeTime');
+    const gender = watch('gender');
+
+    if (weight != null && activeTime != null && gender) {
+      let calculatedWaterNorm = 0;
+
+      if (gender === 'woman') {
+        calculatedWaterNorm = weight * 0.03 + activeTime * 0.4;
+      } else if (gender === 'man') {
+        calculatedWaterNorm = weight * 0.04 + activeTime * 0.6;
+      }
+
+      setWaterNorm(calculatedWaterNorm);
+    }
+  }, [watch('weight'), watch('activeTime'), watch('gender')]);
 
   const onSubmit: SubmitHandler<SettingsFormValues> = async data => {
     const updatedData: Partial<User> = {};
@@ -73,13 +97,27 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
           : undefined;
     }
 
+    if (data.gender) {
+      updatedData.gender =
+        data.gender === 'man'
+          ? 'male'
+          : data.gender === 'woman'
+            ? 'female'
+            : undefined;
+    }
+
     if (Object.keys(updatedData).length === 0) {
       onClose();
       return;
     }
 
-    console.log(updatedData);
-    await dispatch(updateUserInfo(updatedData));
+    try {
+      await dispatch(updateUserInfo(updatedData));
+      toast.success('User info updated successfully');
+    } catch {
+      toast.error('Error while updating user info');
+    }
+
     await dispatch(fetchMonthData(new Date().toISOString().split('T')[0]));
     onClose();
   };
@@ -99,7 +137,7 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
             Setting
           </h2>
 
-          <AvatarUpload setValue={setValue} />
+          <AvatarUpload />
 
           <div className="flex flex-col gap-6 overflow-y-auto">
             {/* Gender Section */}
@@ -175,8 +213,8 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 lg:w-1/2">
-                <div className="mb-4">
+              <div className="flex flex-col gap-[14px] lg:w-1/2">
+                <div className="">
                   <p className="mb-2 font-poppins text-base font-bold text-[#2f2f2f]">
                     Your weight in kilograms:
                   </p>
@@ -199,15 +237,13 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
                   />
                 </div>
                 <div className="flex flex-col items-start justify-start gap-3.5">
-                  <p className="font-poppins text-ms font-normal leading-[1.29] text-black md:leading-6">
+                  <p className="flex flex-col gap-[5px] font-poppins text-ms font-normal leading-[1.29] text-black md:leading-6">
                     The required amount of water in liters per day:
-                    <span className="size-[18px] font-bold text-green">
-                      {' '}
-                      1.8 L
+                    <span className="size-[18px] whitespace-nowrap font-bold text-green">
+                      {waterNorm !== null ? waterNorm.toFixed(1) : '0'} L
                     </span>
                   </p>
                 </div>
-
                 <Input
                   min="0"
                   onBlur={handleBlur('dailyNorm')}
@@ -219,7 +255,8 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
             </div>
           </div>
 
-          <div className="flex gap-[10px]">
+          {/* Submit Button */}
+          <div className="flex justify-center">
             <button
               disabled={isSubmitting}
               type="submit"

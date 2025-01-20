@@ -4,7 +4,14 @@ import { AuthResponse } from 'types/AuthResponse';
 
 import { User } from '@/types';
 
-import { getUser, login, logout, register, updateUserInfo } from './operations';
+import {
+  getUser,
+  login,
+  logout,
+  register,
+  updateUserAvatar,
+  updateUserInfo,
+} from './operations';
 
 interface AuthState {
   user: User | null;
@@ -92,7 +99,16 @@ const authSlice = createSlice({
           state.user = action.payload;
         },
       )
-      .addCase(updateUserInfo.rejected, setError);
+      .addCase(updateUserInfo.rejected, setError)
+      .addCase(updateUserAvatar.pending, setLoading)
+      .addCase(
+        updateUserAvatar.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.loading = false;
+          state.user = action.payload;
+        },
+      )
+      .addCase(updateUserAvatar.rejected, setError);
   },
 });
 

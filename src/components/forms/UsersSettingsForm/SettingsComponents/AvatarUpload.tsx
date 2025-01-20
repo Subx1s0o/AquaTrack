@@ -1,31 +1,41 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
-import Icon from '../../../ui/Icon';
-import { SettingsFormValues } from '../validationSchemaUsersSettings';
+import Icon from '@/components/ui/Icon';
 
-interface AvatarUploadProps {
-  setValue: (name: keyof SettingsFormValues, value: File | null) => void;
-}
+import { updateUserAvatar } from '@/redux/auth/operations';
+import { selectUser } from '@/redux/auth/selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 
-const AvatarUpload: React.FC<AvatarUploadProps> = ({ setValue }) => {
+const AvatarUpload = () => {
   const [avatarPreview, setAvatarPreview] = useState<string>('');
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setValue('avatar', file);
       const preview = URL.createObjectURL(file);
       setAvatarPreview(preview);
+      try {
+        await dispatch(updateUserAvatar({ file })).unwrap();
+        toast.success(`Avatar updated successfully`);
+      } catch {
+        toast.error(`Error while updating avatar`);
+      }
     }
   };
 
   return (
     <div className="mb-10 flex flex-col items-center justify-center gap-4 p-4">
       <div className="flex size-[75px] items-center justify-center rounded-full bg-gray-300 text-xl text-white md:size-[100px]">
-        {avatarPreview ? (
-          <img className="rounded-full" src={avatarPreview} alt="Avatar" />
+        {avatarPreview || user?.avatarURL ? (
+          <img
+            className="rounded-full"
+            src={avatarPreview || user?.avatarURL}
+            alt="Avatar"
+          />
         ) : (
-          <span>N</span>
+          <img src="/images/default-avatar.png" alt="default avatar" />
         )}
       </div>
       <button
@@ -39,11 +49,11 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ setValue }) => {
           h={20}
           className="stroke-black stroke-[4px]"
         />
-        <span>Upload a photo</span>
+        <span className="font-poppins text-base">Upload a photo</span>
       </button>
       <input
         type="file"
-        id="AvatarURL"
+        id="avatarInput"
         onChange={handleAvatarChange}
         style={{ display: 'none' }}
       />
