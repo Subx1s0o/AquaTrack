@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import UsersSettingsForm from '@/components/forms/UsersSettingsForm/UsersSettingsForm';
 import { LogOutModal } from '@/components/modals/LogOutModal';
 import Modal from '@/components/modals/Modal/Modal';
 import Icon from '@/components/ui/Icon';
@@ -35,6 +36,11 @@ function UserBarPopover() {
       {isLogoutOpen && (
         <Modal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)}>
           <LogOutModal onClose={() => setIsLogoutOpen(false)} />
+        </Modal>
+      )}
+      {isSettingsOpen && (
+        <Modal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)}>
+          <UsersSettingsForm onClose={() => setIsSettingsOpen(false)} />
         </Modal>
       )}
     </>

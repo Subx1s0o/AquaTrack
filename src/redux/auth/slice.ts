@@ -4,7 +4,7 @@ import { AuthResponse } from 'types/AuthResponse';
 
 import { User } from '@/types';
 
-import { getUser, login, logout, register } from './operations';
+import { getUser, login, logout, register, updateUserInfo } from './operations';
 
 interface AuthState {
   user: User | null;
@@ -75,13 +75,24 @@ const authSlice = createSlice({
         removeCookies();
       })
       .addCase(logout.rejected, setError)
+
       .addCase(getUser.pending, setLoading)
       .addCase(getUser.fulfilled, (state, action: PayloadAction<User>) => {
         state.loading = false;
         state.user = action.payload;
         state.isAuthenticated = true;
       })
-      .addCase(getUser.rejected, setError);
+      .addCase(getUser.rejected, setError)
+
+      .addCase(updateUserInfo.pending, setLoading)
+      .addCase(
+        updateUserInfo.fulfilled,
+        (state, action: PayloadAction<User>) => {
+          state.loading = false;
+          state.user = action.payload;
+        },
+      )
+      .addCase(updateUserInfo.rejected, setError);
   },
 });
 

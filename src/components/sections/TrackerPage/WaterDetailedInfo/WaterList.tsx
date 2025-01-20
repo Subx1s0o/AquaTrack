@@ -6,7 +6,7 @@ import css from './waterList.module.css';
 export default function WaterList({ waters }: { waters: WaterDayData[] }) {
   if (waters.length === 0) {
     return (
-      <p className="flex h-[118px] items-center justify-center text-xl text-grey-selector">
+      <p className="flex h-[118px] items-center justify-center text-lg font-bold text-grey-selector md:text-xl">
         Water has not been added yet
       </p>
     );

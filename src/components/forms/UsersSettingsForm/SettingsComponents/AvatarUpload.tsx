@@ -43,7 +43,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ setValue }) => {
       </button>
       <input
         type="file"
-        id="avatarInput"
+        id="AvatarURL"
         onChange={handleAvatarChange}
         style={{ display: 'none' }}
       />
