@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
+import UsersSettingsForm from '@/components/forms/UsersSettingsForm/UsersSettingsForm';
+import { LogOutModal } from '@/components/modals/LogOutModal';
+import Modal from '@/components/modals/Modal/Modal';
 import Icon from '@/components/ui/Icon';
 
 import { selectUser } from '@/redux/auth/selectors';
@@ -9,7 +12,8 @@ import UserBarPopover from './userBarPopover';
 
 function UserBar() {
   const user = useAppSelector(selectUser);
-
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
 
@@ -74,8 +78,22 @@ function UserBar() {
 
       {isPopoverOpen && (
         <div ref={popoverRef}>
-          <UserBarPopover />
+          <UserBarPopover
+            onClose={() => setPopoverOpen(false)}
+            setIsLogoutOpen={setIsLogoutOpen}
+            setIsSettingsOpen={setIsSettingsOpen}
+          />
         </div>
+      )}
+      {isLogoutOpen && (
+        <Modal isOpen={isLogoutOpen} onClose={() => setIsLogoutOpen(false)}>
+          <LogOutModal onClose={() => setIsLogoutOpen(false)} />
+        </Modal>
+      )}
+      {isSettingsOpen && (
+        <Modal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)}>
+          <UsersSettingsForm onClose={() => setIsSettingsOpen(false)} />
+        </Modal>
       )}
     </div>
   );

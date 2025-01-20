@@ -4,18 +4,17 @@ interface WaterProgressBarProps {
 }
 
 export default function WaterProgressBar({
-  dailyNorma,
   currentWater,
 }: WaterProgressBarProps) {
   return (
     <div
       className={
-        'absolute bottom-[118px] left-1/2 z-20 h-[70px] w-[198px] -translate-x-1/2 rounded-[15px] bg-white p-3 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:p-5 lg:bottom-[180px]'
+        'absolute bottom-[118px] left-1/2 z-20 h-[70px] w-[198px] -translate-x-1/2 rounded-[15px] bg-white px-3 py-2 shadow-[0_4px_50px_rgba(0,0,0,0.1)] md:bottom-[150px] md:h-[106px] md:w-[295px] md:px-5 md:py-4 lg:bottom-[180px]'
       }
     >
       <h3
         className={
-          'mb-2 font-poppins text-base font-bold leading-none md:mb-[6px] md:text-ms'
+          'mb-4 font-poppins text-base font-bold leading-none md:text-ms'
         }
       >
         Today
@@ -32,7 +31,15 @@ export default function WaterProgressBar({
             'absolute top-1/2 z-30 size-[12px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-green bg-white transition-[left] duration-300'
           }
           style={{ left: `${Math.min(currentWater, 100)}%` }}
-        ></div>
+        >
+          <span
+            className={
+              'absolute left-1/2 top-[-10px] -translate-x-1/2 font-poppins text-extrasm font-medium text-green md:top-[-14px] md:text-xs'
+            }
+          >
+            {Math.round(currentWater)}%
+          </span>
+        </div>
       </div>
       <div
         className={
@@ -41,7 +48,7 @@ export default function WaterProgressBar({
       >
         <span>0%</span>
         <span className="absolute left-1/2 -translate-x-1/2">50%</span>
-        {dailyNorma < currentWater ? <span>&#62;100%</span> : <span>100%</span>}
+        {currentWater > 100 ? <span>&#62;100%</span> : <span>100%</span>}
       </div>
     </div>
   );
