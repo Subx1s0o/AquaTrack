@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 import { ReactNode, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -20,7 +22,10 @@ export default function PrivateRoute({
 
   useEffect(() => {
     if (!isAuthenticated && !loading) {
-      dispatch(getUser());
+      const token = Cookies.get('accessToken');
+      if (token) {
+        dispatch(getUser());
+      }
     }
   }, [dispatch, isAuthenticated, loading]);
 

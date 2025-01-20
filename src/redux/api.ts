@@ -80,63 +80,12 @@ privateInstance.interceptors.request.use(
   (error: AxiosError) => Promise.reject(error),
 );
 
-interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
-  _retry?: boolean;
-}
-
 privateInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
-  async (error: unknown): Promise<AxiosResponse | void> => {
-    if (error instanceof AxiosError) {
-      const originalRequest = error.config as CustomAxiosRequestConfig;
-
-      if (error.response?.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-
-        const refreshToken = Cookie.get('refreshToken');
-        const sessionId = Cookie.get('sessionId');
-
-        if (!refreshToken || !sessionId) {
-          return Promise.reject(error);
-        }
-
-        try {
-          const refreshResponse = await fetchRefreshToken();
-          console.log('refresh response', refreshResponse);
-          if (
-            !refreshResponse ||
-            !refreshResponse.accessToken ||
-            !refreshResponse.refreshToken
-          ) {
-            clearUserData();
-            return Promise.reject(error);
-          }
-
-          // Оновлюємо токени лише в разі успішного рефрешу
-          Cookie.remove('accessToken');
-          Cookie.remove('sessionId');
-
-          Cookie.set('accessToken', refreshResponse.accessToken);
-          Cookie.set('sessionId', refreshResponse.sessionId);
-
-          originalRequest.headers['Authorization'] =
-            `Bearer ${refreshResponse.accessToken}`;
-
-          return privateInstance(originalRequest);
-        } catch (err) {
-          // Якщо рефреш не вдався, очищаємо дані і виконуємо логаут
-          clearUserData();
-          return Promise.reject(err);
-        }
-      }
-
-      // Якщо помилка 401 і спроба рефрешу вже була
-      if (error.response?.status === 401 && originalRequest._retry) {
-        clearUserData();
-        return Promise.reject(error);
-      }
+  (error: AxiosError) => {
+    if (error.response?.status === 401 && Cookie.get('accessToken')) {
+      store.dispatch(logout());
     }
-
     return Promise.reject(error);
   },
 );

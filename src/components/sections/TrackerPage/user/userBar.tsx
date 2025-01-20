@@ -8,7 +8,7 @@ import Icon from '@/components/ui/Icon';
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
 
-import UserBarPopover from './userBarPopover';
+import UserBarPopover from './UserBarPopover';
 
 function UserBar() {
   const user = useAppSelector(selectUser);

@@ -1,7 +1,7 @@
 import { selectUser } from '@/redux/auth/selectors';
 import { useAppSelector } from '@/redux/hooks';
 
-import UserBar from './userBar';
+import UserBar from './UserBar';
 
 export default function UserPanel() {
   const user = useAppSelector(selectUser);

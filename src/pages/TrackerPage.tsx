@@ -1,7 +1,7 @@
 import { MonthInfo } from '@/components/sections/TrackerPage/Calendar/MonthInfo';
+import UserPanel from '@/components/sections/TrackerPage/User/UserPanel';
 import DailyInfo from '@/components/sections/TrackerPage/WaterDetailedInfo/DailyInfo';
 import WaterMainInfo from '@/components/sections/TrackerPage/WaterMainInfo/WaterMainInfo';
-import UserPanel from '@/components/sections/TrackerPage/user/userPanel';
 
 export default function TrackerPage() {
   return (
