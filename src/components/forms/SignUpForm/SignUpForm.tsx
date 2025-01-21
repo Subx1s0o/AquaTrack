@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
 
+import { publicInstance } from '@/redux/api';
 import { register } from '@/redux/auth/operations';
 import { useAppDispatch } from '@/redux/hooks';
 
@@ -95,13 +96,31 @@ export default function SignUpForm() {
         </button>
       </div>
 
-      <button
-        disabled={isSubmitting}
-        type="submit"
-        className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
-      >
-        Sign Up
-      </button>
+      <div className="flex gap-2">
+        <button
+          disabled={isSubmitting}
+          type="submit"
+          className="h-[50px] w-full rounded-[30px] bg-green text-base font-bold text-darkGrey transition-colors hover:bg-green-selector focus-visible:bg-green-selector active:bg-grey active:text-grey-selector md:h-[60px] md:text-md"
+        >
+          Sign Up
+        </button>
+        <button
+          disabled={isSubmitting}
+          type="button"
+          onClick={() => {
+            publicInstance.get('/auth/google');
+          }}
+          className="flex h-[50px] w-full items-center justify-center gap-4 rounded-[30px] bg-black text-base font-bold text-white transition-colors hover:bg-darkGrey focus-visible:bg-darkGrey active:bg-grey active:text-black md:h-[60px] md:text-md"
+        >
+          Go With Google
+          <img
+            src="/images/google.avif"
+            alt="Google Logo"
+            width={25}
+            height={25}
+          />
+        </button>
+      </div>
     </form>
   );
 }

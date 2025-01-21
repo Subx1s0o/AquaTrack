@@ -50,6 +50,25 @@ export const login = createAsyncThunk<
   }
 });
 
+export const google = createAsyncThunk<
+  AuthResponse,
+  { code: string },
+  { rejectValue: string }
+>('auth/google', async (code, { rejectWithValue }) => {
+  try {
+    const { data } = await publicInstance.post<AuthResponse>(
+      '/auth/google/callback',
+      code,
+    );
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.data?.message) {
+      return rejectWithValue(error.response.data.message);
+    }
+    return rejectWithValue('Google Login failed.');
+  }
+});
+
 export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {

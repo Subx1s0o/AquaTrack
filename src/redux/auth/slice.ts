@@ -6,6 +6,7 @@ import { User } from '@/types';
 
 import {
   getUser,
+  google,
   login,
   logout,
   register,
@@ -108,7 +109,18 @@ const authSlice = createSlice({
           state.user = action.payload;
         },
       )
-      .addCase(updateUserAvatar.rejected, setError);
+      .addCase(updateUserAvatar.rejected, setError)
+      .addCase(google.pending, setLoading)
+      .addCase(
+        google.fulfilled,
+        (state, action: PayloadAction<AuthResponse>) => {
+          state.loading = false;
+          state.user = action.payload.user;
+          state.isAuthenticated = true;
+          setCookies(action.payload);
+        },
+      )
+      .addCase(google.rejected, setError);
   },
 });
 

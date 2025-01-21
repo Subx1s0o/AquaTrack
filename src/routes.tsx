@@ -4,6 +4,7 @@ import SharedHomeLayout from './SharedHomeLayout';
 import SharedTrackerLayout from './SharedTrackerLayout';
 import PrivateRoute from './components/common/PrivateRoute';
 import PublicRoute from './components/common/PublicRoute';
+import GooglePage from './pages/GooglePage';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import SignInPage from './pages/SignInPage';
@@ -43,6 +44,10 @@ const routes: RouteObject[] = [
         </SharedTrackerLayout>
       </PrivateRoute>
     ),
+  },
+  {
+    path: '/google',
+    element: <GooglePage />,
   },
   {
     path: '*',
