@@ -9,9 +9,9 @@ export default function ChooseDate() {
 
   const isToday =
     selectedDate &&
-    currentDate.getDate() === selectedDate.getDate() &&
-    currentDate.getMonth() === selectedDate.getMonth() &&
-    currentDate.getFullYear() === selectedDate.getFullYear();
+    currentDate.getUTCDate() === selectedDate.getUTCDate() &&
+    currentDate.getUTCMonth() === selectedDate.getUTCMonth() &&
+    currentDate.getUTCFullYear() === selectedDate.getUTCFullYear();
 
   const months = [
     'January',
