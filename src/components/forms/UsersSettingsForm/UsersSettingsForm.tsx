@@ -3,7 +3,6 @@ import { User } from 'types/user';
 
 import React, { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 
 import ModalLoader from '@/components/modals/ModalLoader/ModalLoader';
 import Input from '@/components/ui/Input';
@@ -12,6 +11,7 @@ import { updateUserInfo } from '@/redux/auth/operations';
 import { selectIsLoading, selectUser } from '@/redux/auth/selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { fetchMonthData } from '@/redux/water/operations';
+import { showToast } from '@/utils/toast';
 
 import AvatarUpload from './SettingsComponents/AvatarUpload';
 import WaterNormDescription from './SettingsComponents/WaterNormDescription';
@@ -114,9 +114,9 @@ const UsersSettingsForm: React.FC<UsersSettingsFormProps> = ({ onClose }) => {
 
     try {
       await dispatch(updateUserInfo(updatedData));
-      toast.success('User info updated successfully');
+      showToast('success', 'User info updated successfully');
     } catch {
-      toast.error('Error while updating user info');
+      showToast('error', 'Error while updating user info');
     }
 
     await dispatch(fetchMonthData(new Date().toISOString().split('T')[0]));

@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 
 import Icon from '@/components/ui/Icon';
 import Input from '@/components/ui/Input';
@@ -17,6 +16,7 @@ import {
   updateWaterData,
 } from '@/redux/water/operations';
 import { selectWaterDailyCurrentDate } from '@/redux/water/selectors';
+import { showToast } from '@/utils/toast';
 
 import css from './WaterForm.module.css';
 import { WaterFormValues, waterFormSchema } from './waterFormSchema';
@@ -96,10 +96,9 @@ export default function WaterForm({
       }
 
       onClose();
-      toast.success('Water saved successfully!');
-    } catch (error) {
-      console.error(error);
-      toast.error('Failed to save water');
+      showToast('success', 'Water saved successfully!');
+    } catch {
+      showToast('error', 'Error while saving water.');
     }
   }
 
